@@ -1,3 +1,12 @@
+// const menubar = require('menubar')
+//
+// const mb = menubar()
+//
+// mb.on('ready', () => {
+//   console.log('App started in menu bar.');
+//   // your app code here
+// })
+
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app

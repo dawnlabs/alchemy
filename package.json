@@ -18,10 +18,14 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
+    "json-loader": "^0.5.4",
+    "menubar": "^5.2.0",
+    "octicons": "^5.0.1",
     "react": "^15.4.2",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "shelljs": "^0.7.6"
   },
   "name": "sanitize",
   "description": "**Clone and run for a quick way to see Electron in action.**",

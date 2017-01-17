@@ -15,9 +15,9 @@ module.exports = {
 
   devtool: 'source-map',
 
-  entry: {
-    bundle: './index.jsx',
-  },
+  target: 'node',
+
+  entry: './src/index.jsx',
 
   output: {
     filename: 'public/[name].js',
@@ -34,6 +34,10 @@ module.exports = {
           cacheDirectory: true,
           presets: ['react', 'es2015']
         }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       {
         test: /\.html$/,
