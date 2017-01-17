@@ -22,10 +22,15 @@ const fileTarget = {
         files: filtered.map(f => f.path),
         outputPath
       }, () => {
-        component.setState({
-          status: 'IDLE'
-        })
         console.log('Done.')
+        component.setState({
+          status: 'DONE'
+        })
+        setTimeout(() => {
+          component.setState({
+            status: 'IDLE'
+          })
+        }, 2000)
       })
     } else {
       component.setState({
@@ -57,6 +62,36 @@ class Sanitizer extends Component {
     this.state = {
       status: 'IDLE'
     }
+    this.iconObject = this.iconObject.bind(this)
+  }
+
+  iconObject() {
+    const { isOver } = this.props
+    switch (this.state.status) {
+      case 'DONE': return (
+        <div
+          style={{
+            fill: '#9EE493'
+          }}
+          dangerouslySetInnerHTML={{ __html: octicons.checklist.toSVG({ width: 100, height: 100 }) }}
+        />
+      )
+      case 'CONVERTING': return (
+        <div
+          dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100, height: 100 }) }}
+        />
+      )
+      default: return (
+        <div
+          style={(isOver) ? {
+            fill: color
+          } : {
+            fill: 'rgba(0,0,0,0.25)'
+          }}
+          dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100, height: 100 }) }}
+        />
+      )
+    }
   }
 
   render() {
@@ -72,19 +107,7 @@ class Sanitizer extends Component {
         }
       >
         {
-          (this.state.status === 'CONVERTING') ?
-            <div
-              className="rotate"
-              dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100, height: 100 }) }}
-            /> :
-            <div
-              style={(isOver) ? {
-                fill: color
-              } : {
-                fill: 'rgba(0,0,0,0.25)'
-              }}
-              dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100, height: 100 }) }}
-            />
+          this.iconObject(isOver)
         }
       </div>
     )
