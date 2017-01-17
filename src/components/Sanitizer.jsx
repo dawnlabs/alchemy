@@ -71,15 +71,42 @@ class Sanitizer extends Component {
       case 'DONE': return (
         <div
           style={{
-            fill: '#9EE493'
+            fill: 'rgb(132, 255, 144)'
           }}
           dangerouslySetInnerHTML={{ __html: octicons.checklist.toSVG({ width: 100, height: 100 }) }}
         />
       )
       case 'CONVERTING': return (
         <div
-          dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100, height: 100 }) }}
-        />
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              fill: 'rgb(0, 0, 0)'
+            }}
+            dangerouslySetInnerHTML={{ __html: octicons['file-media'].toSVG({ width: 40, height: 40 }) }}
+          />
+          <div className="DNA_cont">
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+            <div className="nucleobase" />
+          </div>
+          <div
+            style={{
+              fill: 'rgb(0, 0, 0)'
+            }}
+            dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 40, height: 40 }) }}
+          />
+        </div>
       )
       default: return (
         <div
@@ -88,7 +115,7 @@ class Sanitizer extends Component {
           } : {
             fill: 'rgba(0,0,0,0.25)'
           }}
-          dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100, height: 100 }) }}
+          dangerouslySetInnerHTML={{ __html: octicons.diff.toSVG({ width: 100, height: 100 }) }}
         />
       )
     }

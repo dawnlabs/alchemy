@@ -5,6 +5,8 @@ import { DragDropContext } from 'react-dnd'
 
 import Tray from './components/Tray'
 
+require('../styles/index.scss')
+
 const App = DragDropContext(HTML5Backend)(Tray)
 
 render(

@@ -1,7 +1,7 @@
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var extractCSS = new ExtractTextPlugin('styles/[name].css')
+var extractCSS = new ExtractTextPlugin('public/[name].css')
 
 const sassLoaders = [
   'css-loader',

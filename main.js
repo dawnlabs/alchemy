@@ -6,7 +6,8 @@ const url = require('url')
 if (process.env.NODE_ENV === 'production') {
   const mb = menubar({
     alwaysOnTop: true,
-    height: 188
+    height: 188,
+    icon: 'img/icon.png'
   })
 
   mb.on('ready', () => {
