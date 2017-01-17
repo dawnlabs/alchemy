@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
-import octicons from 'octicons'
+import Octicon from './Octicon'
 
 import convert from '../api'
 
@@ -69,11 +69,12 @@ class Sanitizer extends Component {
     const { isOver } = this.props
     switch (this.state.status) {
       case 'DONE': return (
-        <div
+        <Octicon
           style={{
             fill: 'rgb(132, 255, 144)'
           }}
-          dangerouslySetInnerHTML={{ __html: octicons.checklist.toSVG({ width: 100, height: 100 }) }}
+          type="checklist"
+          width={100}
         />
       )
       case 'CONVERTING': return (
@@ -84,11 +85,12 @@ class Sanitizer extends Component {
             alignItems: 'center',
           }}
         >
-          <div
+          <Octicon
             style={{
               fill: 'rgb(0, 0, 0)'
             }}
-            dangerouslySetInnerHTML={{ __html: octicons['file-media'].toSVG({ width: 40, height: 40 }) }}
+            type="file-media"
+            width={40}
           />
           <div className="DNA_cont">
             <div className="nucleobase" />
@@ -100,22 +102,24 @@ class Sanitizer extends Component {
             <div className="nucleobase" />
             <div className="nucleobase" />
           </div>
-          <div
+          <Octicon
             style={{
               fill: 'rgb(0, 0, 0)'
             }}
-            dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 40, height: 40 }) }}
+            type="file-pdf"
+            width={40}
           />
         </div>
       )
       default: return (
-        <div
+        <Octicon
           style={(isOver) ? {
             fill: color
           } : {
             fill: 'rgba(0,0,0,0.25)'
           }}
-          dangerouslySetInnerHTML={{ __html: octicons.diff.toSVG({ width: 100, height: 100 }) }}
+          type="diff"
+          width={100}
         />
       )
     }
