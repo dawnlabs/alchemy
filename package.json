@@ -18,6 +18,7 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
+    "electron": "^1.4.14",
     "json-loader": "^0.5.4",
     "menubar": "^5.2.0",
     "octicons": "^5.0.1",

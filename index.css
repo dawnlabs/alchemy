@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .rotate {
   animation-name: rotate;
   animation-duration: 2s;

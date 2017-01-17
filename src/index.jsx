@@ -3,9 +3,9 @@ import { render } from 'react-dom'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
 
-import Sanitizer from './components/Sanitizer'
+import Tray from './components/Tray'
 
-const App = DragDropContext(HTML5Backend)(Sanitizer)
+const App = DragDropContext(HTML5Backend)(Tray)
 
 render(
   <App />,

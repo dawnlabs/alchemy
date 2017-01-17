@@ -8,14 +8,20 @@ import convert from '../api'
 const fileTarget = {
   drop(props, monitor, component) {
     const { files } = monitor.getItem()
-    const images = files.filter(file => file.type.includes('image')).map(f => f.path)
+    const filtered = files.filter(file => file.type.includes('image'))
 
-    if (images.length) {
+    if (filtered.length) {
+      const [ref] = filtered
+      const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
+
       component.setState({
         status: 'CONVERTING'
       })
       console.log('Converting...')
-      convert(images, () => {
+      convert({
+        files: filtered.map(f => f.path),
+        outputPath
+      }, () => {
         component.setState({
           status: 'IDLE'
         })
@@ -29,17 +35,19 @@ const fileTarget = {
   }
 }
 
+const color = 'rgba(130, 221, 240, 1)'
+
 const style = {
-  boxSizing: 'border-box',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   margin: '16px 32px',
   padding: '16px 16px',
   width: 'calc(100% - 64px)',
-  height: '100%',
-  border: '5px dashed rgb(209, 75, 75)',
-  opacity: '0.25'
+  height: `calc(${100 / 1}% - 32px)`,
+  backgroundColor: '#fefeff',
+  border: `5px dotted ${color}`, // rgb(209, 75, 75)',
+  borderRadius: '8px'
 }
 
 class Sanitizer extends Component {
@@ -52,14 +60,14 @@ class Sanitizer extends Component {
   }
 
   render() {
-    const { connectDropTarget, isOver, canDrop } = this.props
+    const { connectDropTarget, isOver } = this.props
     return connectDropTarget(
       <div
         style={
           Object.assign({}, style, (isOver && this.state.status !== 'CONVERTING') ? {
-            opacity: '1'
+            borderColor: 'rgba(130, 221, 240, 1)'
           } : {
-            opacity: '0.25'
+            borderColor: 'rgba(130, 221, 240, 0.25)'
           })
         }
       >
@@ -70,6 +78,11 @@ class Sanitizer extends Component {
               dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100, height: 100 }) }}
             /> :
             <div
+              style={(isOver) ? {
+                fill: color
+              } : {
+                fill: 'rgba(0,0,0,0.25)'
+              }}
               dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100, height: 100 }) }}
             />
         }
