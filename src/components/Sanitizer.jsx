@@ -6,11 +6,26 @@ import octicons from 'octicons'
 import convert from '../api'
 
 const fileTarget = {
-  drop(props, monitor) {
+  drop(props, monitor, component) {
     const { files } = monitor.getItem()
     const images = files.filter(file => file.type.includes('image')).map(f => f.path)
 
-    convert(images)
+    if (images.length) {
+      component.setState({
+        status: 'CONVERTING'
+      })
+      console.log('Converting...')
+      convert(images, () => {
+        component.setState({
+          status: 'IDLE'
+        })
+        console.log('Done.')
+      })
+    } else {
+      component.setState({
+        status: 'IDLE'
+      })
+    }
   }
 }
 
@@ -27,8 +42,16 @@ const style = {
 }
 
 class Sanitizer extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      status: 'IDLE'
+    }
+  }
+
   render() {
-    const { connectDropTarget, isOver, canDrop, } = this.props
+    const { connectDropTarget, isOver, canDrop } = this.props
     return connectDropTarget(
       <div
         style={
@@ -39,13 +62,22 @@ class Sanitizer extends Component {
           })
         }
       >
-        {!isOver && !canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
-        {!isOver && canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
-        {isOver && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
+        {
+          (this.state.status === 'CONVERTING') ?
+            <div
+              className="rotate"
+              dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100 }) }}
+            /> :
+            <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />
+        }
       </div>
     )
   }
 }
+
+// {!isOver && !canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
+// {!isOver && canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
+// {isOver && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
 
 export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
