@@ -1,0 +1,19 @@
+{
+    "extends": "airbnb",
+    "installedESLint": true,
+    "rules": {
+      "no-var": 0,
+      "func-names": 0,
+      "space-before-function-paren": 0,
+      "comma-dangle": 0,
+      "semi": ["error", "never"],
+      "no-unexpected-multiline": 1,
+      "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+      "max-len": 0,
+      "react/prop-types": 0,
+      "arrow-body-style": 0,
+      "no-use-before-define": ["error", { "functions": false, "classes": true }],
+      "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true } }],
+      "curly": 0
+    }
+}
