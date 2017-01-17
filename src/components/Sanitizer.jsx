@@ -44,9 +44,10 @@ const color = 'rgba(130, 221, 240, 1)'
 
 const style = {
   display: 'flex',
-  justifyContent: 'center',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
   alignItems: 'center',
-  margin: '16px 32px',
+  margin: '16px 32px 0px',
   padding: '16px 16px',
   width: 'calc(100% - 64px)',
   height: `calc(${100 / 1}% - 32px)`,
@@ -131,14 +132,28 @@ class Sanitizer extends Component {
       <div
         style={
           Object.assign({}, style, (isOver && this.state.status !== 'CONVERTING') ? {
-            borderColor: 'rgba(130, 221, 240, 1)'
+            borderColor: 'rgba(130, 221, 240, 1)',
+            borderStyle: 'solid'
           } : {
-            borderColor: 'rgba(130, 221, 240, 0.25)'
+            borderColor: 'rgba(130, 221, 240, 0.25)',
+            borderStyle: 'dotted'
           })
         }
       >
         {
           this.iconObject(isOver)
+        }
+        {
+          this.state.status === 'IDLE' ?
+            <h6
+              style={{
+                color: 'rgba(0,0,0,0.25)',
+                margin: '8px 0 0',
+                fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
+              }}
+            >
+              Drop Items Here
+            </h6> : null
         }
       </div>
     )
