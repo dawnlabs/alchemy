@@ -17,15 +17,20 @@ const fileTarget = {
       component.setState({
         status: 'CONVERTING'
       })
-      console.log('Converting...')
+
       convert({
         files: filtered.map(f => f.path),
         outputPath
-      }, () => {
-        console.log('Done.')
-        component.setState({
-          status: 'DONE'
-        })
+      }, (code) => {
+        if (code) {
+          component.setState({
+            status: 'FAILED'
+          })
+        } else {
+          component.setState({
+            status: 'DONE'
+          })
+        }
         setTimeout(() => {
           component.setState({
             status: 'IDLE'
@@ -43,17 +48,25 @@ const fileTarget = {
 const color = 'rgba(130, 221, 240, 1)'
 
 const style = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  margin: '16px 32px 0px',
-  padding: '16px 16px',
-  width: 'calc(100% - 64px)',
-  height: `calc(${100 / 1}% - 32px)`,
-  backgroundColor: '#fefeff',
-  border: `5px dotted ${color}`, // rgb(209, 75, 75)',
-  borderRadius: '8px'
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: '16px 32px 0px',
+    padding: '16px 16px',
+    width: 'calc(100% - 64px)',
+    height: `calc(${100 / 1}% - 32px)`,
+    backgroundColor: '#fefeff',
+    border: `5px dotted ${color}`, // rgb(209, 75, 75)',
+    borderRadius: '8px'
+  },
+
+  h6: {
+    color: 'rgba(0,0,0, 0.25)',
+    margin: '8px 0 0',
+    fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
+  }
 }
 
 class Sanitizer extends Component {
@@ -63,18 +76,40 @@ class Sanitizer extends Component {
     this.state = {
       status: 'IDLE'
     }
-    this.iconObject = this.iconObject.bind(this)
+    this.getIconObject = this.getIconObject.bind(this)
+    this.getMessage = this.getMessage.bind(this)
   }
 
-  iconObject() {
+  getMessage() {
+    switch (this.state.status) {
+      case 'IDLE': return <h6 style={style.h6}>Drop Items Here</h6>
+      case 'FAILED': return (
+        <h6 style={Object.assign(style.h6, { color: 'rgba(0,0,0,1)' })}>
+          Failed to convert your pictures 😕
+        </h6>
+      )
+      default: return null
+    }
+  }
+
+  getIconObject() {
     const { isOver } = this.props
     switch (this.state.status) {
+      case 'FAILED': return (
+        <Octicon
+          style={{
+            fill: 'rgb(0, 0, 0)'
+          }}
+          type="thumbsdown"
+          width={100}
+        />
+      )
       case 'DONE': return (
         <Octicon
           style={{
             fill: 'rgb(132, 255, 144)'
           }}
-          type="checklist"
+          type="thumbsup"
           width={100}
         />
       )
@@ -131,7 +166,7 @@ class Sanitizer extends Component {
     return connectDropTarget(
       <div
         style={
-          Object.assign({}, style, (isOver && this.state.status !== 'CONVERTING') ? {
+          Object.assign({}, style.container, (isOver && this.state.status !== 'CONVERTING') ? {
             borderColor: 'rgba(130, 221, 240, 1)',
             borderStyle: 'solid'
           } : {
@@ -140,21 +175,8 @@ class Sanitizer extends Component {
           })
         }
       >
-        {
-          this.iconObject(isOver)
-        }
-        {
-          this.state.status === 'IDLE' ?
-            <h6
-              style={{
-                color: 'rgba(0,0,0,0.25)',
-                margin: '8px 0 0',
-                fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
-              }}
-            >
-              Drop Items Here
-            </h6> : null
-        }
+        {this.getIconObject(isOver)}
+        {this.getMessage()}
       </div>
     )
   }

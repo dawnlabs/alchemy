@@ -14,10 +14,9 @@ export default ({ files, outputPath, name }, cb) => {
 
   exec(command, (code) => {
     if (code !== 0) {
-      console.log(code)
-      throw new Error('Error: convert failed')
+      cb(code)
+    } else {
+      cb(null)
     }
-
-    cb()
   })
 }
