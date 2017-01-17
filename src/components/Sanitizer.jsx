@@ -34,11 +34,12 @@ const style = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '8px 32px',
+  margin: '16px 32px',
   padding: '16px 16px',
   width: 'calc(100% - 64px)',
   height: '100%',
-  border: '5px dashed rgb(209, 75, 75)'
+  border: '5px dashed rgb(209, 75, 75)',
+  opacity: '0.25'
 }
 
 class Sanitizer extends Component {
@@ -55,7 +56,7 @@ class Sanitizer extends Component {
     return connectDropTarget(
       <div
         style={
-          Object.assign({}, style, (isOver && canDrop) ? {
+          Object.assign({}, style, (isOver && this.state.status !== 'CONVERTING') ? {
             opacity: '1'
           } : {
             opacity: '0.25'
@@ -66,9 +67,11 @@ class Sanitizer extends Component {
           (this.state.status === 'CONVERTING') ?
             <div
               className="rotate"
-              dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100 }) }}
+              dangerouslySetInnerHTML={{ __html: octicons.sync.toSVG({ width: 100, height: 100 }) }}
             /> :
-            <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100, height: 100 }) }}
+            />
         }
       </div>
     )

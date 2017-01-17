@@ -10,9 +10,11 @@ export default (files, cb, name) => {
   const command = `convert ${files.join(' ')} ${name || 'file.pdf'}`
   console.log(command)
   exec(command, (code) => {
-    console.log(code)
 
-    if (code !== 0) throw new Error('Error: convert failed')
+    if (code !== 0) {
+      console.log(code)
+      throw new Error('Error: convert failed')
+    }
 
     cb()
   })
