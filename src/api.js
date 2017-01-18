@@ -1,10 +1,9 @@
 const shell = require('shelljs')
 
 const { exec, which } = shell
-
 const DEFAULT_FILE_NAME = 'CONVERTED.pdf'
 
-export default ({ files, outputPath, name }, cb) => {
+const convert = ({ files, outputPath, name }, cb) => {
   if (!which('convert')) {
     throw new Error('Sorry, this script requires ImageMagick\'s convert (https://www.imagemagick.org)')
   }
@@ -19,4 +18,24 @@ export default ({ files, outputPath, name }, cb) => {
       cb(null)
     }
   })
+}
+
+const checkForBrew = () => !!which('brew')
+const checkForImageMagick = () => !!which('convert')
+const installImageMagick = (cb) => {
+  if (!checkForBrew()) {
+    cb(7)
+  } else if (!checkForImageMagick()) {
+    if (confirm('ImageMagick is required to run this app. Install now?')) exec('brew install imagemagick', cb)
+    else cb(3)
+  } else {
+    cb(0)
+  }
+}
+
+module.exports = {
+  convert,
+  checkForBrew,
+  checkForImageMagick,
+  installImageMagick
 }

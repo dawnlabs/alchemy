@@ -3,6 +3,8 @@ const electron = require('electron')
 const path = require('path')
 const url = require('url')
 
+const { installImageMagick } = require('./src/api')
+
 if (process.env.NODE_ENV === 'production') {
   const mb = menubar({
     alwaysOnTop: true,
@@ -13,6 +15,10 @@ if (process.env.NODE_ENV === 'production') {
   mb.on('ready', () => {
     console.log('App started in menu bar.')
     // your app code here
+  })
+
+  installImageMagick((code) => {
+    if (code !== 0) mb.app.quit()
   })
 } else {
   // Module to control application life.

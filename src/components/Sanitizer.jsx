@@ -3,7 +3,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
 import Octicon from './Octicon'
 
-import convert from '../api'
+import { convert } from '../api'
 
 const fileTarget = {
   drop(props, monitor, component) {
