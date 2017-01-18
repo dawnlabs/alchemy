@@ -32,13 +32,18 @@
     "react-dom": "^15.4.2",
     "shelljs": "^0.7.6"
   },
-  "name": "sanitize",
+  "name": "alchemy",
   "description": "**Clone and run for a quick way to see Electron in action.**",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "no"
   },
   "author": "Michael Fix",
-  "license": "ISC"
+  "license": "MIT",
+  "keywords": [
+    "convert",
+    "files",
+    "images"
+  ]
 }
