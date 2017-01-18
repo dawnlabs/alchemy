@@ -1,3 +1,5 @@
+# Alchemy
+Drag and Drop file converter utility (made with Electron and React)
 # electron-quick-start
 
 **Clone and run for a quick way to see Electron in action.**
