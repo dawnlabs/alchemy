@@ -26,6 +26,7 @@
   "dependencies": {
     "electron": "^1.4.14",
     "json-loader": "^0.5.4",
+    "md5": "^2.2.1",
     "menubar": "^5.2.0",
     "octicons": "^5.0.1",
     "react": "^15.4.2",
