@@ -22,25 +22,26 @@ const drop = (props, monitor, component) => {
     convert({
       files: filtered.map(f => f.path),
       outputPath
-    }, (code) => {
-      if (code !== 0) {
+    }).then(() => {
+      component.setState({
+        status: 'DONE'
+      })
+      setTimeout(() => {
         component.setState({
-          status: 'FAILED'
+          status: 'IDLE'
         })
-      } else {
-        component.setState({
-          status: 'DONE'
-        })
-      }
+      }, 2000)
+    }).catch(() => {
+      component.setState({
+        status: 'FAILED'
+      })
       setTimeout(() => {
         component.setState({
           status: 'IDLE'
         })
       }, 2000)
     })
-    return
-  }
-  component.setState({ status: 'IDLE' })
+  } else component.setState({ status: 'IDLE' })
 }
 
 const HIGHLIGHT_COLOR = 'rgba(130, 221, 240, 1)'

@@ -8,10 +8,15 @@ const convert = ({ files, outputPath, name }, cb) => {
     throw new Error('Sorry, this script requires ImageMagick\'s convert (https://www.imagemagick.org)')
   }
 
-  const command = `convert ${files.join(' ')} ${outputPath}${name || DEFAULT_FILE_NAME}`
-  console.log(command)
+  return new Promise((resolve, reject) => {
+    const command = `convert ${files.join(' ')} ${outputPath}${name || DEFAULT_FILE_NAME}`
+    console.log(command)
 
-  exec(command, cb)
+    exec(command, (code) => {
+      if (code !== 0) reject(code)
+      else resolve(code)
+    })
+  })
 }
 
 const checkForBrew = () => !!which('brew')
