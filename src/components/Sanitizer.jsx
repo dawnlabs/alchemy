@@ -53,10 +53,10 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    margin: '16px 32px 0px',
-    padding: '16px 16px',
-    width: 'calc(100% - 64px)',
-    height: `calc(${100 / 1}% - 32px)`,
+    margin: '15px',
+    padding: '15px',
+    width: 'calc(100% - 30px)',
+    height: `calc(${100 / 1}% - 30px)`,
     backgroundColor: '#fefeff',
     border: `5px dotted ${color}`, // rgb(209, 75, 75)',
     borderRadius: '8px'
@@ -64,7 +64,7 @@ const style = {
 
   h6: {
     color: 'rgba(0,0,0, 0.25)',
-    margin: '8px 0 0',
+    margin: '0',
     fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
   }
 }
@@ -101,7 +101,7 @@ class Sanitizer extends Component {
             fill: 'rgb(0, 0, 0)'
           }}
           type="thumbsdown"
-          width={100}
+          width={60}
         />
       )
       case 'DONE': return (
@@ -110,7 +110,7 @@ class Sanitizer extends Component {
             fill: 'rgb(132, 255, 144)'
           }}
           type="thumbsup"
-          width={100}
+          width={60}
         />
       )
       case 'CONVERTING': return (
@@ -128,16 +128,26 @@ class Sanitizer extends Component {
             type="file-media"
             width={40}
           />
-          <div className="DNA_cont">
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-            <div className="nucleobase" />
-          </div>
+          <Octicon
+            style={{
+              fill: 'rgb(0, 0, 0)'
+            }}
+            className="animated-pulse"
+            type="chevron-right"
+            width={40}
+          />
+          {
+            // <div className="DNA_cont">
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            //   <div className="nucleobase" />
+            // </div>
+          }
           <Octicon
             style={{
               fill: 'rgb(0, 0, 0)'
@@ -155,7 +165,7 @@ class Sanitizer extends Component {
             fill: 'rgba(0,0,0,0.25)'
           }}
           type="diff"
-          width={100}
+          width={60}
         />
       )
     }
@@ -183,8 +193,8 @@ class Sanitizer extends Component {
 }
 
 // {!isOver && !canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
-// {!isOver && canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
-// {isOver && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
+// {!isOver && canDrop && }
+// {isOver && }
 
 export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),

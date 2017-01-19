@@ -8,7 +8,8 @@ const { installImageMagick } = require('./src/api')
 if (process.env.NODE_ENV === 'production') {
   const mb = menubar({
     alwaysOnTop: true,
-    height: 188,
+    width: 200,
+    height: 200,
     icon: 'img/icon.png'
   })
 
