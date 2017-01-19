@@ -1,2 +1,2 @@
 # Alchemy
-Drag and Drop file converter utility (made with Electron and React)
+:fist: Drag and Drop :hand: file converter utility (made with Electron and React)
