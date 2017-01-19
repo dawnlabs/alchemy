@@ -136,18 +136,6 @@ class Sanitizer extends Component {
             type="chevron-right"
             width={40}
           />
-          {
-            // <div className="DNA_cont">
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            //   <div className="nucleobase" />
-            // </div>
-          }
           <Octicon
             style={{
               fill: 'rgb(0, 0, 0)'
