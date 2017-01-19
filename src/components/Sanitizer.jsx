@@ -5,47 +5,45 @@ import Octicon from './Octicon'
 
 import { convert } from '../api'
 
-const fileTarget = {
-  drop(props, monitor, component) {
-    const { files } = monitor.getItem()
-    const filtered = files.filter(file => file.type.includes('image'))
+const drop = (props, monitor, component) => {
+  const { files } = monitor.getItem()
+  const filtered = files.filter(file => file.type.includes('image'))
 
-    if (filtered.length) {
-      const [ref] = filtered
-      const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
+  if (filtered.length) {
+    const [ref] = filtered
 
-      component.setState({
-        status: 'CONVERTING'
-      })
+    // where to place output file
+    const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
 
-      convert({
-        files: filtered.map(f => f.path),
-        outputPath
-      }, (code) => {
-        if (code) {
-          component.setState({
-            status: 'FAILED'
-          })
-        } else {
-          component.setState({
-            status: 'DONE'
-          })
-        }
-        setTimeout(() => {
-          component.setState({
-            status: 'IDLE'
-          })
-        }, 2000)
-      })
-    } else {
-      component.setState({
-        status: 'IDLE'
-      })
-    }
+    component.setState({
+      status: 'CONVERTING'
+    })
+
+    convert({
+      files: filtered.map(f => f.path),
+      outputPath
+    }, (code) => {
+      if (code !== 0) {
+        component.setState({
+          status: 'FAILED'
+        })
+      } else {
+        component.setState({
+          status: 'DONE'
+        })
+      }
+      setTimeout(() => {
+        component.setState({
+          status: 'IDLE'
+        })
+      }, 2000)
+    })
+    return
   }
+  component.setState({ status: 'IDLE' })
 }
 
-const color = 'rgba(130, 221, 240, 1)'
+const HIGHLIGHT_COLOR = 'rgba(130, 221, 240, 1)'
 
 const style = {
   container: {
@@ -58,7 +56,7 @@ const style = {
     width: 'calc(100% - 30px)',
     height: `calc(${100 / 1}% - 30px)`,
     backgroundColor: '#fefeff',
-    border: `5px dotted ${color}`, // rgb(209, 75, 75)',
+    border: `5px dotted ${HIGHLIGHT_COLOR}`, // rgb(209, 75, 75)',
     borderRadius: '8px'
   },
 
@@ -148,7 +146,7 @@ class Sanitizer extends Component {
       default: return (
         <Octicon
           style={(isOver) ? {
-            fill: color
+            fill: HIGHLIGHT_COLOR
           } : {
             fill: 'rgba(0,0,0,0.25)'
           }}
@@ -165,7 +163,7 @@ class Sanitizer extends Component {
       <div
         style={
           Object.assign({}, style.container, (isOver && this.state.status !== 'CONVERTING') ? {
-            borderColor: 'rgba(130, 221, 240, 1)',
+            borderColor: HIGHLIGHT_COLOR,
             borderStyle: 'solid'
           } : {
             borderColor: 'rgba(130, 221, 240, 0.25)',
@@ -184,7 +182,8 @@ class Sanitizer extends Component {
 // {!isOver && canDrop && }
 // {isOver && }
 
-export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
+// { drop } since other functions can be passed here
+export default DropTarget(NativeTypes.FILE, { drop }, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop(),

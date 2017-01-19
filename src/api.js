@@ -11,13 +11,7 @@ const convert = ({ files, outputPath, name }, cb) => {
   const command = `convert ${files.join(' ')} ${outputPath}${name || DEFAULT_FILE_NAME}`
   console.log(command)
 
-  exec(command, (code) => {
-    if (code !== 0) {
-      cb(code)
-    } else {
-      cb(null)
-    }
-  })
+  exec(command, cb)
 }
 
 const checkForBrew = () => !!which('brew')
