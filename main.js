@@ -5,23 +5,7 @@ const url = require('url')
 
 const { installImageMagick } = require('./src/api')
 
-if (process.env.NODE_ENV === 'production') {
-  const mb = menubar({
-    alwaysOnTop: true,
-    width: 200,
-    height: 200,
-    icon: 'img/icon.png'
-  })
-
-  mb.on('ready', () => {
-    console.log('App started in menu bar.')
-    // your app code here
-  })
-
-  installImageMagick((code) => {
-    if (code !== 0) mb.app.quit()
-  })
-} else {
+if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development') {
   // Module to control application life.
   const app = electron.app
   // Module to create native browser window.
@@ -75,7 +59,20 @@ if (process.env.NODE_ENV === 'production') {
       createWindow()
     }
   })
-}
+} else { // PRODUCTION
+  const mb = menubar({
+    alwaysOnTop: true,
+    width: 200,
+    height: 200,
+    icon: 'img/icon.png'
+  })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+  mb.on('ready', () => {
+    console.log('App started in menu bar.')
+    // your app code here
+  })
+
+  installImageMagick((code) => {
+    if (code !== 0) mb.app.quit()
+  })
+}
