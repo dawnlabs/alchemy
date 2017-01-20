@@ -6,7 +6,7 @@ import Octicon from './Octicon'
 import { convert } from '../api'
 
 const {
-  blue: BLUE,
+  lightBlue: BLUE,
   offwhite,
   black: BLACK,
   transBlack,
