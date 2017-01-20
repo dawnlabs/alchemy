@@ -3,7 +3,7 @@
   "scripts": {
     "start": "electron .",
     "build": "webpack",
-    "distribute": "cp -r . /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app"
+    "distribute": "cp -r * /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app"
   },
   "devDependencies": {
     "babel": "^6.5.2",

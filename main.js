@@ -65,8 +65,9 @@ if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development') {
     alwaysOnTop: true,
     width: 200,
     height: 200,
-    icon: 'img/icon.png'
+    icon: `${__dirname}/img/icon.png`
   })
+
   const { app } = mb
 
   app.on('window-all-closed', () => {
