@@ -70,6 +70,7 @@ const style = {
 
   h6: {
     color: transBlack,
+    textAlign: 'center',
     margin: '0',
     fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
   }
@@ -88,7 +89,13 @@ class Sanitizer extends Component {
 
   getMessage() {
     switch (this.state.status) {
-      case 'IDLE': return <h6 style={style.h6}>Drop Items Here</h6>
+      case 'IDLE': return (
+        <h6 style={style.h6}>
+          Drop Items Here
+          <br /><br />
+          (<code>⌘-8</code> to toggle view)
+        </h6>
+      )
       case 'FAILED': return (
         <h6 style={Object.assign(style.h6, { color: BLACK })}>
           Failed to convert your pictures 😕
