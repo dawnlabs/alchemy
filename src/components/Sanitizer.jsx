@@ -5,6 +5,15 @@ import Octicon from './Octicon'
 
 import { convert } from '../api'
 
+const {
+  blue: BLUE,
+  offwhite,
+  black: BLACK,
+  transBlack,
+  green: GREEN,
+  transGrey,
+} = require('../helpers/colors')
+
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
   const filtered = files.filter(file => file.type.includes('image'))
@@ -44,8 +53,6 @@ const drop = (props, monitor, component) => {
   } else component.setState({ status: 'IDLE' })
 }
 
-const HIGHLIGHT_COLOR = 'rgba(130, 221, 240, 1)'
-
 const style = {
   container: {
     display: 'flex',
@@ -56,13 +63,13 @@ const style = {
     padding: '15px',
     width: 'calc(100% - 30px)',
     height: `calc(${100 / 1}% - 30px)`,
-    backgroundColor: '#fefeff',
-    border: `5px dotted ${HIGHLIGHT_COLOR}`, // rgb(209, 75, 75)',
+    backgroundColor: offwhite,
+    border: `5px dotted ${BLUE}`,
     borderRadius: '8px'
   },
 
   h6: {
-    color: 'rgba(0,0,0, 0.25)',
+    color: transBlack,
     margin: '0',
     fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
   }
@@ -83,7 +90,7 @@ class Sanitizer extends Component {
     switch (this.state.status) {
       case 'IDLE': return <h6 style={style.h6}>Drop Items Here</h6>
       case 'FAILED': return (
-        <h6 style={Object.assign(style.h6, { color: 'rgba(0,0,0,1)' })}>
+        <h6 style={Object.assign(style.h6, { color: BLACK })}>
           Failed to convert your pictures 😕
         </h6>
       )
@@ -97,7 +104,7 @@ class Sanitizer extends Component {
       case 'FAILED': return (
         <Octicon
           style={{
-            fill: 'rgb(0, 0, 0)'
+            fill: BLACK
           }}
           type="thumbsdown"
           width={60}
@@ -106,7 +113,7 @@ class Sanitizer extends Component {
       case 'DONE': return (
         <Octicon
           style={{
-            fill: 'rgb(132, 255, 144)'
+            fill: GREEN
           }}
           type="thumbsup"
           width={60}
@@ -122,14 +129,14 @@ class Sanitizer extends Component {
         >
           <Octicon
             style={{
-              fill: 'rgb(0, 0, 0)'
+              fill: BLACK
             }}
             type="file-media"
             width={40}
           />
           <Octicon
             style={{
-              fill: 'rgb(0, 0, 0)'
+              fill: BLACK
             }}
             className="animated-pulse"
             type="chevron-right"
@@ -137,7 +144,7 @@ class Sanitizer extends Component {
           />
           <Octicon
             style={{
-              fill: 'rgb(0, 0, 0)'
+              fill: BLACK
             }}
             type="file-pdf"
             width={40}
@@ -147,9 +154,9 @@ class Sanitizer extends Component {
       default: return (
         <Octicon
           style={(isOver) ? {
-            fill: HIGHLIGHT_COLOR
+            fill: BLUE
           } : {
-            fill: 'rgba(0,0,0,0.25)'
+            fill: transBlack
           }}
           type="diff"
           width={60}
@@ -164,10 +171,10 @@ class Sanitizer extends Component {
       <div
         style={
           Object.assign({}, style.container, (isOver && this.state.status !== 'CONVERTING') ? {
-            borderColor: HIGHLIGHT_COLOR,
+            borderColor: BLUE,
             borderStyle: 'solid'
           } : {
-            borderColor: 'rgba(130, 221, 240, 0.25)',
+            borderColor: transGrey,
             borderStyle: 'dotted'
           })
         }

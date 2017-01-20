@@ -4,7 +4,7 @@ const path = require('path')
 const url = require('url')
 
 const { installImageMagick } = require('./src/api')
-const configure = require('./src/configure')
+const configure = require('./src/helpers/configure')
 
 if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development') {
   // Module to control application life.
