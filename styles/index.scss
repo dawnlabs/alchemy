@@ -11,6 +11,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
 detail {
   display: block;
   color: $transBlack;

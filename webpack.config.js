@@ -17,7 +17,7 @@ module.exports = {
 
   target: 'node',
 
-  entry: './src/index.jsx',
+  entry: './src/index.js',
 
   output: {
     filename: 'public/[name].js',
