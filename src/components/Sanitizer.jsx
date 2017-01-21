@@ -6,11 +6,11 @@ import Octicon from './Octicon'
 import { convert } from '../api'
 
 const {
-  lightBlue: BLUE,
+  lightBlue: LIGHT_BLUE,
+  blue: BLUE,
   offwhite,
   black: BLACK,
   transBlack,
-  green: GREEN,
   transGrey,
 } = require('../helpers/colors')
 
@@ -64,7 +64,7 @@ const style = {
     width: 'calc(100% - 30px)',
     height: `calc(${100 / 1}% - 30px)`,
     backgroundColor: offwhite,
-    border: `5px dotted ${BLUE}`,
+    border: `5px dotted ${LIGHT_BLUE}`,
     borderRadius: '8px'
   },
 
@@ -120,7 +120,7 @@ class Sanitizer extends Component {
       case 'DONE': return (
         <Octicon
           style={{
-            fill: GREEN
+            fill: BLUE
           }}
           type="thumbsup"
           width={60}
@@ -161,7 +161,7 @@ class Sanitizer extends Component {
       default: return (
         <Octicon
           style={(isOver) ? {
-            fill: BLUE
+            fill: LIGHT_BLUE
           } : {
             fill: transBlack
           }}
@@ -178,7 +178,7 @@ class Sanitizer extends Component {
       <div
         style={
           Object.assign({}, style.container, (isOver && this.state.status !== 'CONVERTING') ? {
-            borderColor: BLUE,
+            borderColor: LIGHT_BLUE,
             borderStyle: 'solid'
           } : {
             borderColor: transGrey,
