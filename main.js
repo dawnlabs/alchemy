@@ -63,8 +63,12 @@ if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development') {
 } else { // PRODUCTION
   const mb = menubar({
     alwaysOnTop: true,
-    width: 200,
-    height: 200,
+    width: 400,
+    height: 400,
+    minWidth: 256,
+    minHeight: 256,
+    maxWidth: 512,
+    maxHeight: 512,
     icon: `${__dirname}/img/icon.png`
   })
 
