@@ -1,17 +1,32 @@
+$transBlack: rgba(0,0,0, 0.25);
+
 * {
   box-sizing: border-box;
 }
 
 html {
+  font-size: 3vw;
+  font-family: 'San Francisco', BlinkMacSystemFont, '-apple-system', 'Helvetica Neue', Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+detail {
+  display: block;
+  color: $transBlack;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+p {
+  color: $transBlack;
 }
 
 .rotate {
   animation-name: rotate;
   animation-duration: 2s;
-  animation-iteration-count: infinite;
   animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .animated-pulse {
@@ -20,6 +35,7 @@ html {
 
 @keyframes rotate {
     from {transform: rotate(0deg);}
+
     to {transform: rotate(360deg);}
 }
 
@@ -27,7 +43,13 @@ html {
   0% {
     fill: rgb(0, 0, 0);
   }
+
   100% {
     fill: rgb(180, 180, 180);
   }
+}
+
+.files {
+  margin: 1rem 0;
+  width: 80%;
 }
