@@ -163,23 +163,23 @@ class Sanitizer extends Component {
       )
       default: return (
         <svg className="files" viewBox="0 0 107 56" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <defs><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="a" />
-                <mask id="h" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#a" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="b" />
-                <mask id="i" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#b" /></mask><path id="c" d="M11 19h16v16H11z" />
-                <mask id="j" x="0" y="0" width="16" height="16" fill="#fff"><use xlinkHref="#c" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="d" />
-                <mask id="k" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#d" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="e" />
-                <mask id="l" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#e" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="f" />
-                <mask id="m" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#f" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="g" />
-                <mask id="n" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#g" /></mask>
-            </defs>
-            <g fill="none" fillRule="evenodd">
-                <g transform="rotate(11 36.422 369.218)">
-                    <g stroke="#F0F0EC" strokeWidth="3" fill="#FFF"><use mask="url(#h)" xlinkHref="#a" /><use mask="url(#i)" xlinkHref="#b" /></g><use stroke="#F58D24" mask="url(#j)" strokeWidth="6" opacity=".896" xlinkHref="#c" /></g>
-                <g transform="rotate(-11 36.578 5.73)" strokeWidth="3">
-                    <g stroke="#F0F0EC" fill="#FFF"><use mask="url(#k)" xlinkHref="#d" /><use mask="url(#l)" xlinkHref="#e" /></g><circle stroke="#B8E5FF" opacity=".896" cx="19" cy="27" r="7" /></g>
-                <g strokeWidth="3">
-                    <g stroke="#F0F0EC" fill="#FFF" transform="translate(35)"><use mask="url(#m)" xlinkHref="#f" /><use mask="url(#n)" xlinkHref="#g" /></g><path stroke="#80C772" opacity=".896" d="M54.43 21l7.43 12.038H47z" /></g>
-            </g>
+          <defs><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="a" />
+            <mask id="h" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#a" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="b" />
+            <mask id="i" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#b" /></mask><path id="c" d="M11 19h16v16H11z" />
+            <mask id="j" x="0" y="0" width="16" height="16" fill="#fff"><use xlinkHref="#c" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="d" />
+            <mask id="k" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#d" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="e" />
+            <mask id="l" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#e" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.978.487 2.554 1.083l8.227 8.512c.578.598 1.046 1.748 1.046 2.576v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="f" />
+            <mask id="m" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#f" /></mask><path d="M0 2.997A2.994 2.994 0 0 1 3.002 0h23.171c.833 0 1.508.668 1.508 1.507V8.67c0 1.11.898 2.008 2.002 2.008H36.5c.828 0 1.5.666 1.5 1.494v34.825A3.008 3.008 0 0 1 35.002 50H2.998A2.994 2.994 0 0 1 0 47.003V2.997z" id="g" />
+            <mask id="n" x="0" y="0" width="38" height="50" fill="#fff"><use xlinkHref="#g" /></mask>
+          </defs>
+          <g fill="none" fillRule="evenodd">
+            <g transform="rotate(11 36.422 369.218)">
+              <g stroke="#F0F0EC" strokeWidth="3" fill="#FFF"><use mask="url(#h)" xlinkHref="#a" /><use mask="url(#i)" xlinkHref="#b" /></g><use stroke="#F58D24" mask="url(#j)" strokeWidth="6" opacity=".896" xlinkHref="#c" /></g>
+            <g transform="rotate(-11 36.578 5.73)" strokeWidth="3">
+              <g stroke="#F0F0EC" fill="#FFF"><use mask="url(#k)" xlinkHref="#d" /><use mask="url(#l)" xlinkHref="#e" /></g><circle stroke="#B8E5FF" opacity=".896" cx="19" cy="27" r="7" /></g>
+            <g strokeWidth="3">
+              <g stroke="#F0F0EC" fill="#FFF" transform="translate(35)"><use mask="url(#m)" xlinkHref="#f" /><use mask="url(#n)" xlinkHref="#g" /></g><path stroke="#80C772" opacity=".896" d="M54.43 21l7.43 12.038H47z" /></g>
+          </g>
         </svg>
       )
     }
