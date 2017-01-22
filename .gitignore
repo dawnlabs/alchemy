@@ -1,3 +1,4 @@
 node_modules
-public
+*.css.map
+*.js.map
 .DS_Store
