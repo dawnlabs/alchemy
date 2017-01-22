@@ -1,4 +1,8 @@
 $transBlack: rgba(0,0,0, 0.25);
+$blue: rgba(130, 221, 240, 1);
+$lightBlue: #bae5fe;
+$orange: #ee9a4c;
+$lightOrange: #efb47c;
 
 * {
   box-sizing: border-box;
@@ -11,7 +15,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
+body {
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -59,4 +63,13 @@ p {
 .files {
   margin: 1rem 0;
   width: 80%;
+}
+
+.container {
+  display: flex;
+  position: relative;
+  width: 720px;
+  height: 100vh;
+  left: 50%;
+  margin-left: -360px;
 }

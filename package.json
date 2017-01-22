@@ -2,7 +2,7 @@
   "main": "main.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "python -m SimpleHTTPServer 8000",
+    "dev": "python -m SimpleHTTPServer 8080",
     "build": "webpack"
   },
   "devDependencies": {
