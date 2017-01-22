@@ -12,21 +12,7 @@ const mb = menubar({
 
 const { app } = mb
 
-app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
 mb.on('ready', () => {
   console.log('App started in menu bar.')
-  // your app code here
-
   configure(mb)
-
-  installImageMagick().then((code) => {
-    if (code !== 0) mb.app.quit()
-  })
 })
