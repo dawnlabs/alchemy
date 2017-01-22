@@ -83,9 +83,9 @@ if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development') {
     // your app code here
 
     configure(mb)
-  })
 
-  installImageMagick().then((code) => {
-    if (code !== 0) mb.app.quit()
+    installImageMagick().then((code) => {
+      if (code !== 0) mb.app.quit()
+    })
   })
 }

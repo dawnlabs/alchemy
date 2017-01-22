@@ -1,9 +1,7 @@
-const shell = require('shelljs')
+const { exec, which } = require('shelljs')
 const md5 = require('md5')
 
 const { replaceSpaceCharacters } = require('./helpers/util')
-
-const { exec, which } = shell
 
 const convert = ({ files, outputPath, name }) => {
   if (!which('convert')) {
@@ -25,7 +23,7 @@ const convert = ({ files, outputPath, name }) => {
 const checkForBrew = () => !!which('brew')
 const checkForImageMagick = () => !!which('convert')
 const installImageMagick = () => {
-  if (!checkForBrew()) return Promise.reject(-1)
+  if (!checkForBrew()) return Promise.resolve(-1)
 
   if (!checkForImageMagick()) {
     if (confirm('ImageMagick is required to run this app. Install now?')) {
