@@ -1,0 +1,64 @@
+@font-face {
+  font-family: 'SFUIText';
+  src: url('/fonts/SF-UI-Text-Regular.otf') format('otf');
+}
+@import "variables";
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 3vw;
+  font-family: 'SFUIText',  Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+detail {
+  display: block;
+  color: $transBlack;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+p {
+  color: $transBlack;
+}
+
+a {
+  text-decoration: none;
+}
+
+.rotate {
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animated-pulse {
+  animation: pulse 0.75s infinite alternate;
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+
+    to {transform: rotate(360deg);}
+}
+
+@keyframes pulse {
+  0% {
+    fill: rgb(0, 0, 0);
+  }
+
+  100% {
+    fill: rgb(180, 180, 180);
+  }
+}
