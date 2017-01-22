@@ -1,6 +1,8 @@
 const shell = require('shelljs')
 const md5 = require('md5')
 
+const { replaceSpaceCharacters } = require('./helpers/util')
+
 const { exec, which } = shell
 
 const convert = ({ files, outputPath, name }) => {
@@ -9,7 +11,7 @@ const convert = ({ files, outputPath, name }) => {
   }
 
   return new Promise((resolve, reject) => {
-    const fileString = files.join(' ')
+    const fileString = files.map(replaceSpaceCharacters).join(' ')
     const command = `convert ${fileString} ${outputPath}${name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`}`
     console.log(command)
 
