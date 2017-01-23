@@ -140,14 +140,16 @@ a {
 .col--am {
   vertical-align: middle; }
 
+body {
+  background: #FFFDE4; }
+
 .files {
   margin: 1rem 0;
   width: 80%; }
 
 .container {
   width: 100vw;
-  height: 100vh;
-  background: #FFFDE4; }
+  height: 100vh; }
 
 .left {
   text-align: center;
