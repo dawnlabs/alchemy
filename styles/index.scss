@@ -3,6 +3,7 @@
 
 body {
   background: #FFFDE4;
+  overflow-x: hidden;
 }
 
 .files {
@@ -83,5 +84,24 @@ body {
   }
   .computer_image {
     width: 695px;
+  }
+}
+
+.footer {
+  font-size: 12px;
+  font-weight: normal;
+  text-align: center;
+  color: #b8b7b2;
+  margin-top: -24px;
+
+  &__emoji {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
   }
 }
