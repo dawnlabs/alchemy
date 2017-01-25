@@ -213,9 +213,15 @@ body {
   font-weight: normal;
   text-align: center;
   color: #b8b7b2;
+<<<<<<< HEAD
   margin-top: -24px; }
   .footer__emoji {
     font-size: 10px;
+=======
+  margin-top: -32px; }
+  .footer__emoji {
+    font-size: 8px;
+>>>>>>> 73c1e23d72e615c04e6e45cdd6e2c6459dfd8e7c
     letter-spacing: 2px; }
   .footer a {
     color: inherit;
