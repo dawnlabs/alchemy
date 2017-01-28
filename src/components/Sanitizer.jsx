@@ -6,12 +6,11 @@ import Octicon from './Octicon'
 import { convert } from '../api'
 
 const {
-  lightBlue: LIGHT_BLUE,
   blue: BLUE,
   offwhite,
   black: BLACK,
   transBlack,
-  transGrey,
+  grey,
 } = require('../helpers/colors')
 
 const drop = (props, monitor, component) => {
@@ -39,7 +38,7 @@ const drop = (props, monitor, component) => {
         component.setState({
           status: 'IDLE'
         })
-      }, 2000)
+      }, 3000)
     }).catch(() => {
       component.setState({
         status: 'FAILED'
@@ -48,7 +47,7 @@ const drop = (props, monitor, component) => {
         component.setState({
           status: 'IDLE'
         })
-      }, 2000)
+      }, 3000)
     })
   } else component.setState({ status: 'IDLE' })
 }
@@ -59,20 +58,13 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    margin: '15px',
-    padding: '15px',
+    margin: '16px',
+    padding: '40px 16px',
     width: 'calc(100% - 30px)',
     height: `calc(${100 / 1}% - 30px)`,
     backgroundColor: offwhite,
-    border: `5px dotted ${LIGHT_BLUE}`,
+    border: `3px dashed ${grey}`,
     borderRadius: '8px'
-  },
-
-  h6: {
-    color: transBlack,
-    textAlign: 'center',
-    margin: '0',
-    fontFamily: 'San Francisco, BlinkMacSystemFont, -apple-system, Helvetica Neue, Helvetica, sans-serif'
   }
 }
 
@@ -83,23 +75,49 @@ class Sanitizer extends Component {
     this.state = {
       status: 'IDLE'
     }
+
+    this.isHover = this.isHover.bind(this)
     this.getIconObject = this.getIconObject.bind(this)
     this.getMessage = this.getMessage.bind(this)
+  }
+
+  isHover() {
+    return this.props.isOver && this.state.status !== 'CONVERTING'
   }
 
   getMessage() {
     switch (this.state.status) {
       case 'IDLE': return (
-        <h6 style={style.h6}>
-          Drop Items Here
-          <br /><br />
-          (<code>⌘-8</code> to toggle view)
-        </h6>
+        <div>
+          <h1>
+            { this.isHover() ? 'Drop' : 'Drag & drop' }
+          </h1>
+          <p className="detail">your files here to convert</p>
+        </div>
+      )
+      case 'CONVERTING': return (
+        <div>
+          <h1>
+            Converting
+          </h1>
+          <p className="detail">(this should only take a sec)</p>
+        </div>
+      )
+      case 'DONE': return (
+        <div>
+          <h1>
+            Complete!
+          </h1>
+          <p className="detail">testFile.pdf created</p>
+        </div>
       )
       case 'FAILED': return (
-        <h6 style={Object.assign(style.h6, { color: BLACK })}>
-          Failed to convert your pictures 😕
-        </h6>
+        <div>
+          <h1>
+            Conversion failed
+          </h1>
+          <p className="detail">Uh oh, something went wrong 😕</p>
+        </div>
       )
       default: return null
     }
@@ -108,8 +126,8 @@ class Sanitizer extends Component {
   getIconObject() {
     switch (this.state.status) {
       case 'FAILED': return (
-        <svg viewBox="0 0 59 78" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fill-rule="evenodd">
+        <svg width="59" height="78" viewBox="0 0 59 78" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fillRule="evenodd">
                 <g fill="#F0F0EC">
                     <path d="M1.5 3.004V74.22c0 .832.672 1.503 1.507 1.503h52.986c.836 0 1.507-.668 1.507-1.49V17.991c0-.438-.318-1.22-.627-1.538L42.953 2.127c-.303-.312-1.049-.627-1.479-.627H3.005c-.838 0-1.505.668-1.505 1.504zm-1.5 0A2.997 2.997 0 0 1 3.005 0h38.469c.83 0 1.967.476 2.556 1.082l13.919 14.327c.58.597 1.051 1.754 1.051 2.583v56.241a2.997 2.997 0 0 1-3.007 2.991H3.007A3.002 3.002 0 0 1 0 74.221V3.004z"/>
                     <path d="M41.478 1.493v.005-.005zM3.005 1.5c-.838 0-1.505.668-1.505 1.504V74.22c0 .832.672 1.503 1.507 1.503h52.986c.836 0 1.507-.668 1.507-1.49V17.991l-12.525-.001a3.502 3.502 0 0 1-3.497-3.506V1.498c0 .002-38.473.002-38.473.002zM0 3.004A2.997 2.997 0 0 1 3.005 0h38.469c.83 0 1.504.667 1.504 1.493v12.992c0 1.108.896 2.006 1.997 2.006h12.518c.832 0 1.507.672 1.507 1.501v56.241a2.997 2.997 0 0 1-3.007 2.991H3.007A3.002 3.002 0 0 1 0 74.221V3.004z"/>
@@ -122,8 +140,8 @@ class Sanitizer extends Component {
         </svg>
       )
       case 'DONE': return (
-        <svg viewBox="0 0 140 132" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fill-rule="evenodd">
+        <svg width="140" height="132" viewBox="0 0 140 132" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fillRule="evenodd">
                 <g transform="rotate(54 71.558 53.327)">
                     <ellipse fill="#F58D24" transform="rotate(178 57.63 36.047)" cx="57.629" cy="36.047" rx="8.442" ry="8.432"/>
                     <ellipse fill="#1D8CF8" opacity=".714" transform="rotate(178 3.95 61.126)" cx="3.951" cy="61.126" rx="3.015" ry="3.011"/>
@@ -148,8 +166,8 @@ class Sanitizer extends Component {
         </svg>
       )
       case 'CONVERTING': return (
-        <svg viewBox="0 0 182 86" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fill-rule="evenodd">
+        <svg width="182" height="86" viewBox="0 0 182 86" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fillRule="evenodd">
                 <path d="M104.636 35.016c-.938-.26-2-.519-3.17-.762-8.734-1.815-18.049-1.815-26.749 1.199l-.654-1.89c9.09-3.15 18.753-3.15 27.81-1.267 1.17.243 2.239.502 3.191.764l-4.346-6.885 1.668-1.037 6.291 9.97-10.432 5.485-.926-1.73 7.317-3.847z" fill="#B8B7B2"/>
                 <g fill="#F0F0EC">
                     <path d="M128.018 2.679L114.43 72.588a1.502 1.502 0 0 0 1.192 1.763l52.013 10.11c.82.16 1.606-.368 1.763-1.176l10.732-55.207c.083-.431-.08-1.259-.322-1.63l-10.93-16.72c-.239-.364-.911-.816-1.333-.898l-37.762-7.34a1.497 1.497 0 0 0-1.765 1.189zm-1.472-.286a2.997 2.997 0 0 1 3.523-2.375l37.762 7.34c.816.159 1.84.842 2.302 1.55l10.93 16.72c.456.697.697 1.921.539 2.736L170.871 83.57a2.997 2.997 0 0 1-3.523 2.363l-52.012-10.11a3.002 3.002 0 0 1-2.379-3.523l13.589-69.908z"/>
@@ -166,9 +184,33 @@ class Sanitizer extends Component {
             </g>
         </svg>
       )
-      default: return (
-        <svg viewBox="0 0 166 87" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fill-rule="evenodd">
+      default:
+        return this.isHover() ?
+        (
+          <svg width="213" height="109" viewBox="0 0 213 109" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" fillRule="evenodd">
+                  <g fill="#F0F0EC">
+                      <path d="M157.837 23.552l-13.963 71.833c-.16.82.373 1.608 1.192 1.767l53.209 10.343c.82.16 1.607-.372 1.766-1.189l11.023-56.708c.084-.434-.078-1.27-.32-1.64l-11.18-17.194c-.232-.355-.915-.815-1.334-.897l-38.635-7.51a1.5 1.5 0 0 0-1.758 1.195zm-1.472-.287a3 3 0 0 1 3.517-2.38l38.635 7.51c.818.159 1.852.857 2.304 1.552l11.181 17.193c.454.698.693 1.93.534 2.745l-11.023 56.707a3.003 3.003 0 0 1-3.524 2.375l-53.21-10.342a3.004 3.004 0 0 1-2.377-3.527l13.963-71.833z"/>
+                      <path d="M157.837 23.552l-13.963 71.833c-.16.82.373 1.608 1.192 1.767l53.209 10.343c.82.16 1.607-.372 1.766-1.189l11.023-56.708c0-.003-12.61-2.46-12.61-2.46a3.509 3.509 0 0 1-2.772-4.11l2.558-13.158c0-.003-38.645-7.513-38.645-7.513a1.5 1.5 0 0 0-1.758 1.195zm-1.472-.287a3 3 0 0 1 3.517-2.38l38.635 7.51a1.5 1.5 0 0 1 1.195 1.761l-2.557 13.158a2.009 2.009 0 0 0 1.585 2.352l12.603 2.45a1.51 1.51 0 0 1 1.193 1.769l-11.023 56.707a3.003 3.003 0 0 1-3.524 2.375l-53.21-10.342a3.004 3.004 0 0 1-2.377-3.527l13.963-71.833z"/>
+                  </g>
+                  <path d="M166.99 75.683l19 3.693 3.69-18.986-19-3.693-3.69 18.986zm1.318-22.504l24.89 4.838-4.836 24.877-24.89-4.838 4.836-24.877z" fill="#F58D24"/>
+                  <g fill="#F0F0EC">
+                      <path d="M2.133 34.469l13.963 71.833c.16.82.948 1.351 1.767 1.192l53.209-10.343c.82-.159 1.351-.947 1.192-1.764L61.241 38.68c-.084-.435-.548-1.148-.91-1.402L43.523 25.525c-.347-.242-1.154-.413-1.572-.332l-38.635 7.51a1.5 1.5 0 0 0-1.183 1.766zm-1.472.286A3 3 0 0 1 3.03 31.23l38.635-7.51c.818-.159 2.038.101 2.717.576L61.191 36.05c.682.477 1.364 1.53 1.523 2.345L73.737 95.1a3.003 3.003 0 0 1-2.379 3.523L18.15 108.967a3.004 3.004 0 0 1-3.525-2.38L.66 34.756z"/>
+                      <path d="M2.133 34.469l13.963 71.833c.16.82.948 1.351 1.767 1.192l53.209-10.343c.82-.159 1.351-.947 1.192-1.764L61.241 38.68c0-.003-12.613 2.443-12.613 2.443a3.509 3.509 0 0 1-4.11-2.773l-2.557-13.158c0-.003-38.645 7.51-38.645 7.51a1.5 1.5 0 0 0-1.183 1.767zm-1.472.286A3 3 0 0 1 3.03 31.23l38.635-7.51a1.5 1.5 0 0 1 1.768 1.185l2.558 13.158a2.009 2.009 0 0 0 2.351 1.587l12.603-2.45a1.51 1.51 0 0 1 1.769 1.194L73.737 95.1a3.003 3.003 0 0 1-2.379 3.523L18.15 108.967a3.004 3.004 0 0 1-3.525-2.38L.66 34.756z"/>
+                  </g>
+                  <path d="M40.205 80.391c6.826-1.327 11.286-7.934 9.96-14.758-1.327-6.824-7.937-11.28-14.764-9.953-6.827 1.327-11.286 7.934-9.96 14.759 1.327 6.824 7.937 11.28 14.764 9.952zm-.573-2.944c-5.2 1.01-10.236-2.384-11.246-7.58-1.01-5.198 2.387-10.231 7.588-11.242 5.2-1.011 10.235 2.383 11.245 7.58 1.01 5.198-2.386 10.23-7.587 11.242z" fill="#B8E5FF"/>
+                  <g>
+                      <g fill="#F0F0EC">
+                          <path d="M79.46 3.756v73.178c0 .836.672 1.508 1.507 1.508h54.204c.835 0 1.507-.672 1.507-1.504v-57.77c0-.442-.319-1.23-.626-1.549L121.795 2.875c-.294-.304-1.053-.626-1.48-.626H80.959a1.5 1.5 0 0 0-1.498 1.507zm-1.5 0A3 3 0 0 1 80.958.75h39.358c.834 0 1.981.488 2.557 1.083l14.257 14.744c.58.599 1.048 1.762 1.048 2.593v57.769a3.003 3.003 0 0 1-3.007 3.004H80.967a3.004 3.004 0 0 1-3.007-3.008V3.756z"/>
+                          <path d="M79.46 3.756v73.178c0 .836.672 1.508 1.507 1.508h54.204c.835 0 1.507-.672 1.507-1.504v-57.77c0-.003-12.847-.008-12.847-.008a3.509 3.509 0 0 1-3.505-3.506V2.25c0-.003-39.368-.001-39.368-.001a1.5 1.5 0 0 0-1.498 1.507zm-1.5 0A3 3 0 0 1 80.958.75h39.358a1.5 1.5 0 0 1 1.51 1.5v13.405c0 1.108.902 2.006 2.005 2.006h12.838c.834 0 1.51.678 1.51 1.509v57.769a3.003 3.003 0 0 1-3.008 3.004H80.967a3.004 3.004 0 0 1-3.007-3.008V3.756z"/>
+                      </g>
+                      <path d="M117.835 51.576h-18.17l9.085-14.711 9.085 14.711zm5.379 3L108.75 31.155 94.287 54.576h28.927z" fill="#80C772"/>
+                  </g>
+              </g>
+          </svg>
+        ) : (
+        <svg width="166" height="87" viewBox="0 0 166 87" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fillRule="evenodd">
                 <g fill="#F0F0EC">
                     <path d="M112.018 3.679L98.43 73.588a1.502 1.502 0 0 0 1.192 1.763l52.013 10.11c.82.16 1.606-.368 1.763-1.176l10.732-55.207c.083-.431-.08-1.259-.322-1.63l-10.93-16.72c-.239-.364-.911-.816-1.333-.898l-37.762-7.34a1.497 1.497 0 0 0-1.765 1.189zm-1.472-.286a2.997 2.997 0 0 1 3.523-2.375l37.762 7.34c.816.159 1.84.842 2.302 1.55l10.93 16.72c.456.697.697 1.921.539 2.736L154.871 84.57a2.997 2.997 0 0 1-3.523 2.363l-52.012-10.11a3.002 3.002 0 0 1-2.379-3.523l13.589-69.908z"/>
                     <path d="M113.783 2.49a1.497 1.497 0 0 0-1.765 1.189L98.43 73.588a1.502 1.502 0 0 0 1.192 1.763l52.013 10.11c.82.16 1.606-.368 1.763-1.176l10.732-55.207-12.295-2.392a3.502 3.502 0 0 1-2.764-4.108L151.55 9.83l-37.766-7.34zm-3.237.903a2.997 2.997 0 0 1 3.523-2.375l37.762 7.34c.816.159 1.35.942 1.192 1.752l-2.48 12.754a2.002 2.002 0 0 0 1.578 2.35l12.288 2.388a1.504 1.504 0 0 1 1.193 1.762L154.871 84.57a2.997 2.997 0 0 1-3.523 2.363l-52.012-10.11a3.002 3.002 0 0 1-2.379-3.523l13.589-69.908z"/>
@@ -196,16 +238,14 @@ class Sanitizer extends Component {
     return connectDropTarget(
       <div
         style={
-          Object.assign({}, style.container, (isOver && this.state.status !== 'CONVERTING') ? {
-            borderColor: LIGHT_BLUE,
+          Object.assign({}, style.container, this.isHover() ? {
             borderStyle: 'solid'
           } : {
-            borderColor: transGrey,
-            borderStyle: 'dotted'
+            borderStyle: 'dashed'
           })
         }
       >
-        {this.getIconObject(isOver)}
+        {this.getIconObject()}
         {this.getMessage()}
       </div>
     )
