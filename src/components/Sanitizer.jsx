@@ -238,10 +238,10 @@ class Sanitizer extends Component {
     return connectDropTarget(
       <div
         style={
-          Object.assign({}, style.container, this.isHover() ? {
-            borderStyle: 'solid'
+          Object.assign({}, style.container, (this.state.status === 'IDLE') ? {
+            borderStyle: `${this.isHover() ? 'solid' : 'dashed'}`
           } : {
-            borderStyle: 'dashed'
+            border: 'none'
           })
         }
       >
