@@ -1,9 +1,13 @@
+$gray: #B8B7B2;
+$black: #333;
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'San Francisco', BlinkMacSystemFont, '-apple-system', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: '-apple-system', 'San Francisco', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+  color: $black;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,4 +35,22 @@ html {
   100% {
     fill: rgb(180, 180, 180);
   }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.563rem;
+  font-weight: normal;
+  letter-spacing: -0.6px;
+  text-align: center;
+  margin: 0;
+}
+
+p {
+  letter-spacing: -0.2px;
+  margin-bottom: 0;
+}
+
+.detail {
+  font-size: 0.8rem;
+  color: $gray;
 }
