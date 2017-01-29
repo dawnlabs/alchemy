@@ -1,15 +1,15 @@
-@font-face {
-  font-family: 'SFUIText';
-  src: url('/fonts/SF-UI-Text-Regular.otf') format('otf');
-}
+// @font-face {
+//   font-family: 'SFUIText';
+//   src: url('/fonts/SF-UI-Text-Regular.otf') format('otf');
+// }
+
 @import "variables";
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-size: 3vw;
-  font-family: 'SFUIText',  Helvetica, sans-serif;
+  font-family: "San Francisco", "BlinkMacSystemFont", -apple-system, "Helvetica Neue", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -17,8 +17,10 @@ html {
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
+}
+
+img {
+  pointer-events: none;
 }
 
 detail {
