@@ -6,8 +6,8 @@ const configure = require('./src/helpers/configure')
 const mb = menubar({
   alwaysOnTop: true,
   resizable: false,
-  width: 270,
-  height: 350,
+  width: 292,
+  height: 314,
   icon: `${__dirname}/img/iconTemplate.png`
 })
 

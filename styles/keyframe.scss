@@ -1,0 +1,49 @@
+@keyframes file1 {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-22px, 4px);
+  }
+}
+
+@keyframes file2 {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(0, -12px);
+  }
+}
+
+@keyframes file3 {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(22px, 4px);
+  }
+}
+
+@keyframes convertingArrow {
+  from {
+    transform: translate(-3px, 0);
+  }
+
+  to {
+    transform: translate(3px, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    border-color: $lightGrey;
+  }
+
+  100% {
+    border-color: $grey;
+  }
+}

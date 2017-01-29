@@ -1,5 +1,5 @@
-$gray: #B8B7B2;
-$black: #333;
+@import 'color';
+@import 'keyframe';
 
 * {
   box-sizing: border-box;
@@ -13,32 +13,12 @@ html {
   overflow: hidden;
 }
 
-.rotate {
-  animation-name: rotate;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.animated-pulse {
-  animation: pulse 0.75s infinite alternate;
-}
-
-@keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
-
-@keyframes pulse {
-  0% {
-    fill: rgb(0, 0, 0);
-  }
-  100% {
-    fill: rgb(180, 180, 180);
-  }
-}
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 1.563rem;
   font-weight: normal;
   letter-spacing: -0.6px;
@@ -53,5 +33,55 @@ p {
 
 .detail {
   font-size: 0.8rem;
-  color: $gray;
+  color: $grey;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 16px;
+  padding: 40px 16px;
+  height: calc(100% - 32px);
+  width: calc(100% - 32px);
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 8px;
+    height: calc(100% - 38px);
+    width: calc(100% - 38px);
+    top: 16px;
+  }
+}
+
+.converting-arrow {
+  animation: convertingArrow 0.5s infinite alternate;
+}
+
+.border-hover::after,
+.border-dashed::after {
+  border: 3px dashed $lightGrey;
+}
+
+.border-hover::after {
+  animation: pulse 0.75s infinite alternate;
+  border-style: solid;
+}
+
+.border-dashed::after {
+  border-style: dashed;
+}
+
+.border-hover .file1 {
+  animation: file1 0.25s forwards;
+}
+
+.border-hover .file2 {
+  animation: file2 0.25s forwards;
+}
+
+.border-hover .file3 {
+  animation: file3 0.25s forwards;
 }
