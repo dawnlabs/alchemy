@@ -5,7 +5,7 @@
     "start": "electron .",
     "build": "webpack",
     "distribute": "cp -r * /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app",
-    "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/placeholder.icns"
+    "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns"
   },
   "devDependencies": {
     "babel": "^6.5.2",

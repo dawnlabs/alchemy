@@ -14,6 +14,8 @@
       "arrow-body-style": 0,
       "no-use-before-define": ["error", { "functions": false, "classes": true }],
       "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true } }],
-      "curly": 0
+      "curly": 0,
+      "no-nested-ternary": 0,
+      "no-unused-vars": 1
     }
 }
