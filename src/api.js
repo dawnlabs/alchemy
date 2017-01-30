@@ -10,12 +10,13 @@ const convert = ({ files, outputPath, name }) => {
 
   return new Promise((resolve, reject) => {
     const fileString = files.map(replaceSpaceCharacters).join(' ')
-    const command = `convert ${fileString} ${outputPath}${name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`}`
+    const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
+    const command = `convert ${fileString} ${outputPath}${outputName}`
     console.log(command)
 
     exec(command, (code) => {
       if (code !== 0) reject(code)
-      else resolve(code)
+      else resolve(outputName)
     })
   })
 }

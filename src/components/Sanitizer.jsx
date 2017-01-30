@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
-import Octicon from './Octicon'
 
 import { convert } from '../api'
-
-const {
-  blue: BLUE,
-  offwhite,
-  black: BLACK,
-  transBlack,
-  grey,
-} = require('../helpers/colors')
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
@@ -30,9 +21,10 @@ const drop = (props, monitor, component) => {
     convert({
       files: filtered.map(f => f.path),
       outputPath
-    }).then(() => {
+    }).then((fileName) => {
       component.setState({
-        status: 'DONE'
+        status: 'DONE',
+        fileName
       })
       setTimeout(() => {
         component.setState({
@@ -92,7 +84,7 @@ class Sanitizer extends Component {
           <h1>
             Complete!
           </h1>
-          <p className="detail">testFile.pdf created</p>
+          <p className="detail">{`${this.state.fileName || 'File'} created`}</p>
         </div>
       )
       case 'FAILED': return (
