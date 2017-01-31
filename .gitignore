@@ -2,3 +2,4 @@ node_modules
 *.css.map
 *.js.map
 .DS_Store
+packaged/Alchemy-darwin-x64
