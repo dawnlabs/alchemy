@@ -32,7 +32,7 @@ const drop = (props, monitor, component) => {
         })
       }, 3000)
     }).catch((err) => {
-      alert(`ERR:${err}`)
+      alert(`ERR: ${err}`)
       component.setState({
         status: 'FAILED'
       })

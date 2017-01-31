@@ -8,22 +8,20 @@ const convert = ({ files, outputPath, name }) => {
   process.env['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
   return new Promise((resolve, reject) => {
-    // if (!which('convert')) {
-    //   reject('Sorry, this script requires ImageMagick\'s convert (https://www.imagemagick.org)')
-    // }
-    const fileString = files.map(replaceSpaceCharacters).join(' ')
-    const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
-    const command = `convert ${fileString} ${outputPath}${outputName}`
-    console.log(command)
-
-    execS(command, (error, stdout, stderr) => {
+    execS('which convert', (error, stdout, stderr) => {
       if (error) reject(error)
-      else resolve(outputName)
+      else {
+        const fileString = files.map(replaceSpaceCharacters).join(' ')
+        const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
+        const command = `convert ${fileString} ${outputPath}${outputName}`
+        console.log(command)
+
+        execS(command, (error) => {
+          if (error) reject(error)
+          else resolve(outputName)
+        })
+      }
     })
-    // exec(command, (code) => {
-    //   if (code !== 0) reject(code)
-    //   else resolve(outputName)
-    // })
   })
 }
 
