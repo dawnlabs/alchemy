@@ -61,7 +61,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      'process.env.SQUAD_HOST': JSON.stringify(process.env.SQUAD_HOST || 'http://localhost:4000')
+      'process.env.PATH': JSON.stringify(process.env.PATH)
     }),
     extractCSS
   ]

@@ -1,23 +1,29 @@
 const { exec, which } = require('shelljs')
 const md5 = require('md5')
+const execS = require('child_process').exec
 
 const { replaceSpaceCharacters } = require('./helpers/util')
 
 const convert = ({ files, outputPath, name }) => {
-  if (!which('convert')) {
-    throw new Error('Sorry, this script requires ImageMagick\'s convert (https://www.imagemagick.org)')
-  }
+  process.env['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
   return new Promise((resolve, reject) => {
+    // if (!which('convert')) {
+    //   reject('Sorry, this script requires ImageMagick\'s convert (https://www.imagemagick.org)')
+    // }
     const fileString = files.map(replaceSpaceCharacters).join(' ')
     const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
     const command = `convert ${fileString} ${outputPath}${outputName}`
     console.log(command)
 
-    exec(command, (code) => {
-      if (code !== 0) reject(code)
+    execS(command, (error, stdout, stderr) => {
+      if (error) reject(error)
       else resolve(outputName)
     })
+    // exec(command, (code) => {
+    //   if (code !== 0) reject(code)
+    //   else resolve(outputName)
+    // })
   })
 }
 

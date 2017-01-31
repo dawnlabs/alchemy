@@ -5,7 +5,7 @@
     "start": "electron .",
     "build": "webpack",
     "distribute": "cp -r * /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app",
-    "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns",
+    "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
     "zip": "zip -r packaged/Alchemy.zip packaged/Alchemy-darwin-x64/Alchemy.app"
   },
   "devDependencies": {
@@ -28,6 +28,7 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
     "electron": "^1.4.14",
     "json-loader": "^0.5.4",
     "md5": "^2.2.1",
