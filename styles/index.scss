@@ -63,6 +63,7 @@ p {
 .border-hover::after,
 .border-dashed::after {
   border: 3px dashed $lightGrey;
+  z-index: -999;
 }
 
 .border-hover::after {
@@ -84,4 +85,38 @@ p {
 
 .border-hover .file3 {
   animation: file3 0.25s forwards;
+}
+
+.file__list {
+  z-index: 999;
+  &-item {
+    margin: 6px 0 0;
+    padding: 4px 8px;
+    border-radius: 3px;
+
+    &:nth-child(2n) {
+      background: $lightGrey;
+    }
+    &:nth-child(2n+1) {
+      background: lighten($lightGrey, 5%);
+    }
+  }
+}
+.button__convert {
+  cursor: pointer;
+  background: $green;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 3px;
+  padding: 16px 24px;
+  margin: 0 24px 16px;
+
+  &:focus, &:hover, &:active {
+    outline: none;
+  }
+
+  &:hover {
+    background: darken($green, 5%)
+  }
 }

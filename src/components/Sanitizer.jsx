@@ -4,7 +4,23 @@ import { DropTarget } from 'react-dnd'
 
 import { convert } from '../api'
 
+const uniqueFiles = (files, newArray) =>
+  newArray.reduce((accum, next) => {
+    if (accum[next.path]) return accum
+    return Object.assign(accum, {
+      [next.path]: next
+    })
+  }, files)
+
 const drop = (props, monitor, component) => {
+  const { files } = monitor.getItem()
+  component.setState({
+    status: 'IDLE',
+    files: uniqueFiles(component.state.files, files)
+  })
+}
+
+const convertFiles = (props, monitor, component) => {
   const { files } = monitor.getItem()
   const filtered = files.filter(file => file.type.includes('image'))
 
@@ -50,7 +66,8 @@ class Sanitizer extends Component {
     super(props)
 
     this.state = {
-      status: 'IDLE'
+      status: 'IDLE',
+      files: {}
     }
 
     this.isHover = this.isHover.bind(this)
@@ -60,14 +77,19 @@ class Sanitizer extends Component {
 
   getMessage() {
     switch (this.state.status) {
-      case 'IDLE': return (
-        <div>
-          <h1>
-            { this.isHover() ? 'Drop' : 'Drag & drop' }
-          </h1>
-          <p className="detail">your files here to convert</p>
-        </div>
-      )
+      case 'IDLE': {
+        if (!Object.keys(this.state.files).length) {
+          return (
+            <div>
+              <h1>
+                { this.isHover() ? 'Drop' : 'Drag & drop' }
+              </h1>
+              <p className="detail">your files here to convert</p>
+            </div>
+          )
+        }
+        return null
+      }
       case 'CONVERTING': return (
         <div>
           <h1>
@@ -158,6 +180,28 @@ class Sanitizer extends Component {
         </svg>
       )
       default:
+        if (Object.keys(this.state.files).length) {
+          return (
+            <div
+              className="file__list"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'stretch',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <button className="button__convert">CONVERT</button>
+              {
+                Object.keys(this.state.files).map(key =>
+                  <p className="file__list-item" key={key}>{this.state.files[key].name}</p>
+                )
+              }
+            </div>
+          )
+        }
         return (
           <svg width="215" height="110" viewBox="-22 -15 215 110" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fillRule="evenodd">
