@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '6'
+before_deploy:
+  - 'npm run build'
+  - 'npm run package'
+  - 'npm run zip'
+deploy:
+  provider: releases
+  api_key:
+    secure: V+pC1E/0CnhPcXr/BF4S3mVFzEQe7OInc6h8rpw9eXS5GrV2x3ehaUrsZCu+SEU5m8l8R95Lq6b2FScSHIj0NyWfpKf2J/a/TwQnvpOeZ0QDFVe6sUHDv8BGH+aQmyfH6Wd/M+t90gkDrFx0W+skm5t91ohkjJLlUF3afvxw2XpGO12//LS7dfCxffpWZcdV4DHN8AGJ0Kxu7wKBJIzeTIhdcJhmLmHo70PlDF0tJOXb6kFyHmD59vv0RjKBLTH10JQ9uaVjRc9+wuqTGEm6kgLTHfx3TWgSDQxn6bOiTnwdHZkSqeTRzdWilNVeX2fW0gq732L+wOYwx2krmJfl7m7XOi3YDutoVeHiBQt0FwFwsEWBQb3lDK/7xazYvob56wR2BFNIDcTsKIPewgIO0WEi/6Sz+XReBwn3EnPBKT4O6YOownBpMy9vzCVv5i/NQdhQs+qIlTOrpt42KxVOPLZ4VpqFR82PxSV9lmJK0db+d/CxLcT98n1WQsYO86p5enD1O6CvTw2fgG7tm4DPeKuOeTzX93T6BDx74JvrmvPq0phUa+dVJ/uCI4Dv+4gqKb1F22hJ/e7KssDs4XQmDpw7J3IMZySwmOq9hNBMETZrO9hIbuKZjTynw1LHK5Sbj0vh6+A4ZhG5hHIhYM0uNN2eO5kqKIqSzLs9t0gj9gw=
+  file: ./packaged/Alchemy.zip
+  skip_cleanup: true
+  on:
+    tags: true
