@@ -6,15 +6,9 @@ import Failed from './svg/Failed'
 import Done from './svg/Done'
 import Converting from './svg/Converting'
 import Idle from './svg/Idle'
-import { convert } from '../api'
 
-const uniqueFiles = (files, newArray) =>
-  newArray.reduce((accum, next) => {
-    if (accum[next.path]) return accum
-    return Object.assign(accum, {
-      [next.path]: next
-    })
-  }, files)
+import { convert } from '../api'
+import { uniqueFiles } from '../helpers/util'
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
@@ -22,47 +16,6 @@ const drop = (props, monitor, component) => {
     status: 'IDLE',
     files: uniqueFiles(component.state.files, files)
   })
-}
-
-const convertFiles = (props, monitor, component) => {
-  const { files } = monitor.getItem()
-  const filtered = files.filter(file => file.type.includes('image'))
-
-  if (filtered.length) {
-    const [ref] = filtered
-
-    // where to place output file
-    const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
-
-    component.setState({
-      status: 'CONVERTING'
-    })
-
-    convert({
-      files: filtered.map(f => f.path),
-      outputPath
-    }).then((fileName) => {
-      component.setState({
-        status: 'DONE',
-        fileName
-      })
-      setTimeout(() => {
-        component.setState({
-          status: 'IDLE'
-        })
-      }, 3000)
-    }).catch((err) => {
-      alert(`ERR: ${err}`)
-      component.setState({
-        status: 'FAILED'
-      })
-      setTimeout(() => {
-        component.setState({
-          status: 'IDLE'
-        })
-      }, 3000)
-    })
-  } else component.setState({ status: 'IDLE' })
 }
 
 class Sanitizer extends Component {
@@ -77,6 +30,7 @@ class Sanitizer extends Component {
     this.isHover = this.isHover.bind(this)
     this.getIconObject = this.getIconObject.bind(this)
     this.getMessage = this.getMessage.bind(this)
+    this.convert = this.convert.bind(this)
   }
 
   getMessage() {
@@ -141,7 +95,7 @@ class Sanitizer extends Component {
                 height: '100%',
               }}
             >
-              <button className="button__convert">CONVERT</button>
+              <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
               {
                 Object.keys(this.state.files).map(key =>
                   <p className="file__list-item" key={key}>{this.state.files[key].name}</p>
@@ -152,6 +106,50 @@ class Sanitizer extends Component {
         }
         return <Idle />
     }
+  }
+
+  convert() {
+    const filtered = Object.keys(this.state.files)
+                           .map(key => this.state.files[key])
+                           .filter(file => file.type.includes('image'))
+
+    if (filtered.length) {
+      const [ref] = filtered
+
+      // where to place output file
+      const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
+
+      this.setState({
+        status: 'CONVERTING'
+      })
+
+      convert({
+        files: filtered.map(f => f.path),
+        outputPath
+      }).then((fileName) => {
+        this.setState({
+          status: 'DONE',
+          fileName
+        })
+        setTimeout(() => {
+          this.setState({
+            status: 'IDLE',
+            files: {},
+          })
+        }, 3000)
+      }).catch((err) => {
+        alert(`ERR: ${err}`)
+        this.setState({
+          status: 'FAILED'
+        })
+        setTimeout(() => {
+          this.setState({
+            status: 'IDLE',
+            files: {},
+          })
+        }, 3000)
+      })
+    } else this.setState({ status: 'IDLE' })
   }
 
   isHover() {
