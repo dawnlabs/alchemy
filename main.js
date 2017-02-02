@@ -1,6 +1,5 @@
 const menubar = require('menubar')
 
-const { installImageMagick } = require('./src/api')
 const configure = require('./src/helpers/configure')
 
 const mb = menubar({

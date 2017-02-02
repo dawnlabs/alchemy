@@ -1,4 +1,3 @@
-const { exec, which } = require('shelljs')
 const md5 = require('md5')
 const execS = require('child_process').exec
 
@@ -25,27 +24,6 @@ const convert = ({ files, outputPath, name }) => {
   })
 }
 
-const checkForBrew = () => !!which('brew')
-const checkForImageMagick = () => !!which('convert')
-const installImageMagick = () => {
-  if (!checkForBrew()) return Promise.resolve(-1)
-
-  if (!checkForImageMagick()) {
-    if (confirm('ImageMagick is required to run this app. Install now?')) {
-      return new Promise((resolve) => {
-        exec('brew install imagemagick', (code) => {
-          resolve(code)
-        })
-      })
-    }
-  }
-
-  return Promise.resolve(0)
-}
-
 module.exports = {
-  convert,
-  checkForBrew,
-  checkForImageMagick,
-  installImageMagick
+  convert
 }
