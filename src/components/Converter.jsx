@@ -16,6 +16,10 @@ const drop = (props, monitor, component) => {
     status: 'IDLE',
     files: uniqueFiles(component.state.files, files)
   })
+
+  if (component.state.shifted) {
+    component.convert()
+  }
 }
 
 class Sanitizer extends Component {
@@ -31,6 +35,27 @@ class Sanitizer extends Component {
     this.getIconObject = this.getIconObject.bind(this)
     this.getMessage = this.getMessage.bind(this)
     this.convert = this.convert.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Shift') {
+        this.setState({
+          shifted: true
+        })
+      }
+    })
+    window.addEventListener('keyup', () => {
+      this.setState({
+        shifted: false
+      })
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup')
+    window.removeEventListener('keydown')
   }
 
   getMessage() {
@@ -42,7 +67,9 @@ class Sanitizer extends Component {
               <h1>
                 { this.isHover() ? 'Drop' : 'Drag & drop' }
               </h1>
-              <p className="detail">your files here to convert</p>
+              <p className="detail">
+                {`your files here to ${this.state.shifted ? 'convert' : 'add them'}`}
+              </p>
             </div>
           )
         }
