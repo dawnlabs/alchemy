@@ -111,17 +111,7 @@ class Sanitizer extends Component {
       default:
         if (Object.keys(this.state.files).length) {
           return (
-            <div
-              className="file__list"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-                alignItems: 'stretch',
-                width: '100%',
-                height: '100%',
-              }}
-            >
+            <div className="file__list">
               <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
               {
                 Object.keys(this.state.files).map(key =>
@@ -141,18 +131,14 @@ class Sanitizer extends Component {
                            .filter(file => file.type.includes('image'))
 
     if (filtered.length) {
-      const [ref] = filtered
-
-      // where to place output file
-      const outputPath = ref.path.slice(0, ref.path.length - ref.name.length)
-
       this.setState({
         status: 'CONVERTING'
       })
 
       convert({
         files: filtered.map(f => f.path),
-        outputPath
+        outputPath: filtered[0].path
+                               .slice(0, filtered[0].path.length - filtered[0].name.length)
       }).then((fileName) => {
         this.setState({
           status: 'DONE',
@@ -184,7 +170,7 @@ class Sanitizer extends Component {
   }
 
   render() {
-    const { connectDropTarget, isOver } = this.props
+    const { connectDropTarget } = this.props
     return connectDropTarget(
       <div
         className={`container ${(this.state.status === 'IDLE') ?

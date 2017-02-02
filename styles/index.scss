@@ -89,6 +89,13 @@ p {
 
 .file__list {
   z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+
   &-item {
     margin: 6px 0 0;
     padding: 4px 8px;
