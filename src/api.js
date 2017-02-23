@@ -7,7 +7,7 @@ const convert = ({ files, outputPath, name }) => {
   process.env['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
   return new Promise((resolve, reject) => {
-    execS('which convert', (error, stdout, stderr) => {
+    execS('which convert', (error) => {
       if (error) reject(error)
 
       const fileString = files.map(replaceSpaceCharacters).join(' ')
@@ -23,6 +23,20 @@ const convert = ({ files, outputPath, name }) => {
   })
 }
 
+const installImageMagick = () => {
+  return new Promise((resolve, reject) => {
+    execS('which brew', (error) => {
+      if (error) reject(new Error('Brew is required to run Alchemy. Please visit https://brew.sh/ to install.'))
+      else {
+        execS('brew install imagemagick', (error) => {
+          return error ? reject(error) : resolve(true)
+        })
+      }
+    })
+  })
+}
+
 module.exports = {
-  convert
+  convert,
+  installImageMagick
 }
