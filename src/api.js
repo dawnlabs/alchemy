@@ -9,17 +9,16 @@ const convert = ({ files, outputPath, name }) => {
   return new Promise((resolve, reject) => {
     execS('which convert', (error, stdout, stderr) => {
       if (error) reject(error)
-      else {
-        const fileString = files.map(replaceSpaceCharacters).join(' ')
-        const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
-        const command = `convert ${fileString} ${outputPath}${outputName}`
-        console.log(command)
 
-        execS(command, (error) => {
-          if (error) reject(error)
-          else resolve(outputName)
-        })
-      }
+      const fileString = files.map(replaceSpaceCharacters).join(' ')
+      const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
+      const command = `convert ${fileString} ${outputPath}${outputName}`
+      console.log(command)
+
+      execS(command, (error) => {
+        if (error) reject(error)
+        else resolve(outputName)
+      })
     })
   })
 }
