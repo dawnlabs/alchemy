@@ -8,9 +8,11 @@ import Converting from './svg/Converting'
 import Idle from './svg/Idle'
 import Merge from './svg/Merge'
 import Convert from './svg/Convert'
+import ArrowDown from './svg/ArrowDown'
+import Cancel from './svg/Cancel'
 
 import { convert } from '../api'
-import { uniqueFiles } from '../helpers/util'
+import { removeByKey, uniqueFiles } from '../helpers/util'
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
@@ -31,6 +33,7 @@ class Sanitizer extends Component {
 
     this.state = {
       status: 'IDLE',
+      operation: 'CONVERT',
       files: {}
     }
 
@@ -109,28 +112,42 @@ class Sanitizer extends Component {
       case 'STAGING': return (
         <div className="staging">
           <input type="text" value="Alchemy-1.txt" />
-          <div className="switch">
-            <div className="merge">
-              <Merge />
-              <div>Merge</div>
+          <div className="row">
+            <div className="switch">
+              <button
+                className={`switch__btn merge ${this.state.operation === 'MERGE' ? 'switch__btn-active' : ''}`}
+                onClick={() => this.setState({ operation: 'MERGE' })}
+              >
+                <Merge />
+                <div>Merge</div>
+              </button>
+              <button
+                className={`switch__btn convert ${this.state.operation === 'CONVERT' ? 'switch__btn-active' : ''}`}
+                onClick={() => this.setState({ operation: 'CONVERT' })}
+              >
+                <Convert />
+                <div>Convert</div>
+              </button>
             </div>
-            <div className="convert">
-              <Convert />
-              <div>Convert</div>
+            <div className="dropdown">
+              <select name="file-type">
+                <option value="gif">GIF</option>
+                <option value="pdf">PDF</option>
+              </select>
+              <ArrowDown />
             </div>
-          </div>
-          <div className="dropdown">
-            <select name="file-type">
-              <option value="gif">GIF</option>
-              <option value="pdf">PDF</option>
-            </select>
           </div>
           <div className="file-list">
             {
               Object.keys(this.state.files).map(key =>
                 <div className="file-list__item" key={key}>
                   <div>{this.state.files[key].name}</div>
-                  <button className="close-btn" />
+                  <button
+                    className="close-btn"
+                    onClick={() => this.setState({ files: removeByKey(this.state.files, key) })}
+                  >
+                    <Cancel />
+                  </button>
                 </div>
               )
             }
@@ -190,7 +207,8 @@ class Sanitizer extends Component {
     const { connectDropTarget } = this.props
     return connectDropTarget(
       <div
-        className={`container ${(this.state.status === 'IDLE') ?
+        className={`container ${this.state.status === 'STAGING' ? 'no-padding ' : ''}
+          ${(this.state.status === 'IDLE') ?
          (this.isHover() ? 'border-hover' : 'border-dashed') : ''}`}
       >
         {this.getIconObject()}
@@ -199,10 +217,6 @@ class Sanitizer extends Component {
     )
   }
 }
-
-// {!isOver && !canDrop && <div dangerouslySetInnerHTML={{ __html: octicons['file-pdf'].toSVG({ width: 100 }) }} />}
-// {!isOver && canDrop && }
-// {isOver && }
 
 // { drop } since other functions can be passed here
 export default DropTarget(NativeTypes.FILE, { drop }, (connect, monitor) => ({
