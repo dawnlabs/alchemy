@@ -6,6 +6,8 @@ import Failed from './svg/Failed'
 import Done from './svg/Done'
 import Converting from './svg/Converting'
 import Idle from './svg/Idle'
+import Merge from './svg/Merge'
+import Convert from './svg/Convert'
 
 import { convert } from '../api'
 import { uniqueFiles } from '../helpers/util'
@@ -112,12 +114,34 @@ class Sanitizer extends Component {
         if (Object.keys(this.state.files).length) {
           return (
             <div className="file__list">
+              <input type="text" value="Alchemy-1.txt">
+                <div className="switch">
+                  <div className="merge">
+                    <Merge />
+                    <div>Merge</div>
+                  </div>
+                  <div className="convert">
+                    <Convert />
+                    <div>Convert</div>
+                  </div>
+                </div>
+                <div className="dropdown">
+                  <select name="file-type">
+                    <option value="gif">GIF</option>
+                    <option value="pdf">PDF</option>
+                  </select>
+                </div>
+                <div className="file-list">
+                  <div className="file-list__item">
+                    
+                  </div>
+                </div>
+                {
+                  Object.keys(this.state.files).map(key =>
+                    <p className="file__list-item" key={key}>{this.state.files[key].name}</p>
+                  )
+                }
               <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
-              {
-                Object.keys(this.state.files).map(key =>
-                  <p className="file__list-item" key={key}>{this.state.files[key].name}</p>
-                )
-              }
             </div>
           )
         }
