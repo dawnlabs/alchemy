@@ -4,7 +4,6 @@
   "scripts": {
     "start": "electron .",
     "build": "webpack",
-    "distribute": "cp -r * /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app",
     "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
     "zip": "cd packaged/Alchemy-darwin-x64/ ; zip -r ../Alchemy.zip * ; cd .."
   },
