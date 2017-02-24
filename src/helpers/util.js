@@ -1,6 +1,13 @@
-function replaceSpaceCharacters(str) {
-  return str.replace(/\s/g, '\\ ')
-}
+const replaceSpaceCharacters = str =>
+  str.replace(/\s/g, '\\ ')
+
+const concatFiles = files =>
+  files.map(path => path.split('/').pop())
+       .map(file => file.split('.')[0])
+       .map(file => file.substr(0, 10))
+       .join('_')
+       .replace(/\s/g, '')
+       .substr(0, 50)
 
 const uniqueFiles = (files, newArray) =>
   newArray.reduce((accum, next) => {
@@ -11,6 +18,7 @@ const uniqueFiles = (files, newArray) =>
   }, files)
 
 module.exports = {
+  concatFiles,
   replaceSpaceCharacters,
   uniqueFiles
 }

@@ -1,7 +1,7 @@
 const md5 = require('md5')
 const execS = require('child_process').exec
 
-const { replaceSpaceCharacters } = require('./helpers/util')
+const { replaceSpaceCharacters, concatFiles } = require('./helpers/util')
 
 const convert = ({ files, outputPath, name }) => {
   // eslint-disable-next-line dot-notation
@@ -12,7 +12,7 @@ const convert = ({ files, outputPath, name }) => {
       if (error) reject(error)
 
       const fileString = files.map(replaceSpaceCharacters).join(' ')
-      const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
+      const outputName = name || `ALCHEMY-${concatFiles(files)}.pdf`
       const command = `convert ${fileString} ${outputPath}${outputName}`
       console.log(command)
 
