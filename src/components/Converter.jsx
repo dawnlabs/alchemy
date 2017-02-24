@@ -14,9 +14,10 @@ import { uniqueFiles } from '../helpers/util'
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
+  const filesUnique = uniqueFiles(component.state.files, files)
   component.setState({
-    status: 'IDLE',
-    files: uniqueFiles(component.state.files, files)
+    status: Object.keys(filesUnique).length ? 'STAGING' : 'IDLE',
+    files: filesUnique
   })
 
   if (component.state.shifted) {
@@ -62,21 +63,16 @@ class Sanitizer extends Component {
 
   getMessage() {
     switch (this.state.status) {
-      case 'IDLE': {
-        if (!Object.keys(this.state.files).length) {
-          return (
-            <div>
-              <h1>
-                { this.isHover() ? 'Drop' : 'Drag & drop' }
-              </h1>
-              <p className="detail">
-                {`your files here to ${this.state.shifted ? 'convert' : 'add them'}`}
-              </p>
-            </div>
-          )
-        }
-        return null
-      }
+      case 'IDLE': return (
+        <div>
+          <h1>
+            { this.isHover() ? 'Drop' : 'Drag & drop' }
+          </h1>
+          <p className="detail">
+            {`your files here to ${this.state.shifted ? 'convert' : 'add them'}`}
+          </p>
+        </div>
+      )
       case 'CONVERTING': return (
         <div>
           <h1>
@@ -110,42 +106,39 @@ class Sanitizer extends Component {
       case 'FAILED': return <Failed />
       case 'DONE': return <Done />
       case 'CONVERTING': return <Converting />
-      default:
-        if (Object.keys(this.state.files).length) {
-          return (
-            <div className="file__list">
-              <input type="text" value="Alchemy-1.txt">
-                <div className="switch">
-                  <div className="merge">
-                    <Merge />
-                    <div>Merge</div>
-                  </div>
-                  <div className="convert">
-                    <Convert />
-                    <div>Convert</div>
-                  </div>
-                </div>
-                <div className="dropdown">
-                  <select name="file-type">
-                    <option value="gif">GIF</option>
-                    <option value="pdf">PDF</option>
-                  </select>
-                </div>
-                <div className="file-list">
-                  <div className="file-list__item">
-                    
-                  </div>
-                </div>
-                {
-                  Object.keys(this.state.files).map(key =>
-                    <p className="file__list-item" key={key}>{this.state.files[key].name}</p>
-                  )
-                }
-              <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
+      case 'STAGING': return (
+        <div className="staging">
+          <input type="text" value="Alchemy-1.txt" />
+          <div className="switch">
+            <div className="merge">
+              <Merge />
+              <div>Merge</div>
             </div>
-          )
-        }
-        return <Idle />
+            <div className="convert">
+              <Convert />
+              <div>Convert</div>
+            </div>
+          </div>
+          <div className="dropdown">
+            <select name="file-type">
+              <option value="gif">GIF</option>
+              <option value="pdf">PDF</option>
+            </select>
+          </div>
+          <div className="file-list">
+            {
+              Object.keys(this.state.files).map(key =>
+                <div className="file-list__item" key={key}>
+                  <div>{this.state.files[key].name}</div>
+                  <button className="close-btn" />
+                </div>
+              )
+            }
+          </div>
+          <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
+        </div>
+      )
+      default: return <Idle />
     }
   }
 
