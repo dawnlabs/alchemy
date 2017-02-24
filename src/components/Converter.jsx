@@ -152,7 +152,7 @@ class Sanitizer extends Component {
               )
             }
           </div>
-          <button className="button__convert" onClick={() => { this.convert() }}>CONVERT</button>
+          <button className="button__convert" onClick={() => { this.convert() }}>{this.state.operation}</button>
         </div>
       )
       default: return <Idle />
