@@ -34,6 +34,7 @@ class Sanitizer extends Component {
     this.state = {
       status: 'IDLE',
       operation: 'CONVERT',
+      outputType: 'pdf',
       files: {}
     }
 
@@ -42,6 +43,7 @@ class Sanitizer extends Component {
     this.getMessage = this.getMessage.bind(this)
     this.convert = this.convert.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.handleOutputTypeChange = this.handleOutputTypeChange.bind(this)
   }
 
   componentDidMount() {
@@ -130,9 +132,9 @@ class Sanitizer extends Component {
               </button>
             </div>
             <div className="dropdown">
-              <select name="file-type">
-                <option value="gif">GIF</option>
+              <select name="file-type" value={this.state.outputType} onChange={this.handleOutputTypeChange}>
                 <option value="pdf">PDF</option>
+                <option value="gif">GIF</option>
               </select>
               <ArrowDown />
             </div>
@@ -159,6 +161,10 @@ class Sanitizer extends Component {
     }
   }
 
+  handleOutputTypeChange(e) {
+    this.setState({ outputType: e.target.value })
+  }
+
   convert() {
     const filtered = Object.keys(this.state.files)
                            .map(key => this.state.files[key])
@@ -172,7 +178,8 @@ class Sanitizer extends Component {
       convert({
         files: filtered.map(f => f.path),
         outputPath: filtered[0].path
-                               .slice(0, filtered[0].path.length - filtered[0].name.length)
+                               .slice(0, filtered[0].path.length - filtered[0].name.length),
+        outputType: this.state.outputType
       }).then((fileName) => {
         this.setState({
           status: 'DONE',
