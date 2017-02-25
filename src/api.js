@@ -9,7 +9,7 @@ const convert = ({ files, outputPath, outputType, name }) => {
     execS('which convert', (error) => {
       if (error) reject(error)
 
-      const outputName = name || createOutputFileName({ files, outputType })
+      const outputName = name || createOutputFileName(files, outputType)
       const command = [
         'convert',
         ...files.map(replaceSpaceCharacters), // input files

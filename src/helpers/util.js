@@ -13,7 +13,7 @@ const filterImages = files => Object.keys(files)
                                     .map(key => files[key])
                                     .filter(file => file.type.includes('image'))
 
-const createOutputFileName = ({ files, outputType }) => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
+const createOutputFileName = (files, outputType) => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
 
 const centerEllipsis = str => (
   (str.length > 15) ?
@@ -21,11 +21,9 @@ const centerEllipsis = str => (
     str
 )
 
-const displayOutputFileName = files => outputType =>
-  centerEllipsis(createOutputFileName({
-    files: filterImages(files).map(f => f.path),
-    outputType
-  }))
+// TODO curry?
+const displayOutputFileName = (files, outputType) =>
+  centerEllipsis(createOutputFileName(filterImages(files).map(f => f.path), outputType))
 
 const uniqueFiles = (files, newArray) =>
   newArray.reduce((accum, next) => {
