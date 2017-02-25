@@ -13,12 +13,22 @@ import Cancel from './svg/Cancel'
 
 import { convert } from '../api'
 import { removeByKey, uniqueFiles } from '../helpers/util'
+import {
+  fileTypes,
+  MERGE,
+  CONVERT,
+  IDLE,
+  STAGING,
+  CONVERTING,
+  FAILED,
+  DONE
+} from '../helpers/constants'
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
   const filesUnique = uniqueFiles(component.state.files, files)
   component.setState({
-    status: Object.keys(filesUnique).length ? 'STAGING' : 'IDLE',
+    status: Object.keys(filesUnique).length ? STAGING : IDLE,
     files: filesUnique
   })
 
@@ -32,8 +42,8 @@ class Sanitizer extends Component {
     super(props)
 
     this.state = {
-      status: 'IDLE',
-      operation: 'CONVERT',
+      status: IDLE,
+      operation: MERGE,
       outputType: 'pdf',
       files: {}
     }
@@ -108,24 +118,24 @@ class Sanitizer extends Component {
 
   getIconObject() {
     switch (this.state.status) {
-      case 'FAILED': return <Failed />
-      case 'DONE': return <Done />
-      case 'CONVERTING': return <Converting />
-      case 'STAGING': return (
+      case FAILED: return <Failed />
+      case DONE: return <Done />
+      case CONVERTING: return <Converting />
+      case STAGING: return (
         <div className="staging">
           <input type="text" value="Alchemy-1.txt" />
           <div className="row">
             <div className="switch">
               <button
-                className={`switch__btn merge ${this.state.operation === 'MERGE' ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({ operation: 'MERGE' })}
+                className={`switch__btn merge ${this.state.operation === MERGE ? 'switch__btn-active' : ''}`}
+                onClick={() => this.setState({ operation: MERGE })}
               >
                 <Merge />
                 <div>Merge</div>
               </button>
               <button
-                className={`switch__btn convert ${this.state.operation === 'CONVERT' ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({ operation: 'CONVERT' })}
+                className={`switch__btn convert ${this.state.operation === CONVERT ? 'switch__btn-active' : ''}`}
+                onClick={() => this.setState({ operation: CONVERT })}
               >
                 <Convert />
                 <div>Convert</div>
@@ -133,8 +143,11 @@ class Sanitizer extends Component {
             </div>
             <div className="dropdown">
               <select name="file-type" value={this.state.outputType} onChange={this.handleOutputTypeChange}>
-                <option value="pdf">PDF</option>
-                <option value="gif">GIF</option>
+                {
+                  fileTypes[this.state.operation].map(type => (
+                    <option key={type} value={type}>{type.toUpperCase()}</option>
+                  ))
+                }
               </select>
               <ArrowDown />
             </div>
@@ -172,7 +185,7 @@ class Sanitizer extends Component {
 
     if (filtered.length) {
       this.setState({
-        status: 'CONVERTING'
+        status: CONVERTING
       })
 
       convert({
@@ -182,40 +195,40 @@ class Sanitizer extends Component {
         outputType: this.state.outputType
       }).then((fileName) => {
         this.setState({
-          status: 'DONE',
+          status: DONE,
           fileName
         })
         setTimeout(() => {
           this.setState({
-            status: 'IDLE',
+            status: IDLE,
             files: {},
           })
         }, 3000)
       }).catch((err) => {
         alert(`ERR: ${err}`)
         this.setState({
-          status: 'FAILED'
+          status: FAILED
         })
         setTimeout(() => {
           this.setState({
-            status: 'IDLE',
+            status: IDLE,
             files: {},
           })
         }, 3000)
       })
-    } else this.setState({ status: 'IDLE' })
+    } else this.setState({ status: IDLE })
   }
 
   isHover() {
-    return this.props.isOver && this.state.status !== 'CONVERTING'
+    return this.props.isOver && this.state.status !== CONVERTING
   }
 
   render() {
     const { connectDropTarget } = this.props
     return connectDropTarget(
       <div
-        className={`container ${this.state.status === 'STAGING' ? 'no-padding ' : ''}
-          ${(this.state.status === 'IDLE') ?
+        className={`container ${this.state.status === STAGING ? 'no-padding ' : ''}
+          ${(this.state.status === IDLE) ?
          (this.isHover() ? 'border-hover' : 'border-dashed') : ''}`}
       >
         {this.getIconObject()}
