@@ -169,7 +169,15 @@ class Sanitizer extends Component {
                   <div>{this.state.files[key].name}</div>
                   <button
                     className="close-btn"
-                    onClick={() => this.setState({ files: removeByKey(this.state.files, key) })}
+                    onClick={() => {
+                      this.setState({
+                        files: removeByKey(this.state.files, key)
+                      }, () => {
+                        this.setState({
+                          status: Object.keys(this.state.files).length ? this.state.status : IDLE
+                        })
+                      })
+                    }}
                   >
                     <Cancel />
                   </button>
