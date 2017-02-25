@@ -10,9 +10,13 @@ const convert = ({ files, outputPath, outputType, name }) => {
     execS('which convert', (error) => {
       if (error) reject(error)
 
-      const fileString = files.map(replaceSpaceCharacters).join(' ')
       const outputName = name || `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
-      const command = `convert ${fileString} ${outputPath}${outputName}`
+      const command = [
+        'convert',
+        ...files.map(replaceSpaceCharacters), // input files
+        outputPath + outputName
+      ].join(' ')
+
       console.log(command)
 
       execS(command, (error) => {
