@@ -9,6 +9,24 @@ const concatFiles = files =>
        .replace(/\s/g, '')
        .substr(0, 50)
 
+const filterImages = files => Object.keys(files)
+                                    .map(key => files[key])
+                                    .filter(file => file.type.includes('image'))
+
+const createOutputFileName = ({ files, outputType }) => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
+
+const centerEllipsis = str => (
+  (str.length > 15) ?
+    `${str.substr(0, 7)}...${str.substr(str.length - 7, str.length)}` :
+    str
+)
+
+const displayOutputFileName = files => outputType =>
+  centerEllipsis(createOutputFileName({
+    files: filterImages(files).map(f => f.path),
+    outputType
+  }))
+
 const uniqueFiles = (files, newArray) =>
   newArray.reduce((accum, next) => {
     if (accum[next.path]) return accum
@@ -24,6 +42,10 @@ const removeByKey = (myObj, deleteKey) => {
 }
 
 module.exports = {
+  displayOutputFileName,
+  centerEllipsis,
+  filterImages,
+  createOutputFileName,
   concatFiles,
   removeByKey,
   replaceSpaceCharacters,

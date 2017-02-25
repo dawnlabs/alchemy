@@ -12,7 +12,7 @@ import ArrowDown from './svg/ArrowDown'
 import Cancel from './svg/Cancel'
 
 import { convert } from '../api'
-import { removeByKey, uniqueFiles } from '../helpers/util'
+import { removeByKey, uniqueFiles, displayOutputFileName, filterImages } from '../helpers/util'
 import {
   fileTypes,
   MERGE,
@@ -123,7 +123,11 @@ class Sanitizer extends Component {
       case CONVERTING: return <Converting />
       case STAGING: return (
         <div className="staging">
-          <input type="text" value="Alchemy-1.txt" />
+          {/* TODO make this compose better */}
+          <input
+            type="text"
+            value={displayOutputFileName(this.state.files)(this.state.outputType)}
+          />
           <div className="row">
             <div className="switch">
               <button
@@ -179,9 +183,7 @@ class Sanitizer extends Component {
   }
 
   convert() {
-    const filtered = Object.keys(this.state.files)
-                           .map(key => this.state.files[key])
-                           .filter(file => file.type.includes('image'))
+    const filtered = filterImages(this.state.files)
 
     if (filtered.length) {
       this.setState({

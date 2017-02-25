@@ -1,6 +1,5 @@
 const execS = require('child_process').exec
-
-const { replaceSpaceCharacters, concatFiles } = require('./helpers/util')
+const { replaceSpaceCharacters, createOutputFileName } = require('./helpers/util')
 
 const convert = ({ files, outputPath, outputType, name }) => {
   // eslint-disable-next-line dot-notation
@@ -10,7 +9,7 @@ const convert = ({ files, outputPath, outputType, name }) => {
     execS('which convert', (error) => {
       if (error) reject(error)
 
-      const outputName = name || `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
+      const outputName = name || createOutputFileName({ files, outputType })
       const command = [
         'convert',
         ...files.map(replaceSpaceCharacters), // input files
