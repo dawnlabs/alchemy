@@ -137,7 +137,7 @@ class Sanitizer extends Component {
           <div className="row">
             <div className="switch">
               {
-                operations.map(op => (
+                Object.keys(fileTypes).map(op => (
                   <button
                     className={`switch__btn merge ${this.state.operation === op ? 'switch__btn-active' : ''}`}
                     onClick={() => this.setState({

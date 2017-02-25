@@ -15,11 +15,11 @@ const filterImages = files => Object.keys(files)
 
 const createOutputFileName = (files, outputType) => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
 
-const centerEllipsis = str => (
-  (str.length > 15) ?
-    `${str.substr(0, 7)}...${str.substr(str.length - 7, str.length)}` :
+function centerEllipsis(str, length = 7) {
+  return (str.length > (length * 2) + 1) ?
+    `${str.substr(0, length)}...${str.substr(str.length - length, str.length)}` :
     str
-)
+}
 
 // TODO curry?
 const displayOutputFileName = (files, outputType) =>
