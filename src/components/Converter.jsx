@@ -126,20 +126,26 @@ class Sanitizer extends Component {
           {/* TODO make this compose better */}
           <input
             type="text"
-            value={displayOutputFileName(this.state.files)(this.state.outputType)}
+            value={displayOutputFileName(this.state.files, this.state.outputType)}
           />
           <div className="row">
             <div className="switch">
               <button
                 className={`switch__btn merge ${this.state.operation === MERGE ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({ operation: MERGE })}
+                onClick={() => this.setState({
+                  operation: MERGE,
+                  outputType: fileTypes[MERGE][0]
+                })}
               >
                 <Merge />
                 <div>Merge</div>
               </button>
               <button
                 className={`switch__btn convert ${this.state.operation === CONVERT ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({ operation: CONVERT })}
+                onClick={() => this.setState({
+                  operation: CONVERT,
+                  outputType: fileTypes[CONVERT][0]
+                })}
               >
                 <Convert />
                 <div>Convert</div>
