@@ -21,7 +21,8 @@ import {
   STAGING,
   CONVERTING,
   FAILED,
-  DONE
+  DONE,
+  operations
 } from '../helpers/constants'
 
 const drop = (props, monitor, component) => {
@@ -36,6 +37,11 @@ const drop = (props, monitor, component) => {
     component.convert()
   }
 }
+
+const mapOperationToComp = key => ({
+  [CONVERT]: <Convert />,
+  [MERGE]: <Merge />
+}[key])
 
 class Sanitizer extends Component {
   constructor(props) {
@@ -130,26 +136,20 @@ class Sanitizer extends Component {
           />
           <div className="row">
             <div className="switch">
-              <button
-                className={`switch__btn merge ${this.state.operation === MERGE ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({
-                  operation: MERGE,
-                  outputType: fileTypes[MERGE][0]
-                })}
-              >
-                <Merge />
-                <div>Merge</div>
-              </button>
-              <button
-                className={`switch__btn convert ${this.state.operation === CONVERT ? 'switch__btn-active' : ''}`}
-                onClick={() => this.setState({
-                  operation: CONVERT,
-                  outputType: fileTypes[CONVERT][0]
-                })}
-              >
-                <Convert />
-                <div>Convert</div>
-              </button>
+              {
+                operations.map(op => (
+                  <button
+                    className={`switch__btn merge ${this.state.operation === op ? 'switch__btn-active' : ''}`}
+                    onClick={() => this.setState({
+                      operation: op,
+                      outputType: fileTypes[op][0]
+                    })}
+                  >
+                    {mapOperationToComp(op)}
+                    <div>{`${op.charAt(0)}${op.slice(1).toLowerCase()}`}</div>
+                  </button>
+                ))
+              }
             </div>
             <div className="dropdown">
               <select name="file-type" value={this.state.outputType} onChange={this.handleOutputTypeChange}>

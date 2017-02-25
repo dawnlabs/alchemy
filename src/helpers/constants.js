@@ -23,6 +23,7 @@ module.exports = {
     [CONVERT]: ['png', 'jpg', 'bmp', 'tiff'],
     [MERGE]: ['pdf', 'gif']
   },
+  operations: [MERGE, CONVERT],
   blue,
   lightBlue,
   offwhite,
