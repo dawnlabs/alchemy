@@ -17,13 +17,11 @@ const uniqueFiles = (files, newArray) =>
     })
   }, files)
 
-const removeByKey = (myObj, deleteKey) =>
-  Object.keys(myObj)
-    .filter(key => key !== deleteKey)
-    .reduce((result, current) => {
-      result[current] = myObj[current]
-      return result
-    }, {})
+const removeByKey = (myObj, deleteKey) => {
+  const newObj = Object.assign({}, myObj)
+  delete newObj[deleteKey]
+  return newObj
+}
 
 module.exports = {
   concatFiles,
