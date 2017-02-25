@@ -21,8 +21,7 @@ import {
   STAGING,
   CONVERTING,
   FAILED,
-  DONE,
-  operations
+  DONE
 } from '../helpers/constants'
 
 const drop = (props, monitor, component) => {
@@ -132,7 +131,7 @@ class Sanitizer extends Component {
           {/* TODO make this compose better */}
           <input
             type="text"
-            value={displayOutputFileName(this.state.files, this.state.outputType)}
+            value={displayOutputFileName(this.state.outputType)(this.state.files)}
           />
           <div className="row">
             <div className="switch">

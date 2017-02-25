@@ -1,3 +1,5 @@
+const { pluck, compose, map } = require('./functional')
+
 const replaceSpaceCharacters = str =>
   str.replace(/\s/g, '\\ ')
 
@@ -13,7 +15,7 @@ const filterImages = files => Object.keys(files)
                                     .map(key => files[key])
                                     .filter(file => file.type.includes('image'))
 
-const createOutputFileName = (files, outputType) => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
+const createOutputFileName = outputType => files => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
 
 function centerEllipsis(str, length = 7) {
   return (str.length > (length * 2) + 1) ?
@@ -21,9 +23,8 @@ function centerEllipsis(str, length = 7) {
     str
 }
 
-// TODO curry?
-const displayOutputFileName = (files, outputType) =>
-  centerEllipsis(createOutputFileName(filterImages(files).map(f => f.path), outputType))
+const displayOutputFileName = outputType =>
+  compose(filterImages, map(pluck('path')), createOutputFileName(outputType), centerEllipsis)
 
 const uniqueFiles = (files, newArray) =>
   newArray.reduce((accum, next) => {
