@@ -1,5 +1,5 @@
 import React from 'react'
-import Sanitizer from './Sanitizer'
+import Converter from './Converter'
 
 const style = {
   width: '100vw',
@@ -10,7 +10,7 @@ const style = {
 const Tray = () => {
   return (
     <div style={style}>
-      <Sanitizer />
+      <Converter />
     </div>
   )
 }

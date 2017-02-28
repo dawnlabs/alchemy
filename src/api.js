@@ -1,51 +1,45 @@
-const { exec, which } = require('shelljs')
-const md5 = require('md5')
 const execS = require('child_process').exec
+const { replaceSpaceCharacters, createOutputFileName } = require('./helpers/util')
 
-const { replaceSpaceCharacters } = require('./helpers/util')
-
-const convert = ({ files, outputPath, name }) => {
+const convert = ({ files, outputPath, outputType, name }) => {
+  // eslint-disable-next-line dot-notation
   process.env['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
   return new Promise((resolve, reject) => {
-    execS('which convert', (error, stdout, stderr) => {
+    execS('which convert', (error) => {
       if (error) reject(error)
-      else {
-        const fileString = files.map(replaceSpaceCharacters).join(' ')
-        const outputName = name || `ALCHEMY-${md5(fileString).substr(0, 6)}.pdf`
-        const command = `convert ${fileString} ${outputPath}${outputName}`
-        console.log(command)
 
-        execS(command, (error) => {
-          if (error) reject(error)
-          else resolve(outputName)
-        })
-      }
+      const outputName = name || createOutputFileName(outputType)(files)
+      const command = [
+        'convert',
+        ...files.map(replaceSpaceCharacters), // input files
+        outputPath + outputName
+      ].join(' ')
+
+      console.log(command)
+
+      return execS(command, err => (err ? reject(err) : resolve(outputName)))
     })
   })
 }
 
-const checkForBrew = () => !!which('brew')
-const checkForImageMagick = () => !!which('convert')
 const installImageMagick = () => {
-  if (!checkForBrew()) return Promise.resolve(-1)
-
-  if (!checkForImageMagick()) {
-    if (confirm('ImageMagick is required to run this app. Install now?')) {
-      return new Promise((resolve) => {
-        exec('brew install imagemagick', (code) => {
-          resolve(code)
-        })
+  return new Promise((resolve, reject) => {
+    execS('which brew', (error) => {
+      if (error) return reject(new Error('Brew is required to run Alchemy. Please visit https://brew.sh/ to install.'))
+      return execS('which convert', (error) => {
+        if (error) {
+          return execS('brew install imagemagick', (error) => {
+            return error ? reject(error) : resolve('ImageMagick is installed.')
+          })
+        }
+        return resolve('ImageMagick already installed.')
       })
-    }
-  }
-
-  return Promise.resolve(0)
+    })
+  })
 }
 
 module.exports = {
   convert,
-  checkForBrew,
-  checkForImageMagick,
   installImageMagick
 }

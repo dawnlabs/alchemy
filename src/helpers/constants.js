@@ -9,7 +9,20 @@ const grey = '#F0F0EC'
 const orange = '#ee9a4c'
 const lightOrange = '#efb47c'
 
+const MERGE = 'MERGE'
+const CONVERT = 'CONVERT'
 module.exports = {
+  STAGING: 'STAGING',
+  IDLE: 'IDLE',
+  CONVERTING: 'CONVERTING',
+  DONE: 'DONE',
+  FAILED: 'FAILED',
+  MERGE,
+  CONVERT,
+  fileTypes: {
+    [MERGE]: ['pdf', 'gif'],
+    [CONVERT]: ['png', 'jpg', 'bmp', 'tiff']
+  },
   blue,
   lightBlue,
   offwhite,

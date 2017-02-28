@@ -3,8 +3,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "test": "jest",
     "build": "webpack",
-    "distribute": "cp -r * /usr/local/lib/node_modules/electron/dist/Electron.app/Contents/Resources/app",
     "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
     "zip": "cd packaged/Alchemy-darwin-x64/ ; zip -r ../Alchemy.zip * ; cd .."
   },
@@ -14,6 +14,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "electron-packager": "^8.5.0",
     "eslint": "^3.13.1",
@@ -22,6 +23,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "jest": "^19.0.2",
     "node-sass": "^4.3.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
@@ -37,21 +39,21 @@
     "react": "^15.4.2",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.4.2",
-    "shelljs": "^0.7.6"
+    "react-dom": "^15.4.2"
   },
   "name": "alchemy",
-  "description": "**Clone and run for a quick way to see Electron in action.**",
+  "description": "Alchemy is a drag-and-drop file converter for your menubar.",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "no"
+    "url": "https://github.com/dawnlabs/alchemy.git"
   },
   "author": "Michael Fix",
   "license": "MIT",
   "keywords": [
     "convert",
     "files",
-    "images"
+    "images",
+    "drag-and-drop"
   ]
 }
