@@ -18,10 +18,7 @@ const convert = ({ files, outputPath, outputType, name }) => {
 
       console.log(command)
 
-      execS(command, (error) => {
-        if (error) reject(error)
-        else resolve(outputName)
-      })
+      return execS(command, err => (err ? reject(err) : resolve(outputName)))
     })
   })
 }
