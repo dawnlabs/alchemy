@@ -6,7 +6,7 @@
     "test": "jest",
     "build": "webpack",
     "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
-    "zip": "cd packaged/Alchemy-darwin-x64/ ; zip -r ../Alchemy.zip * ; cd .."
+    "zip": "cd packaged/Alchemy-darwin-x64/ ; zip -r -y ../Alchemy.zip * ; cd .."
   },
   "devDependencies": {
     "babel": "^6.5.2",
