@@ -24,6 +24,7 @@
     "eslint-plugin-react": "^6.9.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "jest": "^19.0.2",
+    "json-loader": "^0.5.4",
     "node-sass": "^4.3.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
@@ -32,10 +33,7 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "electron": "^1.4.14",
-    "json-loader": "^0.5.4",
-    "md5": "^2.2.1",
     "menubar": "^5.2.0",
-    "octicons": "^5.0.1",
     "react": "^15.4.2",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
