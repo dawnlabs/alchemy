@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - '6'
 before_deploy:
-  - 'npm run build'
-  - 'npm run package'
-  - 'npm run zip'
+  - 'yarn run build'
+  - 'yarn run package'
+  - 'yarn run zip'
 deploy:
   provider: releases
   api_key:
