@@ -1,4 +1,5 @@
 const { pluck, compose, map } = require('./functional')
+const { fileTypes } = require('./constants')
 
 const replaceSpaceCharacters = str =>
   str.replace(/\s/g, '\\ ')
@@ -26,9 +27,15 @@ function centerEllipsis(str, length = 7) {
 const displayOutputFileName = outputType =>
   compose(filterImages, map(pluck('path')), createOutputFileName(outputType), centerEllipsis)
 
-const uniqueFiles = (files, newArray) =>
+const fileTypesArr = [].concat(...(Object.keys(fileTypes).map(key => fileTypes[key])))
+
+const isValidFileType = fileType => fileTypesArr.indexOf(fileType) > -1
+
+const getFileType = fileName => fileName.split('.').pop()
+
+const uniqueAndValidFiles = (files, newArray) =>
   newArray.reduce((accum, next) => {
-    if (accum[next.path]) return accum
+    if (accum[next.path] || !isValidFileType(getFileType(next.name))) return accum
     return Object.assign(accum, {
       [next.path]: next
     })
@@ -48,5 +55,5 @@ module.exports = {
   concatFiles,
   removeByKey,
   replaceSpaceCharacters,
-  uniqueFiles
+  uniqueAndValidFiles,
 }

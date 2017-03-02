@@ -12,7 +12,7 @@ import ArrowDown from './svg/ArrowDown'
 import Cancel from './svg/Cancel'
 
 import { convert } from '../api'
-import { removeByKey, uniqueFiles, displayOutputFileName, filterImages } from '../helpers/util'
+import { removeByKey, uniqueAndValidFiles, displayOutputFileName, filterImages } from '../helpers/util'
 import {
   fileTypes,
   MERGE,
@@ -26,10 +26,10 @@ import {
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
-  const filesUnique = uniqueFiles(component.state.files, files)
+  const stagingFiles = uniqueAndValidFiles(component.state.files, files)
   component.setState({
-    status: Object.keys(filesUnique).length ? STAGING : IDLE,
-    files: filesUnique
+    status: Object.keys(stagingFiles).length ? STAGING : IDLE,
+    files: stagingFiles
   })
 
   if (component.state.shifted) {
