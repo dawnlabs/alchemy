@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "child_process": "^1.0.2",
-    "electron": "^1.4.14",
+    "electron": "^1.6.2",
     "menubar": "^5.2.0",
     "react": "^15.4.2",
     "react-dnd": "^2.1.4",
