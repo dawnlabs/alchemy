@@ -129,7 +129,9 @@ class Sanitizer extends Component {
       case STAGING: return (
         <div className="staging">
           {/* TODO make this compose better */}
+          <label htmlFor="outputFileName">FILENAME</label>
           <input
+            id="outputFileName"
             type="text"
             value={displayOutputFileName(this.state.outputType)(this.state.files)}
           />
