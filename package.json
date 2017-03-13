@@ -46,7 +46,11 @@
     "type": "git",
     "url": "https://github.com/dawnlabs/alchemy.git"
   },
-  "author": "Michael Fix",
+  "authors": [
+    "Michael Fix <@mfix22>",
+    "Jake Dexheimer <@jakedex>",
+    "Brian Dennis <@briandennis>"
+  ],
   "license": "MIT",
   "keywords": [
     "convert",
