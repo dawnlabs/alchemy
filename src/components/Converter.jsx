@@ -135,6 +135,7 @@ class Sanitizer extends Component {
             type="text"
             value={displayOutputFileName(this.state.outputType)(this.state.files)}
           />
+          <label htmlFor="switch">ACTION</label>
           <div className="row">
             <div className="switch">
               {
@@ -164,6 +165,7 @@ class Sanitizer extends Component {
               <ArrowDown />
             </div>
           </div>
+          <label htmlFor="file-list">FILES</label>
           <div className="file-list">
             {
               Object.keys(this.state.files).map(key =>

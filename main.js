@@ -7,7 +7,7 @@ const mb = menubar({
   alwaysOnTop: true,
   resizable: false,
   width: 292,
-  height: 324,
+  height: 344,
   icon: `${__dirname}/img/iconTemplate.png`
 })
 

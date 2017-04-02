@@ -103,9 +103,14 @@ p {
 
   label {
     font-size: 10.2px;
+    margin-top: 12px;
     margin-bottom: 4px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.3);
+
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 
   input {
