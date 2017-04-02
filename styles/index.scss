@@ -1,17 +1,6 @@
 @import "base";
 @import "responsive";
 
-@media (max-width: 736px) {
-  .screenshot_wrapper {
-    display: none !important;
-  }
-
-  .left {
-    margin: 0 auto !important;
-    max-width: 490px !important;
-  }
-}
-
 body {
   background: #1D8CF8;
   overflow-x: hidden;

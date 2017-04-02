@@ -1,1 +1,21 @@
+@media (max-width: 400px) {
+  .btn {
+    width: 224px;
+    margin-bottom: 8px !important;
+  }
 
+  .download_btn {
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 736px) {
+  .screenshot_wrapper {
+    display: none !important;
+  }
+
+  .left {
+    margin: 0 auto !important;
+    max-width: 490px !important;
+  }
+}

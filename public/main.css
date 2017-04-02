@@ -46,6 +46,13 @@ a {
   100% {
     fill: #b4b4b4; } }
 
+@media (max-width: 400px) {
+  .btn {
+    width: 224px;
+    margin-bottom: 8px !important; }
+  .download_btn {
+    margin-right: 0 !important; } }
+
 @media (max-width: 736px) {
   .screenshot_wrapper {
     display: none !important; }
