@@ -10,3 +10,6 @@ First install ImageMagick with
 `brew install imagemagick`
 
 Open __Alchemy__ and click the icon in the menubar or hit `⌘-⇧-8`
+
+## Contributions
+This product was built by [`@mfix22`](https://github.com/mfix22), [`@jakedex`](https://github.com/jakedex), and [`@briandennis`](https://github.com/briandennis) with [`@dawnlabs`](http://dawnlabs.io)
