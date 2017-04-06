@@ -61,7 +61,7 @@ a {
     max-width: 490px !important; } }
 
 body {
-  background: #1D8CF8;
+  background: #ffc465;
   overflow-x: hidden; }
 
 .files {
@@ -89,7 +89,7 @@ body {
 
 .sub_header {
   color: #fff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   font-size: 2rem;
   line-height: 1.2;
   font-weight: 600;
@@ -99,7 +99,7 @@ body {
 
 .copy {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #a26400;
   line-height: 1.64;
   letter-spacing: -0.4px;
   margin-bottom: 32px; }
@@ -117,11 +117,11 @@ body {
   margin-bottom: 5px; }
 
 .download_btn {
-  background-color: #08c28a;
+  background-color: #3b86ff;
   margin-right: 16px; }
 
 .contribute_btn {
-  background-color: #ff8000; }
+  background-color: #b43bff; }
 
 .specs {
   font-size: 0.64rem;
@@ -142,7 +142,7 @@ body {
 .footer {
   font-size: 0.8rem;
   text-align: center;
-  color: #0559aa;
+  color: #a26400;
   margin: 24px 0; }
   .footer a {
     color: inherit;

@@ -2,7 +2,7 @@
 @import "responsive";
 
 body {
-  background: #1D8CF8;
+  background: #ffc465;
   overflow-x: hidden;
 }
 
@@ -35,7 +35,7 @@ body {
 
 .sub_header {
   color: #fff;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.07);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
   font-size: 2rem;
   line-height: 1.2;
   font-weight: 600;
@@ -46,7 +46,7 @@ body {
 
 .copy {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: darken(#ffc465, 38);
   line-height: 1.64;
   letter-spacing: -0.4px;
   margin-bottom: 32px;
@@ -66,12 +66,12 @@ body {
 }
 
 .download_btn {
-  background-color: #08c28a;
+  background-color: #3b86ff;
   margin-right: 16px;
 }
 
 .contribute_btn {
-  background-color: #ff8000;
+  background-color: #b43bff;
 }
 
 .specs {
@@ -96,7 +96,7 @@ body {
 .footer {
   font-size: 0.8rem;
   text-align: center;
-  color: darken(#1D8CF8, 20);
+  color: darken(#ffc465, 38);
   margin: 24px 0;
 
 
