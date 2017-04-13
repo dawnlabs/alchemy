@@ -1,45 +1,32 @@
-const execS = require('child_process').exec
+const execa = require('execa')
+const path = require('path')
+
 const { replaceSpaceCharacters, createOutputFileName } = require('./helpers/util')
 
-const convert = ({ files, outputPath, outputType, name }) => {
-  // eslint-disable-next-line dot-notation
-  process.env['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
+const binary = './bin/photosorcery'
 
-  return new Promise((resolve, reject) => {
-    execS('which convert', (error) => {
-      if (error) reject(error)
+const convert = ({files, outputPath, outputType}) => {
+  let args = [
+    'convert',
+    '-type', outputType,
+    '-out', outputPath,
+    ...files.map(replaceSpaceCharacters)
+  ]
 
-      const outputName = name || createOutputFileName(outputType)(files)
-      const command = [
-        'convert',
-        ...files.map(replaceSpaceCharacters), // input files
-        outputPath + outputName
-      ].join(' ')
-
-      console.log(command)
-
-      return execS(command, err => (err ? reject(err) : resolve(outputName)))
-    })
-  })
+  return execa(binary, args)
 }
 
-const installImageMagick = () => {
-  return new Promise((resolve, reject) => {
-    execS('which brew', (error) => {
-      if (error) return reject(new Error('Brew is required to run Alchemy. Please visit https://brew.sh/ to install.'))
-      return execS('which convert', (error) => {
-        if (error) {
-          return execS('brew install imagemagick', (error) => {
-            return error ? reject(error) : resolve('ImageMagick is installed.')
-          })
-        }
-        return resolve('ImageMagick already installed.')
-      })
-    })
-  })
+const merge = ({files, outputPath}) => {
+  const args = [
+    'merge',
+    '-out', outputPath,
+    ...files.map(replaceSpaceCharacters)
+  ]
+
+  return execa(binary, args)
 }
 
 module.exports = {
   convert,
-  installImageMagick
+  merge
 }
