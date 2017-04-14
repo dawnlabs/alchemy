@@ -1,12 +1,11 @@
 const execa = require('execa')
-const path = require('path')
 
-const { replaceSpaceCharacters, createOutputFileName } = require('./helpers/util')
+const { replaceSpaceCharacters } = require('./helpers/util')
 
 const binary = './bin/photosorcery'
 
-const convert = ({files, outputPath, outputType}) => {
-  let args = [
+const convert = ({ files, outputPath, outputType }) => {
+  const args = [
     'convert',
     '-type', outputType,
     '-out', outputPath,
@@ -16,7 +15,7 @@ const convert = ({files, outputPath, outputType}) => {
   return execa(binary, args)
 }
 
-const merge = ({files, outputPath}) => {
+const merge = ({ files, outputPath }) => {
   const args = [
     'merge',
     '-out', outputPath,
