@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
-import { tmpNameSync } from 'tmp'
+import S from 'string'
 
 import Failed from './svg/Failed'
 import Done from './svg/Done'
@@ -14,7 +14,7 @@ import ArrowDown from './svg/ArrowDown'
 import Cancel from './svg/Cancel'
 
 import { convert, merge } from '../api'
-import { removeByKey, uniqueAndValidFiles, displayOutputFileName, createOutputFileName, filterImages } from '../helpers/util'
+import { removeByKey, uniqueAndValidFiles, centerEllipsis, createOutputFileName, filterImages } from '../helpers/util'
 import {
   fileTypes,
   MERGE,
@@ -52,7 +52,8 @@ class Sanitizer extends Component {
       status: IDLE,
       operation: MERGE,
       outputType: 'pdf',
-      files: {}
+      files: {},
+      inputValue: ''
     }
 
     this.isHover = this.isHover.bind(this)
@@ -61,6 +62,7 @@ class Sanitizer extends Component {
     this.convert = this.convert.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.handleOutputTypeChange = this.handleOutputTypeChange.bind(this)
+    this.getFileName = this.getFileName.bind(this)
   }
 
   componentDidMount() {
@@ -81,6 +83,18 @@ class Sanitizer extends Component {
   componentWillUnmount() {
     window.removeEventListener('keyup')
     window.removeEventListener('keydown')
+  }
+
+  getFileName() {
+    const filtered = filterImages(this.state.files).map(f => f.path)
+    if (this.state.operation === MERGE) {
+      if (this.state.inputValue) return S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s
+      return createOutputFileName(this.state.outputType)(filtered)
+    }
+    const [first] = filtered
+    const file = first.split('/').pop()
+    const name = file.split('.').shift()
+    return `${name}.${this.state.outputType}`
   }
 
   getMessage() {
@@ -135,7 +149,17 @@ class Sanitizer extends Component {
           <input
             id="outputFileName"
             type="text"
-            value={displayOutputFileName(this.state.outputType)(this.state.files)}
+            disabled={this.state.operation === CONVERT}
+            placeholder={centerEllipsis(this.getFileName())}
+            value={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s : ''}
+            onChange={(e) => {
+              if (!e.target.value) return this.setState({ inputValue: null })
+              const letters = e.target.value.split('')
+              const New = letters.pop()
+              return this.setState({
+                inputValue: S(letters.join('')).chompRight(`.${this.state.outputType}`).s + New
+              })
+            }}
           />
           <label htmlFor="switch">ACTION</label>
           <div className="row">
@@ -212,7 +236,7 @@ class Sanitizer extends Component {
 
       const path = filtered[0].path.slice(0, filtered[0].path.length - filtered[0].name.length)
       const command = this.state.operation === MERGE ? merge : convert
-      const fileName = createOutputFileName(this.state.outputType)(filtered.map(f => f.path))
+      const fileName = this.getFileName()
       const outputPath = this.state.operation === MERGE ?
         path + fileName :
         path
