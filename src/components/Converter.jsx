@@ -1,6 +1,8 @@
+/* global window alert */
 import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
+import { tmpNameSync } from 'tmp'
 
 import Failed from './svg/Failed'
 import Done from './svg/Done'
@@ -11,8 +13,8 @@ import Convert from './svg/Convert'
 import ArrowDown from './svg/ArrowDown'
 import Cancel from './svg/Cancel'
 
-import { convert } from '../api'
-import { removeByKey, uniqueAndValidFiles, displayOutputFileName, filterImages } from '../helpers/util'
+import { convert, merge } from '../api'
+import { removeByKey, uniqueAndValidFiles, displayOutputFileName, createOutputFileName, filterImages } from '../helpers/util'
 import {
   fileTypes,
   MERGE,
@@ -208,15 +210,22 @@ class Sanitizer extends Component {
         status: CONVERTING
       })
 
-      convert({
+      const path = filtered[0].path.slice(0, filtered[0].path.length - filtered[0].name.length)
+      const command = this.state.operation === MERGE ? merge : convert
+      const fileName = createOutputFileName(this.state.outputType)(filtered.map(f => f.path))
+      const outputPath = this.state.operation === MERGE ?
+        path + fileName :
+        path
+
+
+      command({
         files: filtered.map(f => f.path),
-        outputPath: filtered[0].path
-                               .slice(0, filtered[0].path.length - filtered[0].name.length),
+        outputPath,
         outputType: this.state.outputType
-      }).then((fileName) => {
+      }).then(() => {
         this.setState({
           status: DONE,
-          fileName
+          fileName: this.state.operation === MERGE ? fileName : `File${filtered.length > 1 ? 's' : ''}`
         })
         setTimeout(() => {
           this.setState({
