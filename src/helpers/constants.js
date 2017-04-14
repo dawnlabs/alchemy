@@ -21,7 +21,7 @@ module.exports = {
   CONVERT,
   fileTypes: {
     [MERGE]: ['pdf', 'gif'],
-    [CONVERT]: ['png', 'jpg', 'bmp', 'tiff']
+    [CONVERT]: ['png', 'jpg']
   },
   blue,
   lightBlue,
