@@ -4,6 +4,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
 import S from 'string'
 
+import Message from './Message'
 import Failed from './svg/Failed'
 import Done from './svg/Done'
 import Converting from './svg/Converting'
@@ -58,7 +59,6 @@ class Sanitizer extends Component {
 
     this.isHover = this.isHover.bind(this)
     this.getIconObject = this.getIconObject.bind(this)
-    this.getMessage = this.getMessage.bind(this)
     this.convert = this.convert.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.handleOutputTypeChange = this.handleOutputTypeChange.bind(this)
@@ -95,46 +95,6 @@ class Sanitizer extends Component {
     const file = first.split('/').pop()
     const name = file.split('.').shift()
     return `${name}.${this.state.outputType}`
-  }
-
-  getMessage() {
-    switch (this.state.status) {
-      case 'IDLE': return (
-        <div>
-          <h1>
-            { this.isHover() ? 'Drop' : 'Drag & drop' }
-          </h1>
-          <p className="detail">
-            {`your files here to ${this.state.shifted ? 'convert' : 'add them'}`}
-          </p>
-        </div>
-      )
-      case 'CONVERTING': return (
-        <div>
-          <h1>
-            Converting
-          </h1>
-          <p className="detail">(this should only take a sec)</p>
-        </div>
-      )
-      case 'DONE': return (
-        <div>
-          <h1>
-            Complete!
-          </h1>
-          <p className="detail">{`${this.state.fileName || 'File'} created`}</p>
-        </div>
-      )
-      case 'FAILED': return (
-        <div>
-          <h1>
-            Conversion failed
-          </h1>
-          <p className="detail">Uh oh, something went wrong 😕</p>
-        </div>
-      )
-      default: return null
-    }
   }
 
   getIconObject() {
@@ -285,7 +245,7 @@ class Sanitizer extends Component {
          (this.isHover() ? 'border-hover' : 'border-dashed') : ''}`}
       >
         {this.getIconObject()}
-        {this.getMessage()}
+        <Message hover={this.isHover()} state={this.state} />
       </div>
     )
   }
