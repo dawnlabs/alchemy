@@ -215,6 +215,7 @@ class Sanitizer extends Component {
           this.setState({
             status: IDLE,
             files: {},
+            inputValue: null
           })
         }, 3000)
       }).catch((err) => {
@@ -226,6 +227,7 @@ class Sanitizer extends Component {
           this.setState({
             status: IDLE,
             files: {},
+            inputValue: null
           })
         }, 3000)
       })
