@@ -4,22 +4,18 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
 import S from 'string'
 
+import Staging from './Staging'
 import Message from './Message'
 import Failed from './svg/Failed'
 import Done from './svg/Done'
 import Converting from './svg/Converting'
 import Idle from './svg/Idle'
-import Merge from './svg/Merge'
-import Convert from './svg/Convert'
-import ArrowDown from './svg/ArrowDown'
-import Cancel from './svg/Cancel'
 
 import { convert, merge } from '../api'
-import { removeByKey, uniqueAndValidFiles, centerEllipsis, createOutputFileName, filterImages } from '../helpers/util'
+import { removeByKey, uniqueAndValidFiles, createOutputFileName, filterImages } from '../helpers/util'
 import {
   fileTypes,
   MERGE,
-  CONVERT,
   IDLE,
   STAGING,
   CONVERTING,
@@ -39,11 +35,6 @@ const drop = (props, monitor, component) => {
     component.convert()
   }
 }
-
-const mapOperationToComp = key => ({
-  [CONVERT]: <Convert />,
-  [MERGE]: <Merge />
-}[key])
 
 class Sanitizer extends Component {
   constructor(props) {
@@ -103,80 +94,27 @@ class Sanitizer extends Component {
       case DONE: return <Done />
       case CONVERTING: return <Converting />
       case STAGING: return (
-        <div className="staging">
-          {/* TODO make this compose better */}
-          <label htmlFor="outputFileName">FILENAME</label>
-          <input
-            id="outputFileName"
-            type="text"
-            disabled={this.state.operation === CONVERT}
-            placeholder={centerEllipsis(this.getFileName())}
-            value={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s : ''}
-            onChange={(e) => {
-              if (!e.target.value) return this.setState({ inputValue: null })
-              const letters = e.target.value.split('')
-              const New = letters.pop()
-              return this.setState({
-                inputValue: S(letters.join('')).chompRight(`.${this.state.outputType}`).s + New
+        <Staging
+          files={this.state.files}
+          operation={this.state.operation}
+          outputType={this.state.outputType}
+          inputPlaceholder={this.getFileName()}
+          handleOutputTypeChange={this.handleOutputTypeChange}
+          onOperationChange={op => this.setState({
+            operation: op,
+            outputType: fileTypes[op][0]
+          })}
+          onConvertClick={() => { this.convert() }}
+          onFileClick={(key) => {
+            this.setState({
+              files: removeByKey(this.state.files, key)
+            }, () => {
+              this.setState({
+                status: Object.keys(this.state.files).length ? this.state.status : IDLE
               })
-            }}
-          />
-          <label htmlFor="switch">ACTION</label>
-          <div className="row">
-            <div className="switch">
-              {
-                Object.keys(fileTypes).map(op => (
-                  <button
-                    key={op}
-                    className={`switch__btn merge ${this.state.operation === op ? 'switch__btn-active' : ''}`}
-                    onClick={() => this.setState({
-                      operation: op,
-                      outputType: fileTypes[op][0]
-                    })}
-                  >
-                    {mapOperationToComp(op)}
-                    <div>{`${op.charAt(0)}${op.slice(1).toLowerCase()}`}</div>
-                  </button>
-                ))
-              }
-            </div>
-            <div className="dropdown">
-              <select name="file-type" value={this.state.outputType} onChange={this.handleOutputTypeChange}>
-                {
-                  fileTypes[this.state.operation].map(type => (
-                    <option key={type} value={type}>{type.toUpperCase()}</option>
-                  ))
-                }
-              </select>
-              <ArrowDown />
-            </div>
-          </div>
-          <label htmlFor="file-list">FILES</label>
-          <div className="file-list">
-            {
-              Object.keys(this.state.files).map(key =>
-                <div className="file-list__item" key={key}>
-                  <div>{this.state.files[key].name}</div>
-                  <button
-                    className="close-btn"
-                    onClick={() => {
-                      this.setState({
-                        files: removeByKey(this.state.files, key)
-                      }, () => {
-                        this.setState({
-                          status: Object.keys(this.state.files).length ? this.state.status : IDLE
-                        })
-                      })
-                    }}
-                  >
-                    <Cancel />
-                  </button>
-                </div>
-              )
-            }
-          </div>
-          <button className="button__convert" onClick={() => { this.convert() }}>{this.state.operation}</button>
-        </div>
+            })
+          }}
+        />
       )
       default: return <Idle />
     }
