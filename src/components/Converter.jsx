@@ -36,17 +36,19 @@ const drop = (props, monitor, component) => {
   }
 }
 
+const DEFAULT_STATE = {
+  status: IDLE,
+  operation: MERGE,
+  outputType: 'pdf',
+  files: {},
+  inputValue: ''
+}
+
 class Sanitizer extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      status: IDLE,
-      operation: MERGE,
-      outputType: 'pdf',
-      files: {},
-      inputValue: ''
-    }
+    this.state = DEFAULT_STATE
 
     this.isHover = this.isHover.bind(this)
     this.getIconObject = this.getIconObject.bind(this)
@@ -150,10 +152,7 @@ class Sanitizer extends Component {
           fileName: this.state.operation === MERGE ? fileName : `File${filtered.length > 1 ? 's' : ''}`
         })
         setTimeout(() => {
-          this.setState({
-            status: IDLE,
-            files: {},
-          })
+          this.setState(DEFAULT_STATE)
         }, 3000)
       }).catch((err) => {
         alert(`ERR: ${err}`)
@@ -161,10 +160,7 @@ class Sanitizer extends Component {
           status: FAILED
         })
         setTimeout(() => {
-          this.setState({
-            status: IDLE,
-            files: {},
-          })
+          this.setState(DEFAULT_STATE)
         }, 3000)
       })
     } else this.setState({ status: IDLE })

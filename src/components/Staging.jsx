@@ -26,16 +26,17 @@ class Staging extends React.Component {
     }
   }
 
-  render ({
-    files,
-    operation,
-    outputType,
-    inputPlaceholder,
-    handleOutputTypeChange,
-    onOperationChange,
-    onConvertClick,
-    onFileClick
-  }) {
+  render () {
+    const {
+      files,
+      operation,
+      outputType,
+      inputPlaceholder,
+      handleOutputTypeChange,
+      onOperationChange,
+      onConvertClick,
+      onFileClick
+    } = this.props
     return (
       <div className="staging">
         {/* TODO make this compose better */}
