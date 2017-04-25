@@ -3,6 +3,7 @@
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html {
@@ -204,6 +205,7 @@ p {
   height: 42px;
   width: 156px;
   border-radius: 3px;
+  cursor: pointer;
 
   select {
     background: rgba(0, 0, 0, 0) !important;
@@ -212,6 +214,7 @@ p {
     outline: none;
     padding: 14px 16px;
     -webkit-appearance: none;
+    cursor: pointer;
   }
 }
 
