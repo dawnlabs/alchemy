@@ -3,6 +3,7 @@ const { fileTypes } = require('./constants')
 
 const replaceSpaceCharacters = str =>
   str.replace(/\s/g, '\\ ')
+     .replace(/'/g, '\\\'')
 
 const concatFiles = files =>
   files.map(path => path.split('/').pop())

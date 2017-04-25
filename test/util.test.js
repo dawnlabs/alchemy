@@ -35,8 +35,8 @@ describe('UTIL', function () {
 
   describe('replaceSpaceCharacters()', function () {
     it('replace space characters with escaped space', () => {
-      const fileName = 'This is a bad file name.png'
-      expect(replaceSpaceCharacters(fileName)).to.equal('This\\ is\\ a\\ bad\\ file\\ name.png')
+      const fileName = "This is a bad's file name.png"
+      expect(replaceSpaceCharacters(fileName)).to.equal("This\\ is\\ a\\ bad\\'s\\ file\\ name.png")
     })
   })
 })
