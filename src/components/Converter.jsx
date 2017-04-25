@@ -122,7 +122,7 @@ class Converter extends Component {
           }}
           onFileClick={(key) => {
             this.setState({
-              files: this.state.files.filter(file => file.name !== key)
+              files: this.state.files.filter(file => key !== file.path)
             }, () => {
               this.setState({
                 status: this.state.files.length ? this.state.status : IDLE

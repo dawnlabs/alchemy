@@ -4,7 +4,7 @@ import S from 'string'
 import ArrowDown from './svg/ArrowDown'
 import Merge from './svg/Merge'
 import Convert from './svg/Convert'
-import FileSorter from './Sorting'
+import FileSorter from './FileSorter'
 
 import { centerEllipsis } from '../helpers/util'
 import {

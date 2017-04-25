@@ -2,7 +2,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 const { expect } = require('chai')
-const { concatFiles, uniqueFiles, replaceSpaceCharacters } = require('../src/helpers/util')
+const { concatFiles, replaceSpaceCharacters } = require('../src/helpers/util')
 
 describe('UTIL', function () {
   describe('concatFiles()', function () {
@@ -37,30 +37,6 @@ describe('UTIL', function () {
     it('replace space characters with escaped space', () => {
       const fileName = 'This is a bad file name.png'
       expect(replaceSpaceCharacters(fileName)).to.equal('This\\ is\\ a\\ bad\\ file\\ name.png')
-    })
-  })
-
-  describe('uniqueFiles()', function () {
-    it('ensures unique files by path', () => {
-      const files = {
-        key1: 'here',
-        key2: 'there'
-      }
-      const newFiles = [
-        {
-          path: 'key1'
-        },
-        {
-          path: 'key3'
-        }
-      ]
-      expect(uniqueFiles(files, newFiles)).to.deep.equal({
-        key1: 'here',
-        key2: 'there',
-        key3: {
-          path: 'key3'
-        }
-      })
     })
   })
 })
