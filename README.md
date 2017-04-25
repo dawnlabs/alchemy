@@ -28,6 +28,7 @@ We haven't tested Alchemy with Windows or linux yet, but if you're feeling risky
 
 If you have discovered a bug or have a feature suggestion, feel free to create an issue on Github.
 
+If you'd like to make some changes yourself, see the following:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device
 2. Build the webpack bundle and start the application: `npm build && npm start`
 3. Run the tests with: `npm test`
