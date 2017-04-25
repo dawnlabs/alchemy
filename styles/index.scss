@@ -178,7 +178,7 @@ p {
   height: 40.5px;
   width: 100%;
   font-size: 0.512rem;
-  padding-top: 3px;
+  padding-top: 4px;
 
   svg {
     margin-bottom: 3px;
@@ -254,10 +254,11 @@ p {
 
 .file-list__item {
   justify-content: space-between;
+  align-items: center;
   display: flex;
   background: #fff;
   background-color: #fff;
-  padding: 8px 16px;
+  padding: 8px 12px;
   font-size: 1rem;
   border-radius: 2px;
   margin-bottom: 4px;
@@ -267,9 +268,9 @@ p {
     margin-bottom: 0;
   }
 
-  div {
+  .file-name {
     cursor: default;
-    width: 180px;
+    width: 164px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -286,4 +287,15 @@ p {
       outline: none;
     }
   }
+}
+
+.drag-handle {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: .25;
+  cursor: row-resize;
 }

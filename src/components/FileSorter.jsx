@@ -3,12 +3,12 @@ import Cancel from './svg/Cancel'
 
 const { SortableContainer, SortableElement, SortableHandle } = require('react-sortable-hoc')
 
-const DragHandle = SortableHandle(() => <span>::</span>)
+const DragHandle = SortableHandle(() => <div className="drag-handle" />)
 
 const Item = SortableElement(({ value, onClose }) => (
   <div style={{ backgroundColor: '#fff', zIndex: 999 }} className="file-list__item">
     <DragHandle />
-    <div>{value}</div>
+    <div className="file-name">{value}</div>
     <button className="close-btn" onClick={onClose} >
       <Cancel />
     </button>
