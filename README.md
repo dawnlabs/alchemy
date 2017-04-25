@@ -6,6 +6,12 @@ Alchemy is an open-source file converter (built on Electron and React). It also 
 
 Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](https://dawnlabs.github.io/blog/alchemy/) to learn more.
 
+## Features
+
+* **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files
+* **Merge files**. Merge multiple images into one pdf, you can even change the file order
+* **Convert files**. Batch-convert multiple files to a variety of file types
+
 ## Usage
 
 []()![demo](https://cloud.githubusercontent.com/assets/10369094/24595824/7e6f7f74-17ff-11e7-80dd-b2602b9f0ba1.gif)
