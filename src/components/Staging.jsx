@@ -45,7 +45,7 @@ class Staging extends React.Component {
         <input
           id="outputFileName"
           type="text"
-          disabled={this.state.operation === CONVERT}
+          disabled={operation === CONVERT}
           placeholder={centerEllipsis(inputPlaceholder)}
           value={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${outputType}`).s : ''}
           onChange={(e) => {
