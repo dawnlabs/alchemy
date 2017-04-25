@@ -161,7 +161,7 @@ class Sanitizer extends Component {
         })
         setTimeout(() => {
           this.setState(DEFAULT_STATE)
-        }, 3000)
+        })
       })
     } else this.setState({ status: IDLE })
   }
