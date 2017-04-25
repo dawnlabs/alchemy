@@ -247,38 +247,40 @@ p {
   height: 106px;
   margin-bottom: 8px;
   overflow-y: scroll;
+}
 
-  .file-list__item {
-    justify-content: space-between;
+.file-list__item {
+  justify-content: space-between;
+  display: flex;
+  background: #fff;
+  background-color: #fff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  z-index: 999;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  div {
+    cursor: default;
+    width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button {
     display: flex;
-    background: #fff;
-    padding: 8px 16px;
-    font-size: 1rem;
-    border-radius: 2px;
-    margin-bottom: 4px;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background: none;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    div {
-      cursor: default;
-      width: 180px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    button {
-      display: flex;
-      padding: 0;
-      cursor: pointer;
-      border: none;
-      background: none;
-
-      &:focus, &:hover, &:active {
-        outline: none;
-      }
+    &:focus, &:hover, &:active {
+      outline: none;
     }
   }
 }

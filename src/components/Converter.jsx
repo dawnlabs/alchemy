@@ -168,6 +168,7 @@ class Converter extends Component {
           this.setState(DEFAULT_STATE)
         }, 3000)
       }).catch((err) => {
+        // eslint-disable-next-line no-alert
         alert(`ERR: ${err}`)
         this.setState({
           status: FAILED

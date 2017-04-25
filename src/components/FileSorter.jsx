@@ -6,7 +6,7 @@ const { SortableContainer, SortableElement, SortableHandle } = require('react-so
 const DragHandle = SortableHandle(() => <span>::</span>)
 
 const Item = SortableElement(({ value, onClose }) => (
-  <div className="file-list__item">
+  <div style={{ backgroundColor: '#fff', zIndex: 999 }} className="file-list__item">
     <DragHandle />
     <div>{value}</div>
     <button className="close-btn" onClick={onClose} >
@@ -33,7 +33,15 @@ const Container = SortableContainer(({ files, onClick }) => (
 ))
 
 const FileSorter = ({ files, onClick, onSortEnd }) => (
-  <Container files={files} onClick={onClick} onSortEnd={onSortEnd} useDragHandle />
+  <Container
+    files={files}
+    onClick={onClick}
+    onSortEnd={onSortEnd}
+    useDragHandle
+    helperClass="file-list__item"
+    lockAxis="y"
+    lockToContainerEdges
+  />
 )
 
 export default FileSorter
