@@ -6,9 +6,6 @@
 ![demo](https://cloud.githubusercontent.com/assets/10369094/24595824/7e6f7f74-17ff-11e7-80dd-b2602b9f0ba1.gif)
 
 ## Usage
-First install ImageMagick with
-`brew install imagemagick`
-
 Open __Alchemy__ and click the icon in the menubar or hit `⌘-⇧-8`
 
 ## Contributions
