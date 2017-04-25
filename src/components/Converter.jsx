@@ -3,23 +3,26 @@ import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
 import S from 'string'
+import { arrayMove } from 'react-sortable-hoc'
 
+import Staging from './Staging'
 import Message from './Message'
 import Failed from './svg/Failed'
 import Done from './svg/Done'
 import Converting from './svg/Converting'
 import Idle from './svg/Idle'
-import Merge from './svg/Merge'
-import Convert from './svg/Convert'
-import ArrowDown from './svg/ArrowDown'
-import Cancel from './svg/Cancel'
 
 import { convert, merge } from '../api'
-import { removeByKey, uniqueAndValidFiles, centerEllipsis, createOutputFileName, filterImages } from '../helpers/util'
+import {
+  getFileType,
+  isValidFileType,
+  uniqueFiles,
+  createOutputFileName,
+  filterImages
+} from '../helpers/util'
 import {
   fileTypes,
   MERGE,
-  CONVERT,
   IDLE,
   STAGING,
   CONVERTING,
@@ -29,9 +32,10 @@ import {
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
-  const stagingFiles = uniqueAndValidFiles(component.state.files, files)
+  const stagingFiles = uniqueFiles(component.state.files, files)
+    .filter(file => isValidFileType(getFileType(file.name)))
   component.setState({
-    status: Object.keys(stagingFiles).length ? STAGING : IDLE,
+    status: stagingFiles.length ? STAGING : IDLE,
     files: stagingFiles
   })
 
@@ -40,22 +44,19 @@ const drop = (props, monitor, component) => {
   }
 }
 
-const mapOperationToComp = key => ({
-  [CONVERT]: <Convert />,
-  [MERGE]: <Merge />
-}[key])
+const DEFAULT_STATE = {
+  status: IDLE,
+  operation: MERGE,
+  outputType: 'pdf',
+  files: [],
+  inputValue: ''
+}
 
-class Sanitizer extends Component {
+class Converter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      status: IDLE,
-      operation: MERGE,
-      outputType: 'pdf',
-      files: {},
-      inputValue: ''
-    }
+    this.state = DEFAULT_STATE
 
     this.isHover = this.isHover.bind(this)
     this.getIconObject = this.getIconObject.bind(this)
@@ -103,80 +104,32 @@ class Sanitizer extends Component {
       case DONE: return <Done />
       case CONVERTING: return <Converting />
       case STAGING: return (
-        <div className="staging">
-          {/* TODO make this compose better */}
-          <label htmlFor="outputFileName">FILENAME</label>
-          <input
-            id="outputFileName"
-            type="text"
-            disabled={this.state.operation === CONVERT}
-            placeholder={centerEllipsis(this.getFileName())}
-            value={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s : ''}
-            onChange={(e) => {
-              if (!e.target.value) return this.setState({ inputValue: null })
-              const letters = e.target.value.split('')
-              const New = letters.pop()
-              return this.setState({
-                inputValue: S(letters.join('')).chompRight(`.${this.state.outputType}`).s + New
+        <Staging
+          files={this.state.files}
+          operation={this.state.operation}
+          outputType={this.state.outputType}
+          inputPlaceholder={this.getFileName()}
+          handleOutputTypeChange={this.handleOutputTypeChange}
+          onOperationChange={op => this.setState({
+            operation: op,
+            outputType: fileTypes[op][0]
+          })}
+          onConvertClick={() => { this.convert() }}
+          onSortEnd={({ oldIndex, newIndex }) => {
+            this.setState({
+              files: arrayMove(this.state.files, oldIndex, newIndex)
+            })
+          }}
+          onFileClick={(key) => {
+            this.setState({
+              files: this.state.files.filter(file => key !== file.path)
+            }, () => {
+              this.setState({
+                status: this.state.files.length ? this.state.status : IDLE
               })
-            }}
-          />
-          <label htmlFor="switch">ACTION</label>
-          <div className="row">
-            <div className="switch">
-              {
-                Object.keys(fileTypes).map(op => (
-                  <button
-                    key={op}
-                    className={`switch__btn merge ${this.state.operation === op ? 'switch__btn-active' : ''}`}
-                    onClick={() => this.setState({
-                      operation: op,
-                      outputType: fileTypes[op][0]
-                    })}
-                  >
-                    {mapOperationToComp(op)}
-                    <div>{`${op.charAt(0)}${op.slice(1).toLowerCase()}`}</div>
-                  </button>
-                ))
-              }
-            </div>
-            <div className="dropdown">
-              <select name="file-type" value={this.state.outputType} onChange={this.handleOutputTypeChange}>
-                {
-                  fileTypes[this.state.operation].map(type => (
-                    <option key={type} value={type}>{type.toUpperCase()}</option>
-                  ))
-                }
-              </select>
-              <ArrowDown />
-            </div>
-          </div>
-          <label htmlFor="file-list">FILES</label>
-          <div className="file-list">
-            {
-              Object.keys(this.state.files).map(key =>
-                <div className="file-list__item" key={key}>
-                  <div>{this.state.files[key].name}</div>
-                  <button
-                    className="close-btn"
-                    onClick={() => {
-                      this.setState({
-                        files: removeByKey(this.state.files, key)
-                      }, () => {
-                        this.setState({
-                          status: Object.keys(this.state.files).length ? this.state.status : IDLE
-                        })
-                      })
-                    }}
-                  >
-                    <Cancel />
-                  </button>
-                </div>
-              )
-            }
-          </div>
-          <button className="button__convert" onClick={() => { this.convert() }}>{this.state.operation}</button>
-        </div>
+            })
+          }}
+        />
       )
       default: return <Idle />
     }
@@ -212,24 +165,17 @@ class Sanitizer extends Component {
           fileName: this.state.operation === MERGE ? fileName : `File${filtered.length > 1 ? 's' : ''}`
         })
         setTimeout(() => {
-          this.setState({
-            status: IDLE,
-            files: {},
-            inputValue: null
-          })
+          this.setState(DEFAULT_STATE)
         }, 3000)
       }).catch((err) => {
+        // eslint-disable-next-line no-alert
         alert(`ERR: ${err}`)
         this.setState({
           status: FAILED
         })
         setTimeout(() => {
-          this.setState({
-            status: IDLE,
-            files: {},
-            inputValue: null
-          })
-        }, 3000)
+          this.setState(DEFAULT_STATE)
+        })
       })
     } else this.setState({ status: IDLE })
   }
@@ -260,4 +206,4 @@ export default DropTarget(NativeTypes.FILE, { drop }, (connect, monitor) => ({
   canDrop: monitor.canDrop(),
   itemType: monitor.getItemType(),
   item: monitor.getItem()
-}))(Sanitizer)
+}))(Converter)

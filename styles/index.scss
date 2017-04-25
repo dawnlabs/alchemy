@@ -3,6 +3,7 @@
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html {
@@ -177,7 +178,7 @@ p {
   height: 40.5px;
   width: 100%;
   font-size: 0.512rem;
-  padding-top: 3px;
+  padding-top: 4px;
 
   svg {
     margin-bottom: 3px;
@@ -204,6 +205,7 @@ p {
   height: 42px;
   width: 156px;
   border-radius: 3px;
+  cursor: pointer;
 
   select {
     background: rgba(0, 0, 0, 0) !important;
@@ -212,6 +214,7 @@ p {
     outline: none;
     padding: 14px 16px;
     -webkit-appearance: none;
+    cursor: pointer;
   }
 }
 
@@ -247,38 +250,52 @@ p {
   height: 106px;
   margin-bottom: 8px;
   overflow-y: scroll;
+}
 
-  .file-list__item {
-    justify-content: space-between;
+.file-list__item {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  background: #fff;
+  background-color: #fff;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  z-index: 999;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .file-name {
+    cursor: default;
+    width: 164px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button {
     display: flex;
-    background: #fff;
-    padding: 8px 16px;
-    font-size: 1rem;
-    border-radius: 2px;
-    margin-bottom: 4px;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background: none;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    div {
-      cursor: default;
-      width: 180px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    button {
-      display: flex;
-      padding: 0;
-      cursor: pointer;
-      border: none;
-      background: none;
-
-      &:focus, &:hover, &:active {
-        outline: none;
-      }
+    &:focus, &:hover, &:active {
+      outline: none;
     }
   }
+}
+
+.drag-handle {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: .25;
+  cursor: row-resize;
 }
