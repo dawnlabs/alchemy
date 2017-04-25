@@ -87,6 +87,8 @@ class Converter extends Component {
   }
 
   getFileName() {
+    if (!this.state.files.length) return ''
+
     const filtered = filterImages(this.state.files).map(f => f.path)
     if (this.state.operation === MERGE) {
       if (this.state.inputValue) return S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s
