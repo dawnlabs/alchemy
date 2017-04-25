@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { DropTarget } from 'react-dnd'
 import S from 'string'
+import { arrayMove } from 'react-sortable-hoc'
 
 import Staging from './Staging'
 import Message from './Message'
@@ -12,7 +13,13 @@ import Converting from './svg/Converting'
 import Idle from './svg/Idle'
 
 import { convert, merge } from '../api'
-import { removeByKey, uniqueAndValidFiles, createOutputFileName, filterImages } from '../helpers/util'
+import {
+  getFileType,
+  isValidFileType,
+  uniqueFiles,
+  createOutputFileName,
+  filterImages
+} from '../helpers/util'
 import {
   fileTypes,
   MERGE,
@@ -25,9 +32,10 @@ import {
 
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
-  const stagingFiles = uniqueAndValidFiles(component.state.files, files)
+  const stagingFiles = uniqueFiles(component.state.files, files)
+    .filter(file => isValidFileType(getFileType(file.name)))
   component.setState({
-    status: Object.keys(stagingFiles).length ? STAGING : IDLE,
+    status: stagingFiles.length ? STAGING : IDLE,
     files: stagingFiles
   })
 
@@ -40,11 +48,11 @@ const DEFAULT_STATE = {
   status: IDLE,
   operation: MERGE,
   outputType: 'pdf',
-  files: {},
+  files: [],
   inputValue: ''
 }
 
-class Sanitizer extends Component {
+class Converter extends Component {
   constructor(props) {
     super(props)
 
@@ -107,12 +115,17 @@ class Sanitizer extends Component {
             outputType: fileTypes[op][0]
           })}
           onConvertClick={() => { this.convert() }}
+          onSortEnd={({ oldIndex, newIndex }) => {
+            this.setState({
+              files: arrayMove(this.state.files, oldIndex, newIndex)
+            })
+          }}
           onFileClick={(key) => {
             this.setState({
-              files: removeByKey(this.state.files, key)
+              files: this.state.files.filter(file => file.name !== key)
             }, () => {
               this.setState({
-                status: Object.keys(this.state.files).length ? this.state.status : IDLE
+                status: this.state.files.length ? this.state.status : IDLE
               })
             })
           }}
@@ -192,4 +205,4 @@ export default DropTarget(NativeTypes.FILE, { drop }, (connect, monitor) => ({
   canDrop: monitor.canDrop(),
   itemType: monitor.getItemType(),
   item: monitor.getItem()
-}))(Sanitizer)
+}))(Converter)

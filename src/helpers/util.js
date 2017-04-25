@@ -12,9 +12,7 @@ const concatFiles = files =>
        .replace(/\s/g, '')
        .substr(0, 50)
 
-const filterImages = files => Object.keys(files)
-                                    .map(key => files[key])
-                                    .filter(file => file.type.includes('image'))
+const filterImages = files => files.filter(file => file.type.includes('image'))
 
 const createOutputFileName = outputType => files => `ALCHEMY-${concatFiles(files)}.${outputType || 'pdf'}`
 
@@ -33,18 +31,11 @@ const isValidFileType = fileType => fileTypesArr.indexOf(fileType) > -1
 
 const getFileType = fileName => fileName.split('.').pop()
 
-const uniqueAndValidFiles = (files, newArray) =>
-  newArray.reduce((accum, next) => {
-    if (accum[next.path] || !isValidFileType(getFileType(next.name))) return accum
-    return Object.assign(accum, {
-      [next.path]: next
-    })
-  }, files)
-
-const removeByKey = (myObj, deleteKey) => {
-  const newObj = Object.assign({}, myObj)
-  delete newObj[deleteKey]
-  return newObj
+const uniqueFiles = (files, newArray) => {
+  return files.concat(
+    newArray
+      .filter(file => !files.map(file => file.path).includes(file.path))
+  )
 }
 
 module.exports = {
@@ -53,7 +44,8 @@ module.exports = {
   filterImages,
   createOutputFileName,
   concatFiles,
-  removeByKey,
   replaceSpaceCharacters,
-  uniqueAndValidFiles,
+  uniqueFiles,
+  isValidFileType,
+  getFileType
 }

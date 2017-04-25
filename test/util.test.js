@@ -2,7 +2,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 const { expect } = require('chai')
-const { concatFiles, uniqueFiles, removeByKey, replaceSpaceCharacters } = require('../src/helpers/util')
+const { concatFiles, uniqueFiles, replaceSpaceCharacters } = require('../src/helpers/util')
 
 describe('UTIL', function () {
   describe('concatFiles()', function () {
@@ -30,39 +30,6 @@ describe('UTIL', function () {
         '/User/test/testaaaaaaaaaaaaaaaaaa.png',
       ]
       expect(concatFiles(files)).to.equal('testaaaaaa_testaaaaaa_testaaaaaa_testaaaaaa_testaa')
-    })
-  })
-
-  describe('removeByKey()', function () {
-    it('remove key from an object', () => {
-      const obj = {
-        key1: 'here',
-        key2: 'there'
-      }
-      expect(removeByKey(obj, 'key1')).to.deep.equal({
-        key2: 'there'
-      })
-    })
-
-    it('do nothing if key doesnt exist', () => {
-      const obj = {
-        key1: 'here',
-        key2: 'there'
-      }
-      expect(removeByKey(obj, 'key3')).to.deep.equal({
-        key1: 'here',
-        key2: 'there'
-      })
-    })
-
-
-    it('do nothing if key doesnt exist', () => {
-      const value = 8
-      const obj = {
-        key1: value
-      }
-      expect(removeByKey(obj, 'key1')).to.deep.equal({})
-      expect(value).to.equal(8)
     })
   })
 

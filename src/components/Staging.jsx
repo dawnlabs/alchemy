@@ -2,9 +2,9 @@ import React from 'react'
 import S from 'string'
 
 import ArrowDown from './svg/ArrowDown'
-import Cancel from './svg/Cancel'
 import Merge from './svg/Merge'
 import Convert from './svg/Convert'
+import FileSorter from './Sorting'
 
 import { centerEllipsis } from '../helpers/util'
 import {
@@ -35,7 +35,8 @@ class Staging extends React.Component {
       handleOutputTypeChange,
       onOperationChange,
       onConvertClick,
-      onFileClick
+      onFileClick,
+      onSortEnd
     } = this.props
     return (
       <div className="staging">
@@ -84,18 +85,11 @@ class Staging extends React.Component {
           </div>
         </div>
         <label htmlFor="file-list">FILES</label>
-        <div className="file-list">
-          {
-            Object.keys(files).map(key =>
-              <div className="file-list__item" key={key}>
-                <div>{files[key].name}</div>
-                <button className="close-btn" onClick={() => onFileClick(key)}>
-                  <Cancel />
-                </button>
-              </div>
-            )
-          }
-        </div>
+        <FileSorter
+          files={files}
+          onClick={onFileClick}
+          onSortEnd={onSortEnd}
+        />
         <button className="button__convert" onClick={onConvertClick}>{operation}</button>
       </div>
     )
