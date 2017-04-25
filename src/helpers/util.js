@@ -27,7 +27,7 @@ const displayOutputFileName = outputType =>
 
 const fileTypesArr = [].concat(...(Object.keys(fileTypes).map(key => fileTypes[key])))
 
-const isValidFileType = fileType => fileTypesArr.indexOf(fileType.toLowerCase()) > -1
+const isValidFileType = fileType => fileTypesArr.indexOf(fileType) > -1
 
 const getFileType = fileName => fileName.split('.').pop()
 

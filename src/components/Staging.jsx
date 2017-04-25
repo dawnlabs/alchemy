@@ -1,5 +1,4 @@
 import React from 'react'
-import S from 'string'
 
 import ArrowDown from './svg/ArrowDown'
 import Merge from './svg/Merge'
@@ -36,7 +35,9 @@ class Staging extends React.Component {
       onOperationChange,
       onConvertClick,
       onFileClick,
-      onSortEnd
+      onSortEnd,
+      onChange,
+      inputValue
     } = this.props
     return (
       <div className="staging">
@@ -47,15 +48,8 @@ class Staging extends React.Component {
           type="text"
           disabled={operation === CONVERT}
           placeholder={centerEllipsis(inputPlaceholder)}
-          value={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${outputType}`).s : ''}
-          onChange={(e) => {
-            if (!e.target.value) return this.setState({ inputValue: null })
-            const letters = e.target.value.split('')
-            const New = letters.pop()
-            return this.setState({
-              inputValue: S(letters.join('')).chompRight(`.${outputType}`).s + New
-            })
-          }}
+          value={inputValue}
+          onChange={onChange}
         />
         <label htmlFor="switch">ACTION</label>
         <div className="row">

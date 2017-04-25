@@ -131,6 +131,15 @@ class Converter extends Component {
               })
             })
           }}
+          inputValue={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s : ''}
+          onChange={(e) => {
+            if (!e.target.value) return this.setState({ inputValue: null })
+            const letters = e.target.value.split('')
+            const New = letters.pop()
+            return this.setState({
+              inputValue: S(letters.join('')).chompRight(`.${this.state.outputType}`).s + New
+            })
+          }}
         />
       )
       default: return <Idle />
