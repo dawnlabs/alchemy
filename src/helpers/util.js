@@ -1,11 +1,9 @@
-const sanitizeFileName = require('sanitize-filename')
 const { pluck, compose, map } = require('./functional')
 const { fileTypes } = require('./constants')
 
 const replaceSpaceCharacters = str =>
-  sanitizeFileName(str)
-    .replace(/\s/g, '\\ ')
-    .replace(/'/g, '\\\'')
+  str.replace(/\s/g, '\\ ')
+     .replace(/'/g, '\\\'')
 
 const concatFiles = files =>
   files.map(path => path.split('/').pop())

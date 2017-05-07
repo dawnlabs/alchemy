@@ -43,7 +43,6 @@
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.4.2",
     "react-sortable-hoc": "^0.6.2",
-    "sanitize-filename": "^1.6.1",
     "string": "^3.3.3"
   },
   "name": "alchemy",
