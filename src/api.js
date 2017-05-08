@@ -2,30 +2,33 @@ const execa = require('execa')
 
 const { replaceSpaceCharacters } = require('./helpers/util')
 
-const binary = './bin/photosorcery'
-
-const convert = ({ files, outputPath, outputType }) => {
-  const args = [
-    'convert',
-    '-type', outputType,
-    '-out', outputPath,
-    ...files.map(replaceSpaceCharacters)
-  ]
-
-  return execa(binary, args)
-}
-
-const merge = ({ files, outputPath }) => {
-  const args = [
-    'merge',
-    '-out', outputPath,
-    ...files.map(replaceSpaceCharacters)
-  ]
-
-  return execa(binary, args)
-}
+let binary = null
 
 module.exports = {
-  convert,
-  merge
+  convert ({ files, outputPath, outputType }) {
+    console.log(binary)
+    const args = [
+      'convert',
+      '-type', outputType,
+      '-out', outputPath,
+      ...files.map(replaceSpaceCharacters)
+    ]
+
+    return execa(binary, args)
+  },
+
+  merge ({ files, outputPath }) {
+    const args = [
+      'merge',
+      '-out', outputPath,
+      ...files.map(replaceSpaceCharacters)
+    ]
+
+    return execa(binary, args)
+  },
+
+  init (mb) {
+    binary = `${mb.app.getAppPath()}/bin/photosorcery`
+    console.log(binary)
+  }
 }
