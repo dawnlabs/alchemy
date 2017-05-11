@@ -1,7 +1,7 @@
 const menubar = require('menubar')
+const { ipcMain } = require('electron')
 
 const configure = require('./src/helpers/configure')
-const api = require('./src/api')
 
 const mb = menubar({
   alwaysOnTop: true,
@@ -13,6 +13,9 @@ const mb = menubar({
 
 mb.on('ready', () => {
   console.log('App started in menu bar.')
-  api.init(mb)
   configure(mb)
+})
+
+ipcMain.on('APP_PATH_REQUEST', (event) => {
+  event.sender.send('APP_PATH_REPLY', mb.app.getAppPath())
 })

@@ -27,8 +27,7 @@ module.exports = {
     return execa(binary, args)
   },
 
-  init (mb) {
-    binary = `${mb.app.getAppPath()}/bin/photosorcery`
-    console.log(binary)
+  init (appPath) {
+    binary = `${appPath}/bin/photosorcery`
   }
 }
