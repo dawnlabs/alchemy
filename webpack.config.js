@@ -15,7 +15,7 @@ module.exports = {
 
   devtool: 'source-map',
 
-  target: 'node',
+  target: 'electron',
 
   entry: './src/index.jsx',
 
