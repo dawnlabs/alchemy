@@ -1,5 +1,6 @@
 const { pluck, compose, map } = require('./functional')
 const { fileTypes } = require('./constants')
+const pathNode = require('path')
 
 const replaceSpaceCharacters = str =>
   str.replace(/\s/g, '\\ ')
@@ -7,10 +8,8 @@ const replaceSpaceCharacters = str =>
 
 const concatFiles = files =>
   files.map(path => path.split('/').pop())
-       .map(file => file.split('.')[0])
-       .map(file => file.substr(0, 10))
+       .map(file => pathNode.basename(file, pathNode.extname(file)))
        .join('_')
-       .replace(/\s/g, '')
        .substr(0, 50)
 
 const filterImages = files => files.filter(file => file.type.includes('image'))

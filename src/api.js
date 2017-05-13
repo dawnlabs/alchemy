@@ -28,6 +28,10 @@ module.exports = {
   },
 
   init (appPath) {
-    binary = `${appPath}/bin/photosorcery`
+    if (process.platform === 'win32') {
+      binary = `${appPath}/bin/photosorcery.exe`
+    } else {
+      binary = `${appPath}/bin/photosorcery`
+    }
   }
 }
