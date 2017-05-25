@@ -22,13 +22,13 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 
 ## Installation
 
-### macOS
+### macOS/Windows
 
 Download the latest release from the [Alchemy Releases Page](https://github.com/dawnlabs/alchemy/releases/latest)
 
-### Windows/Linux 
+### Linux 
 
-We haven't tested Alchemy with Windows or linux yet, but if you're feeling risky go right ahead and [create a build](https://github.com/dawnlabs/alchemy/issues/9) for your platform of choice.
+We haven't tested Alchemy on Linux yet, but if you're feeling adventurous go right ahead and [create a build](https://github.com/dawnlabs/alchemy/issues/9) for your platform of choice.
 
 ## Contribute
 
