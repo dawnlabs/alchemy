@@ -6,7 +6,7 @@
     "lint": "eslint ./src/",
     "test": "jest",
     "build": "webpack",
-    "package": "electron-packager .  --platform=darwin --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
+    "package": "electron-packager .  --platform=darwin,win32 --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
     "zip": "cd packaged/Alchemy-darwin-x64/ ; zip -r -y ../Alchemy.zip * ; cd ..",
     "release": "./bin/release.sh $1"
   },
