@@ -6,7 +6,6 @@ let binary = null
 
 module.exports = {
   convert ({ files, outputPath, outputType }) {
-    console.log(binary)
     const args = [
       'convert',
       '-type', outputType,
