@@ -37,8 +37,32 @@ class Staging extends React.Component {
       onFileClick,
       onSortEnd,
       onChange,
-      inputValue
+      inputValue,
     } = this.props
+
+    // Remove file types for current file
+    // Only works for one file
+
+    var fileTypesCopy = {
+      [CONVERT]: [],
+      [MERGE]: []
+    }
+    fileTypesCopy[CONVERT] = fileTypes[CONVERT].slice()
+    fileTypesCopy[MERGE] = fileTypes[MERGE].slice()
+
+    if (files.length == 1) {
+      for (var i = 0; i < fileTypesCopy[CONVERT].length; i++) {
+        var fileArr = files[0].name.split('.')
+        var extension = fileArr[fileArr.length-1]
+        if (extension.toUpperCase() == fileTypesCopy[CONVERT][i].toUpperCase()) {
+          var index = fileTypesCopy[CONVERT].indexOf(fileTypesCopy[CONVERT][i])
+          fileTypesCopy[CONVERT].splice(index, 1)
+        }
+      }
+    }
+
+    // End
+
     return (
       <div className="staging">
         {/* TODO make this compose better */}
@@ -70,8 +94,8 @@ class Staging extends React.Component {
           <div className="dropdown">
             <select name="file-type" value={outputType} onChange={handleOutputTypeChange}>
               {
-                fileTypes[operation].map(type => (
-                  <option key={type} value={type}>{type.toUpperCase()}</option>
+                fileTypesCopy[operation].map(type => (
+                    <option key={type} value={type}>{type.toUpperCase()}</option>
                 ))
               }
             </select>
