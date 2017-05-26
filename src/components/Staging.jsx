@@ -40,28 +40,22 @@ class Staging extends React.Component {
       inputValue,
     } = this.props
 
-    // Remove file types for current file
-    // Only works for one file
-
-    var fileTypesCopy = {
+    // Remove file types for current file, only works for one file
+    const visibleFileTypes = {
       [CONVERT]: [],
       [MERGE]: []
     }
-    fileTypesCopy[CONVERT] = fileTypes[CONVERT].slice()
-    fileTypesCopy[MERGE] = fileTypes[MERGE].slice()
+    visibleFileTypes[CONVERT] = fileTypes[CONVERT].slice()
+    visibleFileTypes[MERGE] = fileTypes[MERGE].slice()
 
-    if (files.length == 1) {
-      for (var i = 0; i < fileTypesCopy[CONVERT].length; i++) {
-        var fileArr = files[0].name.split('.')
-        var extension = fileArr[fileArr.length-1]
-        if (extension.toUpperCase() == fileTypesCopy[CONVERT][i].toUpperCase()) {
-          var index = fileTypesCopy[CONVERT].indexOf(fileTypesCopy[CONVERT][i])
-          fileTypesCopy[CONVERT].splice(index, 1)
-        }
-      }
+    if (files.length === 1) {
+      let fileExt = files[0].name.split('.').pop().toUpperCase()
+      if (fileExt === 'JPEG')
+        fileExt = 'JPG'
+
+      const notSameExt = (currExt) => currExt.toUpperCase() !== fileExt
+      visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
     }
-
-    // End
 
     return (
       <div className="staging">
@@ -94,7 +88,7 @@ class Staging extends React.Component {
           <div className="dropdown">
             <select name="file-type" value={outputType} onChange={handleOutputTypeChange}>
               {
-                fileTypesCopy[operation].map(type => (
+                visibleFileTypes[operation].map(type => (
                     <option key={type} value={type}>{type.toUpperCase()}</option>
                 ))
               }
