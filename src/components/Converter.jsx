@@ -33,7 +33,8 @@ import {
 const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
   const stagingFiles = uniqueFiles(component.state.files, files)
-    .filter(file => isValidFileType(getFileType(file.name)))
+    .filter(file =>
+      isValidFileType(getFileType(file.name).toLowerCase()))
   component.setState({
     status: stagingFiles.length ? STAGING : IDLE,
     files: stagingFiles
