@@ -41,19 +41,17 @@ class Staging extends React.Component {
     } = this.props
 
     // Remove file types for current file, only works for one file
-    const visibleFileTypes = {
-      [CONVERT]: [],
-      [MERGE]: []
-    }
-    visibleFileTypes[CONVERT] = fileTypes[CONVERT].slice()
-    visibleFileTypes[MERGE] = fileTypes[MERGE].slice()
+    const visibleFileTypes = Object.keys(fileTypes)
+      .reduce((visibleTypes, action) =>
+        // grab output types from supported types
+        Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
     if (files.length === 1) {
       let fileExt = files[0].name.split('.').pop().toUpperCase()
       if (fileExt === 'JPEG')
         fileExt = 'JPG'
 
-      const notSameExt = (currExt) => currExt.toUpperCase() !== fileExt
+      const notSameExt = currExt => currExt.toUpperCase() !== fileExt
       visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
     }
 
@@ -89,7 +87,7 @@ class Staging extends React.Component {
             <select name="file-type" value={outputType} onChange={handleOutputTypeChange}>
               {
                 visibleFileTypes[operation].map(type => (
-                    <option key={type} value={type}>{type.toUpperCase()}</option>
+                  <option key={type} value={type}>{type.toUpperCase()}</option>
                 ))
               }
             </select>

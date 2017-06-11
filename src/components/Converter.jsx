@@ -14,7 +14,7 @@ import Idle from './svg/Idle'
 
 import { convert, merge } from '../api'
 import {
-  getFileType,
+  getFileExtension,
   isValidFileType,
   uniqueFiles,
   createOutputFileName,
@@ -34,7 +34,7 @@ const drop = (props, monitor, component) => {
   const { files } = monitor.getItem()
   const stagingFiles = uniqueFiles(component.state.files, files)
     .filter(file =>
-      isValidFileType(getFileType(file.name).toLowerCase()))
+      isValidFileType(getFileExtension(file.name).toLowerCase()))
   component.setState({
     status: stagingFiles.length ? STAGING : IDLE,
     files: stagingFiles
@@ -115,7 +115,7 @@ class Converter extends Component {
           handleOutputTypeChange={this.handleOutputTypeChange}
           onOperationChange={op => this.setState({
             operation: op,
-            outputType: fileTypes[op][0]
+            outputType: fileTypes[op].output[0]
           })}
           onConvertClick={() => { this.convert() }}
           onSortEnd={({ oldIndex, newIndex }) => {
@@ -132,7 +132,10 @@ class Converter extends Component {
               })
             })
           }}
-          inputValue={this.state.inputValue ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s : ''}
+          inputValue={this.state.inputValue
+            ? S(this.state.inputValue).ensureRight(`.${this.state.outputType}`).s
+            : ''
+          }
           onChange={(e) => {
             if (!e.target.value) return this.setState({ inputValue: null })
             const letters = e.target.value.split('')
@@ -165,7 +168,6 @@ class Converter extends Component {
       const outputPath = this.state.operation === MERGE ?
         path + fileName :
         path
-
 
       command({
         files: filtered.map(f => f.path),
