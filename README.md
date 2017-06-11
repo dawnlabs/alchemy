@@ -8,9 +8,9 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 
 ## Features
 
-* **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files.
-* **Merge files**. Merge multiple images into one pdf, you can even change the file order.
-* **Convert files**. Batch-convert multiple files to a variety of file types.
+* **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files
+* **Merge files**. Merge multiple images into one pdf, you can even change the file order
+* **Convert files**. Batch-convert multiple files to a variety of file types
 
 ## Usage
 
@@ -24,7 +24,7 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 
 ### macOS/Windows
 
-Download the latest release from the [Alchemy Releases Page](https://github.com/dawnlabs/alchemy/releases/latest).
+Download the latest release from the [Alchemy Releases Page](https://github.com/dawnlabs/alchemy/releases/latest)
 
 ### Linux 
 
