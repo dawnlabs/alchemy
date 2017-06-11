@@ -8,9 +8,9 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 
 ## Features
 
-* **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files
-* **Merge files**. Merge multiple images into one pdf, you can even change the file order
-* **Convert files**. Batch-convert multiple files to a variety of file types
+* **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files.
+* **Merge files**. Merge multiple images into one pdf, you can even change the file order.
+* **Convert files**. Batch-convert multiple files to a variety of file types.
 
 ## Usage
 
@@ -18,13 +18,13 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 
 1. Simply open the app by clicking on the menubar icon, or by hitting `⌘-⇧-8`.
 2. Then just drag your image files into the application and select any options.
-3. Finally, click the convert/merge to seemlessly convert them into a variety of formats, or merge them into a pdf or gif. You can also hold `⇧` while dropping to merge the files into a pdf immediately.
+3. Finally, click the convert/merge to seamlessly convert them into a variety of formats, or merge them into a pdf or gif. You can also hold `⇧` while dropping to merge the files into a pdf immediately.
 
 ## Installation
 
 ### macOS/Windows
 
-Download the latest release from the [Alchemy Releases Page](https://github.com/dawnlabs/alchemy/releases/latest)
+Download the latest release from the [Alchemy Releases Page](https://github.com/dawnlabs/alchemy/releases/latest).
 
 ### Linux 
 
