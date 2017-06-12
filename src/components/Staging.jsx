@@ -3,7 +3,9 @@ import React from 'react'
 import ArrowDown from './svg/ArrowDown'
 import Merge from './svg/Merge'
 import Convert from './svg/Convert'
+import Settings from './svg/Settings'
 import FileSorter from './FileSorter'
+import settingsMenu from '../helpers/menu'
 
 import { centerEllipsis } from '../helpers/util'
 import {
@@ -57,7 +59,9 @@ class Staging extends React.Component {
 
     return (
       <div className="staging">
-        {/* TODO make this compose better */}
+        <button className="button__settings" onClick={() => settingsMenu.popup()}>
+          <Settings />
+        </button>
         <label htmlFor="outputFileName">FILENAME</label>
         <input
           id="outputFileName"
