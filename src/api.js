@@ -11,24 +11,28 @@ const tmpFile = (file) => {
 
 module.exports = {
   convert ({ files, outputPath, outputType }) {
+    const tmpFiles = files.map(tmpFile)
     const args = [
       'convert',
       '-type', outputType,
       '-out', outputPath,
-      ...files.map(tmpFile)
+      ...tmpFiles
     ]
 
     return execa(binary, args)
+      .then(() => fs.remove('/tmp/alchemy'))
   },
 
   merge ({ files, outputPath }) {
+    const tmpFiles = files.map(tmpFile)
     const args = [
       'merge',
       '-out', outputPath,
-      ...files.map(tmpFile)
+      ...tmpFiles
     ]
 
     return execa(binary, args)
+      .then(() => fs.remove('/tmp/alchemy'))
   },
 
   init (appPath) {
