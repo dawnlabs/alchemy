@@ -1,8 +1,13 @@
 const execa = require('execa')
-
-const { replaceSpaceCharacters } = require('./helpers/util')
+const fs = require('fs-extra')
 
 let binary = null
+
+const tmpFile = (file) => {
+  const tmpName = `/tmp/alchemy/${file.replace(/\s+/g, '')}`
+  fs.copySync(file, tmpName)
+  return tmpName
+}
 
 module.exports = {
   convert ({ files, outputPath, outputType }) {
@@ -10,7 +15,7 @@ module.exports = {
       'convert',
       '-type', outputType,
       '-out', outputPath,
-      ...files.map(replaceSpaceCharacters)
+      ...files.map(tmpFile)
     ]
 
     return execa(binary, args)
@@ -20,7 +25,7 @@ module.exports = {
     const args = [
       'merge',
       '-out', outputPath,
-      ...files.map(replaceSpaceCharacters)
+      ...files.map(tmpFile)
     ]
 
     return execa(binary, args)
