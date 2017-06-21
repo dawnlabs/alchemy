@@ -134,6 +134,7 @@ body {
   display: flex;
   margin-top: 64px; }
   .screenshot_wrapper video {
+    object-fit: cover;
     width: 292px;
     height: 344px;
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
