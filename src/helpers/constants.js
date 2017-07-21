@@ -25,8 +25,8 @@ module.exports = {
       output: ['pdf']
     },
     [CONVERT]: {
-      input: ['png', 'jpg'],
-      output: ['png', 'jpg']
+      input: ['png', 'jpg', 'gif', 'bmp', 'tiff'],
+      output: ['png', 'jpg', 'gif', 'bmp', 'tiff']
     }
   },
   blue,
