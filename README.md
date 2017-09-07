@@ -6,8 +6,6 @@ Alchemy is an open-source file converter (built on Electron and React). It also 
 
 Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](https://dawnlabs.github.io/blog/alchemy/) to learn more.
 
-<a href="https://app.codesponsor.io/link/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy" rel="nofollow"><img src="https://app.codesponsor.io/embed/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 ## Features
 
 * **Beautifully simple**. Super easy, drag-and-drop interface for converting/merging files
@@ -47,3 +45,5 @@ Alchemy is a project by <a href="http://dawnlabs.io/"><img width=8% src="https:/
 - Mike Fix ([@mfix22](https://github.com/mfix22))
 - Brian Dennis ([@briandennis](https://github.com/briandennis))
 - Jake Dexheimer ([@jakedex](https://github.com/jakedex))
+
+<a href="https://app.codesponsor.io/link/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy" rel="nofollow"><img src="https://app.codesponsor.io/embed/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
