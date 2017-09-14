@@ -45,7 +45,3 @@ Alchemy is a project by <a href="http://dawnlabs.io/"><img width=8% src="https:/
 - Mike Fix ([@mfix22](https://github.com/mfix22))
 - Brian Dennis ([@briandennis](https://github.com/briandennis))
 - Jake Dexheimer ([@jakedex](https://github.com/jakedex))
-
-<br>
-
-<a href="https://app.codesponsor.io/link/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy" rel="nofollow"><img src="https://app.codesponsor.io/embed/4phDnnWx26cvd5VwNvzwwdPm/dawnlabs/alchemy.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
