@@ -33,7 +33,6 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
     "electron": "^1.6.2",
     "execa": "^0.6.3",
     "menubar": "^5.2.0",
