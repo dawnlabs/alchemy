@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron'
 
 import Tray from './components/Tray'
 import api from './api'
+import notifier from './helpers/notifier'
 
 require('../styles/index.scss')
 
@@ -13,12 +14,9 @@ require('../styles/index.scss')
 ipcRenderer.send('APP_PATH_REQUEST')
 
 ipcRenderer.on('APP_PATH_REPLY', (event, arg) => {
-  console.log('REPLY received...')
-  console.log('arg: ' + arg)
   api.init(arg)
+  notifier.init(arg)
 })
-
-
 const App = DragDropContext(HTML5Backend)(Tray)
 
 render(

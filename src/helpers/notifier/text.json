@@ -1,0 +1,17 @@
+{
+  "messageCount": 5,
+  "success": [
+    "Your images are done a'brewin.",
+    "The transmutation was a success.",
+    "LVL 100 Alchemy achieved.",
+    "Good as gold.",
+    "A magical success! Your files are done."
+  ],
+  "failure": [
+    "The moons were not aligned.",
+    "There be dark magic afoot.",
+    "Philosopher's stone sold seperately.",
+    "Another deception of the photo sorcerer.",
+    "The night is dark and full of terrors."
+  ]
+}

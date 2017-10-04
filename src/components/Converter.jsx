@@ -13,6 +13,7 @@ import Converting from './svg/Converting'
 import Idle from './svg/Idle'
 
 import { convert, merge } from '../api'
+import { notify } from '../helpers/notifier'
 import {
   getFileExtension,
   isValidFileType,
@@ -54,7 +55,7 @@ const DEFAULT_STATE = {
 }
 
 class Converter extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = DEFAULT_STATE
@@ -67,7 +68,7 @@ class Converter extends Component {
     this.getFileName = this.getFileName.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Shift') {
         this.setState({
@@ -82,12 +83,12 @@ class Converter extends Component {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     window.removeEventListener('keyup')
     window.removeEventListener('keydown')
   }
 
-  getFileName() {
+  getFileName () {
     if (!this.state.files.length) return ''
 
     const filtered = filterImages(this.state.files).map(f => f.path)
@@ -101,7 +102,7 @@ class Converter extends Component {
     return `${name}.${this.state.outputType}`
   }
 
-  getIconObject() {
+  getIconObject () {
     switch (this.state.status) {
       case FAILED: return <Failed />
       case DONE: return <Done />
@@ -150,11 +151,11 @@ class Converter extends Component {
     }
   }
 
-  handleOutputTypeChange(e) {
+  handleOutputTypeChange (e) {
     this.setState({ outputType: e.target.value })
   }
 
-  convert() {
+  convert () {
     const filtered = filterImages(this.state.files)
 
     if (filtered.length) {
@@ -165,9 +166,9 @@ class Converter extends Component {
       const path = filtered[0].path.slice(0, filtered[0].path.length - filtered[0].name.length)
       const command = this.state.operation === MERGE ? merge : convert
       const fileName = this.getFileName()
-      const outputPath = this.state.operation === MERGE ?
-        path + fileName :
-        path
+      const outputPath = this.state.operation === MERGE
+        ? path + fileName
+        : path
 
       command({
         files: filtered.map(f => f.path),
@@ -178,6 +179,11 @@ class Converter extends Component {
           status: DONE,
           fileName: this.state.operation === MERGE ? fileName : `File${filtered.length > 1 ? 's' : ''}`
         })
+
+        if (document.hidden) {
+          notify({ didSucceed: true, operation: this.state.operation})
+        }
+
         setTimeout(() => {
           this.setState(DEFAULT_STATE)
         }, 3000)
@@ -187,6 +193,11 @@ class Converter extends Component {
         this.setState({
           status: FAILED
         })
+
+        if (document.hidden) {
+          notify({ didSucceed: false, operation: this.state.operation})
+        }
+
         setTimeout(() => {
           this.setState(DEFAULT_STATE)
         })
@@ -194,17 +205,17 @@ class Converter extends Component {
     } else this.setState({ status: IDLE })
   }
 
-  isHover() {
+  isHover () {
     return this.props.isOver && this.state.status !== CONVERTING
   }
 
-  render() {
+  render () {
     const { connectDropTarget } = this.props
     return connectDropTarget(
       <div
         className={`container ${this.state.status === STAGING ? 'no-padding ' : ''}
-          ${(this.state.status === IDLE) ?
-         (this.isHover() ? 'border-hover' : 'border-dashed') : ''}`}
+          ${(this.state.status === IDLE)
+         ? (this.isHover() ? 'border-hover' : 'border-dashed') : ''}`}
       >
         {this.getIconObject()}
         <Message hover={this.isHover()} state={this.state} />
