@@ -28,7 +28,8 @@ import {
   STAGING,
   CONVERTING,
   FAILED,
-  DONE
+  DONE,
+  CONVERT
 } from '../helpers/constants'
 
 const drop = (props, monitor, component) => {
@@ -114,9 +115,29 @@ class Converter extends Component {
           outputType={this.state.outputType}
           inputPlaceholder={this.getFileName()}
           handleOutputTypeChange={this.handleOutputTypeChange}
-          onOperationChange={op => this.setState({
-            operation: op,
-            outputType: fileTypes[op].output[0]
+          onOperationChange={op => this.setState(state => {
+            /**
+            * Copied from Staging.jsx render()
+            * TODO refactor this check
+            */
+            if (!state.files) return;
+
+            let fileExt = state.files[0].name.split('.').pop().toUpperCase()
+            if (fileExt === 'JPEG')
+              fileExt = 'JPG'
+
+            const visibleFileTypes = Object.keys(fileTypes)
+              .reduce((visibleTypes, action) =>
+                // grab output types from supported types
+                Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
+
+            const notSameExt = currExt => currExt.toUpperCase() !== fileExt
+            visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
+
+            return {
+              operation: op,
+              outputType: visibleFileTypes[op][0]
+            }
           })}
           onConvertClick={() => { this.convert() }}
           onSortEnd={({ oldIndex, newIndex }) => {
