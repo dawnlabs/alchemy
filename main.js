@@ -1,7 +1,14 @@
 const menubar = require('menubar')
-const { ipcMain } = require('electron')
+const { app, autoUpdater, ipcMain } = require('electron')
 
 const configure = require('./src/helpers/configure')
+
+const server = 'https://alchemy.now.sh'
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+
+try {
+  autoUpdater.setFeedURL(feed)
+} catch (e) { /* pass */ }
 
 const mb = menubar({
   alwaysOnTop: true,
