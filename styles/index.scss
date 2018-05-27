@@ -12,6 +12,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  /* Prevent background from becoming transparent */
+  background: white;
 }
 
 h1,
