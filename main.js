@@ -14,7 +14,11 @@ const mb = menubar({
 mb.on('ready', () => {
   console.log('App started in menu bar.')
   configure(mb)
+
+  mb.tray.on('drag-enter', () => mb.showWindow())
 })
+
+mb.on('focus-lost', () => mb.hideWindow());
 
 ipcMain.on('APP_PATH_REQUEST', (event) => {
   event.sender.send('APP_PATH_REPLY', mb.app.getAppPath())
