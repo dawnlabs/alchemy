@@ -5,7 +5,7 @@ const Message = ({ hover, state }) => {
     case 'IDLE': return (
       <div>
         <h1>
-          { hover ? 'Drop' : 'Drag & drop' }
+          { hover ? 'Drop' : 'TEST' }
         </h1>
         <p className="detail">
           {`your files here to ${state.shifted ? 'convert' : 'add them'}`}
