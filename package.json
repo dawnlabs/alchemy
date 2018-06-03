@@ -38,6 +38,7 @@
     "fs-extra": "^3.0.1",
     "invariant": "^2.2.2",
     "menubar": "^5.2.3",
+    "ms": "^2.1.1",
     "react": "^15.4.2",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
