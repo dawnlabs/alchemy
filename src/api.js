@@ -37,9 +37,9 @@ module.exports = {
 
   init (appPath) {
     if (process.platform === 'win32') {
-      binary = `${appPath}/bin/photosorcery.exe`
+      binary = `${appPath}/bin/photosorcery-windwows-4.0-amd64.exe`
     } else {
-      binary = `${appPath}/bin/photosorcery`
+      binary = `${appPath}/bin/photosorcery-darwin-10.6-amd64`
     }
   }
 }
