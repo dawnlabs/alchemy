@@ -1,7 +1,9 @@
 {
   "productName": "Alchemy",
   "main": "main.js",
-  "engines" : { "node" : ">=9.11" },
+  "engines": {
+    "node": ">=9.11"
+  },
   "scripts": {
     "start": "electron .",
     "lint": "eslint ./src/",
@@ -54,7 +56,7 @@
   },
   "name": "alchemy",
   "description": "Alchemy is a drag-and-drop file converter for your menubar.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/dawnlabs/alchemy.git"
