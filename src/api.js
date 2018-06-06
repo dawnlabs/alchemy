@@ -1,5 +1,6 @@
 const execa = require('execa')
 const fs = require('fs-extra')
+const path = require('path')
 
 let binary = null
 
@@ -36,10 +37,18 @@ module.exports = {
   },
 
   init (appPath) {
-    if (process.platform === 'win32') {
-      binary = `${appPath}/bin/photosorcery-windwows-4.0-amd64.exe`
-    } else {
-      binary = `${appPath}/bin/photosorcery-darwin-10.6-amd64`
+    const basePath = path.join(appPath, 'bin', 'photosorcery') 
+
+    switch (process.platform) {
+      case 'win32':
+        binary = path.join(basePath, 'photosorcery-windows.exe')
+        break
+      case 'darwin':
+        binary = path.join(basePath, 'photosorcery-darwin')
+        break
+      case 'linux':
+        binary = path.join(basePath, 'photosorcery-linux')
+        break
     }
   }
 }
