@@ -1,21 +1,16 @@
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var extractCSS = new ExtractTextPlugin('public/[name].css')
-
-const sassLoaders = [
-  'css-loader',
-  'sass-loader'
-]
+const extractCSS = new ExtractTextPlugin('public/[name].css')
 
 module.exports = {
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.sass', '.scss']
+    extensions: ['.js', '.jsx', '.json']
   },
 
   devtool: 'source-map',
 
-  target: 'electron',
+  target: 'electron-renderer',
 
   entry: './src/index.jsx',
 
@@ -25,31 +20,32 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
         exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env']
+          }
         }
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
         test: /\.html$/,
-        loader: 'html'
+        use: 'html'
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file?name=assets/[name].[hash].[ext]'
+        use: 'file?name=assets/[name].[hash].[ext]'
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          'css-loader', // translates CSS into CommonJS
+          'sass-loader' // compiles Sass to CSS
+        ]
       }
     ]
   },
@@ -60,7 +56,6 @@ module.exports = {
       React: 'react'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.PATH': JSON.stringify(process.env.PATH)
     }),
     extractCSS
