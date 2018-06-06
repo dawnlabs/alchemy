@@ -15,8 +15,9 @@ module.exports = {
   entry: './src/index.jsx',
 
   output: {
-    filename: 'public/[name].js',
-    chunkFilename: 'public/[id].chunk.js'
+    path: `${__dirname}/public`,
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js'
   },
 
   module: {
@@ -52,9 +53,6 @@ module.exports = {
 
   plugins: [
     // new webpack.optimize.CommonsChunkPlugin('scripts/common.js'),
-    new webpack.ProvidePlugin({
-      React: 'react'
-    }),
     new webpack.DefinePlugin({
       'process.env.PATH': JSON.stringify(process.env.PATH)
     }),
