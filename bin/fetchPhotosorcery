@@ -1,9 +1,9 @@
 #!/usr/bin/env node
+/* eslint-disable no-console, import/no-extraneous-dependencies */
 const path = require('path')
 const fs = require('fs-extra')
 const glob = require('glob')
 const chalk = require('chalk')
-
 
 const DEFAULT_BINARY_DIR = `${process.env.GOPATH}/src/github.com/dawnlabs/photosorcery`
 const PHOTOSORCERY_DIR = path.join(__dirname, 'photosorcery')
@@ -11,21 +11,19 @@ const BINARY_IDENTIFIER = 'amd64'
 const BINARY_DELIMITER = '-'
 const BINARY_GLOB = `*${BINARY_IDENTIFIER}*`
 
-execute()
+execute(process.argv[2] || DEFAULT_BINARY_DIR)
   .then(() => console.log(chalk.green('Success: Files fetched.')))
   .catch(console.error)
 
 async function execute (dir) {
-  const binaryDir = process.argv[2] || DEFAULT_BINARY_DIR
-  
-  await copyBinaries(binaryDir)
+  await copyBinaries(dir)
   await renameBinaries()
 }
 
 async function copyBinaries (dir) {
   const copyGlob = path.join(dir, BINARY_GLOB)
   const filesToCopy = glob.sync(copyGlob)
-  
+
   filesToCopy.forEach(async (filename) => {
     await fs.copyFile(filename, path.join(PHOTOSORCERY_DIR, path.basename(filename)))
   })
@@ -33,13 +31,13 @@ async function copyBinaries (dir) {
 
 async function renameBinaries () {
   const files = await fs.readdir(PHOTOSORCERY_DIR)
-  const filesToRename = files.filter((filename) => filename.includes(BINARY_IDENTIFIER))
+  const filesToRename = files.filter(filename => filename.includes(BINARY_IDENTIFIER))
 
   filesToRename.forEach(async (file) => {
     const normalizedFilename = removeFilenamePeriods(file)
     const parts = path.parse(normalizedFilename)
     const trimmedName = parts.name.split(BINARY_DELIMITER).slice(0, 2).join('-')
-    const newFile = `${trimmedName}${parts.ext}` 
+    const newFile = `${trimmedName}${parts.ext}`
 
     await fs.rename(path.join(PHOTOSORCERY_DIR, file), path.join(PHOTOSORCERY_DIR, newFile))
   })
@@ -48,13 +46,16 @@ async function renameBinaries () {
 function removeFilenamePeriods (filename) {
   const EXE_FLAG = filename.includes('.exe')
 
-  if (EXE_FLAG)
-    filename = filename.slice(0, filename.length - 4)
+  let formatted = filename
+  if (EXE_FLAG) {
+    formatted = filename.slice(0, filename.length - 4)
+  }
 
-  filename = filename.split('.').join('')
+  formatted = filename.split('.').join('')
 
-  if(EXE_FLAG)
-    filename = `${filename}.exe`
+  if (EXE_FLAG) {
+    formatted = `${filename}.exe`
+  }
 
-  return filename
+  return formatted
 }
