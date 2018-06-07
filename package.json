@@ -11,7 +11,7 @@
     "build": "webpack --mode=development",
     "build:prod": "webpack --mode=production -p",
     "package": "electron-packager .  --platform=darwin,win32,linux --arch=x64 --out=packaged --icon=img/out.icns --overwrite",
-    "zip": "cd packaged/Alchemy-darwin-x64/ && zip -r -y ../Alchemy-mac.zip * && cd ../Alchemy-win32-x64 && zip -r -y ../Alchemy-win32.zip * && cd ..",
+    "zip": "cd packaged/Alchemy-darwin-x64/ && zip -r -y ../Alchemy-mac.zip * && cd ../Alchemy-win32-x64 && zip -r -y ../Alchemy-win32.zip * && cd ../Alchemy-linux-x64 && zip -r -y ../Alchemy-linux.zip * && cd ..",
     "release": "./bin/release.sh $1",
     "fetch-photosorcery": "./bin/fetchPhotosorcery"
   },
@@ -23,7 +23,8 @@
     "chai": "^3.5.0",
     "chalk": "^2.4.1",
     "css-loader": "^0.28.11",
-    "electron-packager": "^8.5.0",
+    "electron-packager": "^12.1.0",
+    "electron-winstaller": "^2.6.4",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -41,7 +42,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "electron": "^1.8.7",
+    "electron": "^2.0.2",
     "execa": "^0.6.3",
     "fs-extra": "^6.0.1",
     "invariant": "^2.2.2",

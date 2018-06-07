@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+const electronInstaller = require('electron-winstaller')
+const chalk = require('chalk')
+
+resultPromise = electronInstaller.createWindowsInstaller({
+  appDirectory: './packaged/Alchemy-win32-x64',
+  outputDirectory: './packaged/Alchemy-windows-installer',
+  authors: 'Dawn Labs',
+  exe: 'Alchemy.exe'
+});
+
+resultPromise
+  .then(() => console.log(chalk.green('Success: Windows installer built.')))
+  .catch(console.error)
