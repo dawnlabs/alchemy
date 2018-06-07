@@ -28,25 +28,24 @@ function notify ({ didSucceed, operation }) {
 }
 
 function genInfo (didSucceed, operation) {
-  const index = getIndex()
   const operationText = operation === MERGE ? 'Merge' : 'Conversion'
 
   if (didSucceed) {
     return {
       title: `${operationText} complete!`,
-      body: text.success[index],
+      body: getRandomElement(text.success),
       icon: `${imgPath}/success.png`
     }
   }
 
   return {
     title: `Oh no! ${operationText} failed.`,
-    body: text.failure[index],
+    body: getRandomElement(text.failure),
     icon: `${imgPath}/failure.png`
   }
 }
 
-function getIndex () {
+function getRandomElement (array) {
   const rnd = Math.random()
-  return Math.floor(rnd * text.messageCount)
+  return array[Math.floor(rnd * array.length)]
 }
