@@ -48,14 +48,21 @@ class Staging extends React.Component {
         // grab output types from supported types
         Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
-    if (files.length === 1) {
-      let fileExt = files[0].name.split('.').pop().toUpperCase()
-      if (fileExt === 'JPEG')
-        fileExt = 'JPG'
+    const normalizeExtension = name => {
+      const ext = name
+        .split(".")
+        .pop()
+        .toUpperCase();
 
-      const notSameExt = currExt => currExt.toUpperCase() !== fileExt
-      visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
+      return ext === "JPEG" ? "JPG" : ext;
     }
+
+    const extensions = [
+      ...new Set(files.map(({ name }) => normalizeExtension(name)))
+    ]
+
+    const notSameExt = currExt => !extensions.includes(currExt.toUpperCase())
+    visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
 
     return (
       <div className="staging">

@@ -122,16 +122,25 @@ class Converter extends Component {
             */
             if (!state.files) return;
 
-            let fileExt = state.files[0].name.split('.').pop().toUpperCase()
-            if (fileExt === 'JPEG')
-              fileExt = 'JPG'
+            const normalizeExtension = name => {
+              const ext = name
+                .split(".")
+                .pop()
+                .toUpperCase();
+
+              return ext === "JPEG" ? "JPG" : ext;
+            }
+
+            const extensions = [
+              ...new Set(state.files.map(({ name }) => normalizeExtension(name)))
+            ]
 
             const visibleFileTypes = Object.keys(fileTypes)
               .reduce((visibleTypes, action) =>
                 // grab output types from supported types
                 Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
-            const notSameExt = currExt => currExt.toUpperCase() !== fileExt
+            const notSameExt = currExt => !extensions.includes(currExt.toUpperCase())
             visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
 
             return {
