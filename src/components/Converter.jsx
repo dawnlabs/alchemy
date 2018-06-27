@@ -19,7 +19,8 @@ import {
   isValidFileType,
   uniqueFiles,
   createOutputFileName,
-  filterImages
+  filterImages,
+  getUniqueExtensions
 } from '../helpers/util'
 import {
   fileTypes,
@@ -130,16 +131,13 @@ class Converter extends Component {
             */
             if (!state.files) return;
 
-            let fileExt = state.files[0].name.split('.').pop().toUpperCase()
-            if (fileExt === 'JPEG')
-              fileExt = 'JPG'
-
             const visibleFileTypes = Object.keys(fileTypes)
               .reduce((visibleTypes, action) =>
                 // grab output types from supported types
                 Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
-            const notSameExt = currExt => currExt.toUpperCase() !== fileExt
+            const notSameExt = currExt =>
+                !getUniqueExtensions(state.files).includes(currExt.toUpperCase())
             visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
 
             return {

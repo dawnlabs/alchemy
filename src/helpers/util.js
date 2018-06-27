@@ -45,6 +45,21 @@ const uniqueFiles = (files, newArray) =>
     newArray.filter(file =>
       !files.map(file => file.path).includes(file.path)))
 
+const getUniqueExtensions = files => {
+    const normalizeExtension = name => {
+      const ext = name
+        .split(".")
+        .pop()
+        .toUpperCase();
+
+      return ext === "JPEG" ? "JPG" : ext;
+    }
+
+    return [
+      ...new Set(files.map(({ name }) => normalizeExtension(name)))
+    ]
+}
+
 module.exports = {
   displayOutputFileName,
   centerEllipsis,
@@ -54,5 +69,6 @@ module.exports = {
   replaceSpaceCharacters,
   uniqueFiles,
   isValidFileType,
-  getFileExtension
+  getFileExtension,
+  getUniqueExtensions
 }
