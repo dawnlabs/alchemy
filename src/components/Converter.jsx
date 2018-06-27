@@ -20,7 +20,7 @@ import {
   uniqueFiles,
   createOutputFileName,
   filterImages,
-  getUniqueExensions
+  getUniqueExtensions
 } from '../helpers/util'
 import {
   fileTypes,
@@ -137,7 +137,7 @@ class Converter extends Component {
                 Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
             const notSameExt = currExt =>
-                !getUniqueExensions(state.files).includes(currExt.toUpperCase())
+                !getUniqueExtensions(state.files).includes(currExt.toUpperCase())
             visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
 
             return {

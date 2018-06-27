@@ -7,7 +7,7 @@ import Settings from './svg/Settings'
 import FileSorter from './FileSorter'
 import settingsMenu from '../helpers/menu'
 
-import { centerEllipsis, getUniqueExensions } from '../helpers/util'
+import { centerEllipsis, getUniqueExtensions } from '../helpers/util'
 import {
   fileTypes,
   CONVERT,
@@ -48,7 +48,7 @@ class Staging extends React.Component {
         // grab output types from supported types
         Object.assign({ [action]: fileTypes[action].output }, visibleTypes), {})
 
-    const notSameExt = currExt => !getUniqueExensions(files).includes(currExt.toUpperCase())
+    const notSameExt = currExt => !getUniqueExtensions(files).includes(currExt.toUpperCase())
     visibleFileTypes[CONVERT] = visibleFileTypes[CONVERT].filter(notSameExt)
 
     return (

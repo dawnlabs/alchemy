@@ -45,7 +45,7 @@ const uniqueFiles = (files, newArray) =>
     newArray.filter(file =>
       !files.map(file => file.path).includes(file.path)))
 
-const getUniqueExensions = files => {
+const getUniqueExtensions = files => {
     const normalizeExtension = name => {
       const ext = name
         .split(".")
@@ -70,5 +70,5 @@ module.exports = {
   uniqueFiles,
   isValidFileType,
   getFileExtension,
-  getUniqueExensions
+  getUniqueExtensions
 }
