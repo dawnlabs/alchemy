@@ -1,7 +1,9 @@
 {
   "productName": "Alchemy",
   "main": "main.js",
-  "engines" : { "node" : ">=9.11" },
+  "engines": {
+    "node": ">=9.11"
+  },
   "scripts": {
     "start": "electron .",
     "lint": "eslint ./src/",
