@@ -47,6 +47,14 @@ const drop = (props, monitor, component) => {
   }
 }
 
+const collect = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop(),
+  itemType: monitor.getItemType(),
+  item: monitor.getItem()
+})
+
 const DEFAULT_STATE = {
   status: IDLE,
   operation: MERGE,
@@ -255,10 +263,4 @@ class Converter extends Component {
 }
 
 // { drop } since other functions can be passed here
-export default DropTarget(NativeTypes.FILE, { drop }, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
-  itemType: monitor.getItemType(),
-  item: monitor.getItem()
-}))(Converter)
+export default DropTarget(NativeTypes.FILE, { drop }, collect)(Converter)

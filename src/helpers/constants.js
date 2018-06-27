@@ -21,12 +21,12 @@ module.exports = {
   CONVERT,
   fileTypes: {
     [MERGE]: {
-      input: ['png', 'jpg', 'gif', 'bmp', 'tiff'],
+      input: ['png', 'jpg', 'gif'],
       output: ['pdf']
     },
     [CONVERT]: {
-      input: ['png', 'jpg', 'gif', 'bmp', 'tiff'],
-      output: ['png', 'jpg', 'gif', 'bmp', 'tiff']
+      input: ['png', 'jpg', 'gif', 'bmp', 'tiff', 'webp'],
+      output: ['png', 'jpg', 'gif', 'bmp', 'tiff', 'webp']
     }
   },
   blue,
