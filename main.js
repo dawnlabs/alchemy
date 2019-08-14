@@ -1,13 +1,18 @@
-const menubar = require('menubar')
+const { menubar } = require('menubar')
 const { ipcMain } = require('electron')
 
 const configure = require('./src/helpers/configure')
 
 const mb = menubar({
-  alwaysOnTop: true,
+  browserWindow: {
+    alwaysOnTop: true,
+    width: 292,
+    height: 360,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  },
   resizable: false,
-  width: 292,
-  height: 344,
   icon: `${__dirname}/img/iconTemplate.png`
 })
 
@@ -18,8 +23,8 @@ mb.on('ready', () => {
   mb.tray.on('drag-enter', () => mb.showWindow())
 })
 
-mb.on('focus-lost', () => mb.hideWindow());
+mb.on('focus-lost', () => mb.hideWindow())
 
-ipcMain.on('APP_PATH_REQUEST', (event) => {
+ipcMain.on('APP_PATH_REQUEST', event => {
   event.sender.send('APP_PATH_REPLY', mb.app.getAppPath())
 })

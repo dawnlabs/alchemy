@@ -7,7 +7,8 @@
 }
 
 html {
-  font-family: '-apple-system', 'San Francisco', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: '-apple-system', 'San Francisco', BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    sans-serif;
   color: $black;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -127,7 +128,7 @@ p {
     font-weight: normal;
     height: 46px;
     padding: 8px 16px;
-    transition: .2s background, .2s box-shadow;
+    transition: 0.2s background, 0.2s box-shadow;
 
     &:focus {
       outline: none;
@@ -145,7 +146,7 @@ p {
     &:nth-child(2n) {
       background: $lightGrey;
     }
-    &:nth-child(2n+1) {
+    &:nth-child(2n + 1) {
       background: lighten($lightGrey, 5%);
     }
   }
@@ -160,8 +161,7 @@ p {
   background: rgba(0, 0, 0, 0.2);
   margin: 8px;
   margin-left: 0;
-  border: 1px #D8D8D8 solid;
-  height: 42px;
+  border: 1px #d8d8d8 solid;
   display: flex;
   border-radius: 3px;
   width: 96px;
@@ -203,7 +203,7 @@ p {
 
 .dropdown {
   position: relative;
-  border: 1px #D8D8D8 solid;
+  border: 1px #d8d8d8 solid;
   height: 42px;
   width: 156px;
   border-radius: 3px;
@@ -237,12 +237,14 @@ p {
   border-radius: 3px;
   padding: 16px 24px;
 
-  &:focus, &:hover, &:active {
+  &:focus,
+  &:hover,
+  &:active {
     outline: none;
   }
 
   &:hover {
-    background: darken($green, 5%)
+    background: darken($green, 5%);
   }
 }
 
@@ -255,7 +257,9 @@ p {
   margin: -4px -12px 0 auto;
   min-height: 16px;
 
-  &:focus, &:hover, &:active {
+  &:focus,
+  &:hover,
+  &:active {
     outline: none;
   }
 }
@@ -299,7 +303,9 @@ p {
     border: none;
     background: none;
 
-    &:focus, &:hover, &:active {
+    &:focus,
+    &:hover,
+    &:active {
       outline: none;
     }
   }
@@ -309,9 +315,9 @@ p {
   display: block;
   width: 16px;
   height: 16px;
-  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>');
+  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" color="black" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" /></svg>');
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: .25;
+  opacity: 0.25;
   cursor: row-resize;
 }

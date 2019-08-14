@@ -10,11 +10,11 @@ module.exports = {
   notify
 }
 
-function init (appPath) {
+function init(appPath) {
   imgPath = `${appPath}/img`
 }
 
-function notify ({ didSucceed, operation }) {
+function notify({ didSucceed, operation }) {
   invariant([MERGE, CONVERT].includes(operation), 'Invalid notification operation')
 
   const { title, body, icon } = genInfo(didSucceed, operation)
@@ -27,7 +27,7 @@ function notify ({ didSucceed, operation }) {
   return n
 }
 
-function genInfo (didSucceed, operation) {
+function genInfo(didSucceed, operation) {
   const operationText = operation === MERGE ? 'Merge' : 'Conversion'
 
   if (didSucceed) {
@@ -45,7 +45,7 @@ function genInfo (didSucceed, operation) {
   }
 }
 
-function getRandomElement (array) {
+function getRandomElement(array) {
   const rnd = Math.random()
   return array[Math.floor(rnd * array.length)]
 }

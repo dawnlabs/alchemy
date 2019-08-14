@@ -42,7 +42,8 @@
     "webpack-cli": "^3.3.6"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/register": "^7.5.5",
     "electron": "^6.0.2",
     "execa": "^2.0.3",
     "fs-extra": "^8.1.0",
@@ -52,7 +53,7 @@
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^16.9.0",
-    "react-sortable-hoc": "^1.9.1",
+    "react-sortable-hoc": "0.6.2",
     "string": "^3.3.3",
     "tmp": "^0.1.0"
   },
