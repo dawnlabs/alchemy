@@ -1,5 +1,4 @@
-import 'babel-core/register'
-import 'babel-polyfill'
+import '@babel/polyfill'
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -22,7 +21,4 @@ ipcRenderer.on('APP_PATH_REPLY', (event, arg) => {
 })
 const App = DragDropContext(HTML5Backend)(Tray)
 
-render(
-  <App />,
-  document.getElementById('root')
-)
+render(<App />, document.getElementById('root'))

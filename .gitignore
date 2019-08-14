@@ -3,3 +3,5 @@ public
 packaged
 
 .DS_Store
+
+package-lock.json
