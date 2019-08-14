@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "lint": "eslint ./src/",
+    "lint": "eslint src",
     "test": "jest",
     "build": "webpack --mode=development",
     "build:prod": "webpack --mode=production -p",
@@ -19,6 +19,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "chalk": "^2.4.2",

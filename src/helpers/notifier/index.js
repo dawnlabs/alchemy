@@ -1,4 +1,3 @@
-/* global Notification */
 const invariant = require('invariant')
 const { MERGE, CONVERT } = require('../constants')
 const text = require('./text.json')
