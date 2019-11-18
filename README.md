@@ -15,6 +15,7 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 ## Usage
 
 []()![demo](https://cloud.githubusercontent.com/assets/10369094/24595824/7e6f7f74-17ff-11e7-80dd-b2602b9f0ba1.gif)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy?ref=badge_shield)
 
 1. Simply open the app by clicking on the menubar icon, or by hitting `⌘-⇧-8`.
 2. Then just drag your image files into the application and select any options.
@@ -46,3 +47,7 @@ Alchemy is a project by <a href="http://dawnlabs.io/"><img width=8% src="https:/
 - Mike Fix ([@mfix22](https://github.com/mfix22))
 - Brian Dennis ([@briandennis](https://github.com/briandennis))
 - Jake Dexheimer ([@jakedex](https://github.com/jakedex))
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy?ref=badge_large)
