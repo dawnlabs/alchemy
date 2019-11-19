@@ -1,5 +1,7 @@
 <p align="center"><img width=40% src="https://cloud.githubusercontent.com/assets/10369094/24595851/bc69d6e4-17ff-11e7-98e9-67b538b25de3.png"></p>
 
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy?ref=badge_shield)
+
 ## Introduction
 
 Alchemy is an open-source file converter (built on Electron and React). It also supports operations like merging files together into a pdf. We hope to support more operations and file types soon!
@@ -15,7 +17,6 @@ Visit [dawnlabs.io/alchemy/](http://dawnlabs.io/alchemy/) or read [our post](htt
 ## Usage
 
 []()![demo](https://cloud.githubusercontent.com/assets/10369094/24595824/7e6f7f74-17ff-11e7-80dd-b2602b9f0ba1.gif)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdawnlabs%2Falchemy?ref=badge_shield)
 
 1. Simply open the app by clicking on the menubar icon, or by hitting `⌘-⇧-8`.
 2. Then just drag your image files into the application and select any options.
