@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "electron": "^3.0.4",
+    "electron": "^7.2.4",
     "execa": "^0.6.3",
     "fs-extra": "^6.0.1",
     "invariant": "^2.2.2",
