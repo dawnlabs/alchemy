@@ -33,7 +33,7 @@
     "glob": "^7.1.2",
     "jest": "^19.0.2",
     "jest-cli": "^23.6.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "release": "^4.0.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
